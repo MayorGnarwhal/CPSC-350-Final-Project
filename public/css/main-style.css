@@ -1,0 +1,45 @@
+/* BUTTON STYLING */
+.btn {
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: 0;
+    box-shadow: none;
+    text-align: center;
+    cursor: pointer;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.btn-lg {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+}
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+.btn-primary {
+    background-color: #0c67a3;
+    background-image: linear-gradient(to bottom,#0e76bb,#0c67a3);
+    color: #ffffff;
+}
+.btn-danger {
+    background-color: #cb002c;
+    background-image: linear-gradient(to bottom,#E40032,#cb002c);
+    color: #ffffff;
+}
+.btn-success {
+    background-color: #53710f;
+    background-image: linear-gradient(to bottom,#648812,#53710f);
+    color: #ffffff;
+}
+.btn-warning {
+    background-color: #e6ad03;
+    background-image: linear-gradient(to bottom,#FCBF06,#e6ad03);
+    color: #000000;
+}
