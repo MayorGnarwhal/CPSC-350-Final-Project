@@ -1,3 +1,13 @@
+/*  */
+body {
+    background-color: #ccc;
+    margin: 0;
+}
+
+.content {
+    margin-top: 50px;
+}
+
 /* BUTTON STYLING */
 .btn {
     display: inline-block;
