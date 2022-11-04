@@ -44,18 +44,18 @@ iframe.nav-bar {
     color: black;
 }
 .nav-blue a:hover {
-    border-top: 4px solid #0e76bb;
+    border-color:#0e76bb;
     color: #0e76bb;
 }
 .nav-red a:hover {
-    border-top: 4px solid #E40032;
+    border-color:#E40032;
     color: #E40032;
 }
 .nav-green a:hover {
-    border-top: 4px solid #53710f;
+    border-color:#53710f;
     color: #53710f;
 }
 .nav-yellow a:hover {
-    border-top: 4px solid #FCBF06;
+    border-color:#FCBF06;
     color: #FCBF06;
 }
