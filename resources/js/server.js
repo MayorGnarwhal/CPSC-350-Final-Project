@@ -1,13 +1,15 @@
+// -- Services
 const http = require("http");
 const fs = require("fs");
 const querystring = require("querystring");
 const crypto = require("crypto");
 
+// -- Variables from other .js files
+const { root_path, routes } = require("../routes");
+
+// -- Variables
 const port = 3003;
 const server = http.createServer();
-
-const root_path = "public/";
-const indexPath = "public/views/index.html";
 
 const mimetypes = {
     ".html": "text/html",
@@ -19,6 +21,7 @@ const mimetypes = {
     ".js":   "text/javascript",
 }
 
+// -- Route server requests
 server.on("request", function(request, response) {
     console.log("Method: " + request.method);
     console.log("URL " + request.url);
@@ -29,9 +32,10 @@ server.on("request", function(request, response) {
     response.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type");
     
     if (request.method == "GET") {
-        if (request.url == "/") {
+        const filePath = routes.GET[request.url];
+        if (filePath) {
             response.writeHead(200, {"Content-Type": "text/html"});
-            fs.createReadStream(indexPath).pipe(response);
+            fs.createReadStream(filePath).pipe(response);
         }
         else {
             fs.readFile(root_path + request.url, function(error, data) {
