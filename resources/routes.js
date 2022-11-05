@@ -3,7 +3,7 @@ const root_path = "public";
 const routes = {
     "GET": {
         "/index": "public/views/index.html",
-        "/profile": "public/views/profile.html"
+        "/profile": "public/views/profile.html",
     }
 }
 
