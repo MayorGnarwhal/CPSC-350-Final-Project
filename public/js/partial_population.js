@@ -9,7 +9,7 @@ async function fetchHtmlAsText(url) {
 }
 
 async function insertFileIntoContainer(container, filePath) {
-    container.innerHTML = await fetchHtmlAsText(filePath);
+    container.innerHTML = await fetchHtmlAsText(filePath + ".html");
 }
 
 
