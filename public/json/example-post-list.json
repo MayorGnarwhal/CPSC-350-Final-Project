@@ -1,0 +1,11 @@
+{
+    "posts": [
+        {
+            "title": "My First Post",
+            "body": "Hi there! This is my first ever post! I hope you very much enjoy it!"
+        }, {
+            "title": "My Second Post",
+            "body": "Me again! I made a second post! How exciting is that!?"
+        }
+    ]
+}

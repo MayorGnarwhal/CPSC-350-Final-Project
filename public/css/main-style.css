@@ -12,6 +12,14 @@ body {
     float: right;
 }
 
+/* POST STYLING */
+#post-container {
+    background-color: #e3e3e3;
+    width: 80%;
+    margin: auto;
+    min-height: 50px;
+}
+
 /* MODAL STYLING */
 .modal {
     display: none;
