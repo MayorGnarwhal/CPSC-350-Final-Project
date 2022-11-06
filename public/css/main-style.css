@@ -63,18 +63,34 @@ body {
     background-image: linear-gradient(to bottom,#0e76bb,#0c67a3);
     color: #ffffff;
 }
+.btn-primary:hover {
+    background-color: #08436a;
+    background-image: linear-gradient(to bottom,#0e76bb,#08436a);
+}
 .btn-danger {
     background-color: #cb002c;
     background-image: linear-gradient(to bottom,#E40032,#cb002c);
     color: #ffffff;
+}
+.btn-danger:hover {
+    background-color: #8d001f;
+    background-image: linear-gradient(to bottom,#E40032,#8d001f);
 }
 .btn-success {
     background-color: #53710f;
     background-image: linear-gradient(to bottom,#648812,#53710f);
     color: #ffffff;
 }
+.btn-success:hover {
+    background-color: #425a0c;
+    background-image: linear-gradient(to bottom,#53710f,#425a0c);
+}
 .btn-warning {
     background-color: #e6ad03;
     background-image: linear-gradient(to bottom,#FCBF06,#e6ad03);
     color: #000000;
+}
+.btn-warning:hover {
+    background-color: #c29302;
+    background-image: linear-gradient(to bottom,#FCBF06,#c29302);
 }
