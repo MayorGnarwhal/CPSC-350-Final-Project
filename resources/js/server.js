@@ -6,6 +6,7 @@ const crypto = require("crypto");
 
 // -- Variables from other .js files
 const { root_path, routes } = require("../routes");
+const { helpers } = require("../js/helpers");
 
 // -- Variables
 const port = 3003;
@@ -27,16 +28,13 @@ server.on("request", function(request, response) {
     console.log("Method: " + request.method);
     console.log("URL " + request.url);
 
-    // Setup CORS    
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, DELETE");
-    response.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type");
+    helpers.setupCORS(response);
     
     if (request.method == "GET") {
-        const filePath = routes.GET[request.url];
-        if (filePath) {
+        const routePath = routes.GET[request.url];
+        if (routePath) {
             response.writeHead(200, {"Content-Type": "text/html"});
-            fs.createReadStream(filePath).pipe(response);
+            fs.createReadStream(routePath).pipe(response);
         }
         else {
             fs.readFile(root_path + request.url, function(error, data) {
