@@ -9,5 +9,5 @@ import { posts } from "./helpers/posts.js"
 //      Unless theres some fancy pointer stuff in JS I dont know about
 
 partials.populateAllPartials(ajax);
-posts.populateAllPosts(ajax, partials);
+posts.populateAllPosts(ajax);
 modal.handleAllModalButtons();

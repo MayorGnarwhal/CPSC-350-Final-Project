@@ -30,6 +30,8 @@ var ajax = {
         const child = document.createElement(overrideChildType || "div");
         await ajax.fetchHtmlAndInsert(path, child);
         container.appendChild(child);
+
+        return child;
     }
 }
 

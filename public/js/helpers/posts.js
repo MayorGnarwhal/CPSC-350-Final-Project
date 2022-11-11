@@ -5,15 +5,15 @@ var posts = {
         return await ajax.fetchJsonAndParse("../json/example-post-list.json");
     },
 
-    populatePost : async function(post, container, ajax, partials) {
+    populatePost : async function(postInfo, container, ajax) {
         const partialPath = "../partials/post.html";
-        await ajax.fetchHtmlAndAppend(partialPath, container);
+        const post = await ajax.fetchHtmlAndAppend(partialPath, container);
 
-        container.querySelector("#title").innerHTML = post.title;
-        container.querySelector("#body").innerHTML = post.body;
+        post.querySelector("#title").innerHTML = postInfo.title;
+        post.querySelector("#body").innerHTML = postInfo.body;
     },
 
-    populateAllPosts : async function(ajax, partials) {
+    populateAllPosts : async function(ajax) {
         const container = document.querySelector("#post-container"); // assumes only one container per page
 
         if (!container) {
@@ -22,7 +22,7 @@ var posts = {
 
         posts.fetchPosts(ajax).then(postInfo => {
             postInfo.posts.forEach(post => {
-                posts.populatePost(post, container, ajax, partials);
+                posts.populatePost(post, container, ajax);
             });
         })
     },
