@@ -21,7 +21,7 @@ const mimetypes = {
     ".gif":  "image/gif",
     ".css":  "text/css",
     ".js":   "text/javascript",
-}
+};
 
 // -- Route server requests
 server.on("request", function(request, response) {

@@ -24,7 +24,7 @@ var posts = {
             postInfo.posts.forEach(post => {
                 posts.populatePost(post, container, ajax);
             });
-        })
+        });
     },
 }
 
