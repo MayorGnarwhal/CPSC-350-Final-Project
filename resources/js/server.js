@@ -36,6 +36,12 @@ server.on("request", function(request, response) {
             response.writeHead(200, {"Content-Type": "text/html"});
             fs.createReadStream(routePath).pipe(response);
         }
+        else if (request.url === "/") {
+            response.writeHead(200, {"Content-Type": "text/html"});
+            fs.createReadStream("public/main.html").pipe(response);
+
+            // probably some session tracking
+        }
         else {
             fs.readFile(root_path + request.url, function(error, data) {
                 if (error) {

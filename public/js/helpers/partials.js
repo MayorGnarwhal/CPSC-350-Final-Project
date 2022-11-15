@@ -5,7 +5,7 @@ var partials = {
 
     // uses data-target to pull partialPath
     populatePartial : async function(container, ajax) {
-        const partialPath = `../partials/${container.getAttribute("data-target")}.html`;
+        const partialPath = `partials/${container.getAttribute("data-target")}.html`;
         await ajax.fetchHtmlAndInsert(partialPath, container);
     },
 

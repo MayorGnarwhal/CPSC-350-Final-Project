@@ -1,47 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CPSC Application</title>
+<div class="content">
+    <h1>Hello world</h1>
 
-    <!-- Font Awesome free icon kit -->
-    <script src="https://kit.fontawesome.com/3ede8fc6c3.js" crossorigin="anonymous"></script>
+    <div id="post-container"></div>
 
-    <!-- STYLESHEETS -->
-    <link rel="stylesheet" href="../css/main-style.css">
-    <link rel="stylesheet" href="../css/navigation.css">
-</head>
-<body>
-    <div class="nav-bar" data-toggle="partial" data-target="navigation"></div>
+    <button class="btn btn-primary">
+        <span class="fa-solid fa-toggle-on"></span> Hi there
+    </button>
 
-    <div class="content">
-        <h1>Hello world</h1>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#testModal">
+        <span class="fa-solid fa-toggle-on"></span> Toggle Modal
+    </button>
+</div>
 
-        <div id="post-container"></div>
-    
-        <button class="btn btn-primary">
-            <span class="fa-solid fa-toggle-on"></span> Hi there
+<!-- MODALS -->
+<div class="modal" id="testModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
         </button>
-
-        <button class="btn btn-primary" data-toggle="modal" data-target="#testModal">
-            <span class="fa-solid fa-toggle-on"></span> Toggle Modal
-        </button>
+        <h1>Here is my modal</h1>
     </div>
-
-    <!-- MODALS -->
-    <div class="modal" id="testModal">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <h1>Here is my modal</h1>
-        </div>
-        <h2>Hello world</h2>
-    </div>
-</body>
-
-<!-- JAVASCRIPT -->
-<script type="module" src="../js/main_client.js"></script>
-</html>
+    <h2>Hello world</h2>
+</div>
