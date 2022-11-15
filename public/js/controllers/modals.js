@@ -1,4 +1,4 @@
-var modal = {
+var modals = {
     queryModalButtons : function() {
         return document.querySelectorAll("[data-toggle=modal]");
     },
@@ -19,10 +19,10 @@ var modal = {
     },
 
     handleAllModalButtons : function() {
-        modal.queryModalButtons().forEach(button => {
-            modal.handleModalButton(button);
+        this.queryModalButtons().forEach(button => {
+            this.handleModalButton(button);
         });
     },
 }
 
-export { modal };
+export { modals };
