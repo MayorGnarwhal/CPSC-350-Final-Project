@@ -1,4 +1,16 @@
-var file_cache = {};
+var fileCache = {};
+
+async function tryCacheOrFetch(path, parseFuncKey) {
+    if (fileCache[path]) {
+        // console.log("pull from cache: " + path);
+        return fileCache[path];
+    }
+
+    const response = await ajax.fetchFile(path);
+    const body = await response[parseFuncKey]();
+    fileCache[path] = body;
+    return body;
+}
 
 var ajax = {
     fetch : async function(url, options) {
@@ -7,24 +19,16 @@ var ajax = {
     },
 
     fetchFile : async function(path) {
-        // if (file_cache[path]) {
-        //     return file_cache[path];
-        // }
-
         const response = await this.fetch(path, null);
-        // file_cache[path] = response;
-
         return response;
     },
 
     fetchFileAsText : async function(path) {
-        const response = await this.fetchFile(path);
-        return await response.text();
+        return await tryCacheOrFetch(path, "text");
     },
 
     fetchJsonAndParse : async function(path) {
-        const response = await this.fetchFile(path);
-        return await response.json();
+        return await tryCacheOrFetch(path, "json");
     },
 
     fetchHtmlAndInsert : async function(path, container) {

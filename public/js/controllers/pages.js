@@ -5,6 +5,8 @@ import { posts } from "./posts";
 
 var page_controller = {
     loadPage : async function(pageName) {
+        // TODO: Fix this being called expoentially per navigation
+        console.log("LOAD PAGE: " + pageName);
         // Populate body with page contents
         const container = document.body.querySelector("#content");
         const pagePath = `views/${pageName}.html`;
