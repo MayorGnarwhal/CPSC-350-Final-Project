@@ -30,6 +30,7 @@ server.on("request", function(request, response) {
 
     helpers.setupCORS(response);
     
+    // This can all be removed?
     if (request.method == "GET") {
         const routePath = routes.GET[request.url];
         if (routePath) {

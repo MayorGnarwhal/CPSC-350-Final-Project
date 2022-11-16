@@ -1,38 +1,47 @@
-var file_cache = {};
+var fileCache = {};
+
+async function tryCacheOrFetch(path, parseFuncKey) {
+    if (fileCache[path]) {
+        // console.log("pull from cache: " + path);
+        return fileCache[path];
+    }
+
+    const response = await ajax.fetchFile(path);
+    const body = await response[parseFuncKey]();
+    fileCache[path] = body;
+    return body;
+}
 
 var ajax = {
+    fetch : async function(url, options) {
+        const response = await fetch(url, options);
+        return response;
+    },
+
     fetchFile : async function(path) {
-        if (file_cache[path]) {
-            return file_cache[path];
-        }
-
-        const response = await fetch(path);
-        file_cache[path] = response;
-
+        const response = await this.fetch(path, null);
         return response;
     },
 
     fetchFileAsText : async function(path) {
-        const response = await ajax.fetchFile(path);
-        return await response.text();
+        return await tryCacheOrFetch(path, "text");
     },
 
     fetchJsonAndParse : async function(path) {
-        const response = await ajax.fetchFile(path);
-        return await response.json();
+        return await tryCacheOrFetch(path, "json");
     },
 
     fetchHtmlAndInsert : async function(path, container) {
-        container.innerHTML = await ajax.fetchFileAsText(path);
+        container.innerHTML = await this.fetchFileAsText(path);
     },
 
     fetchHtmlAndAppend : async function(path, container, overrideChildType) {
         const child = document.createElement(overrideChildType || "div");
-        await ajax.fetchHtmlAndInsert(path, child);
+        await this.fetchHtmlAndInsert(path, child);
         container.appendChild(child);
 
         return child;
-    }
+    },
 }
 
 export { ajax };

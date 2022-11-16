@@ -3,7 +3,7 @@ body {
     background-color: #ccc;
     margin: 0;
 }
-.content {
+#content {
     margin-top: 50px;
 }
 
