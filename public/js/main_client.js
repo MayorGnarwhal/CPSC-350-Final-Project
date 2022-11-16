@@ -1,5 +1,5 @@
 import { ajax } from "../js/ajax.js";
-import { page_controller } from "./controllers/pages.js"
+import { pages } from "./controllers/pages.js"
 
 
-await page_controller.loadPage("index");
+await pages.loadPage("index");
