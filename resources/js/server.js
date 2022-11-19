@@ -1,11 +1,9 @@
 // -- Services
 const http = require("http");
-const fs = require("fs");
 const querystring = require("querystring");
 const crypto = require("crypto");
 
 // -- Variables from other .js files
-const { routes } = require("../routes");
 const { helpers } = require("../js/helpers");
 const { router } = require("../js/router.js");
 

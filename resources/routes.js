@@ -1,29 +1,46 @@
+/*
+    Define routes (method and URI) and handle routing functions and middleware
+
+    Each middleware is a psuedo-class with two attributes:
+        args (key, value pair object)
+        func (routing func)
+    middleware.args is used to easily validate that all required args exist
+*/
+
+// Middleware
+const { force_login } = require("./middleware/force_login");
+const { force_admin } = require("./middleware/force_admin");
+
+// Routing functions
 const { fetchPage } = require("./controllers/fetch_page");
 
+// Routing class
 class Routing {
-    constructor(routingFunc, middleware = null) {
-        this.routingFunc = routingFunc;
+    constructor(routing, middleware = null) {
+        this.routing = routing;
         this.middleware = middleware;
+        this.args = routing.args || {};
     }
 
-    validateRequest() {
-        if (!this.middleware) { // no middleware, allow request
+    validateRequest(...args) {
+        if (this.middleware === null) { // no middleware, allow request
             return true;
         }
-        return this.middleware(); // return middleware success
+        return this.middleware(...args); // return middleware success
     }
 
     async routeRequest(...args) {
-        return await this.routingFunc(...args);
+        return await this.routing.func(...args);
     }
 }
 
+// Defined routes
 const routes = {
     "GET": {
 
     },
     "POST": {
-        "/fetch_page": new Routing(fetchPage, null),
+        "/fetch_page": new Routing(fetchPage, force_login),
     },
 }
 
