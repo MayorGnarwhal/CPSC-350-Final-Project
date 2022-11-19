@@ -29,8 +29,8 @@ class Routing {
         return this.middleware(...args); // return middleware success
     }
 
-    async routeRequest(...args) {
-        return await this.routing.func(...args);
+    routeRequest(...args) {
+        this.routing.func(...args);
     }
 }
 
@@ -42,6 +42,6 @@ const routes = {
     "POST": {
         "/fetch_page": new Routing(fetchPage, force_login),
     },
-}
+};
 
 module.exports = { routes };

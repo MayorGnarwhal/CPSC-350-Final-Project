@@ -1,6 +1,6 @@
 var error_handler = {
     errorResponse : function(response, errorMessage, statusCode = 404) {
-        console.log("error response", errorMessage);
+        console.log("Error:", errorMessage);
         response.statusCode = statusCode;
         response.write(`"error": "${errorMessage}"`);
         response.end();

@@ -5,6 +5,7 @@ const crypto = require("crypto");
 
 // -- Variables from other .js files
 const { helpers } = require("../helpers/helpers");
+const { error_handler } = require("../helpers/error_handler");
 const { router } = require("../js/router.js");
 
 // -- Variables
@@ -37,9 +38,7 @@ server.on("request", function(request, response) {
             }
             catch {
                 console.log("failed to parse data");
-                response.statusCode = 400;
-                response.write(`{"error": "Failed to parse arguments. Request dropped"}`);
-                response.end();
+                error_handler.errorResponse(response, "Failed to parse arguments", 400);
                 return;
             }
         }

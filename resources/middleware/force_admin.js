@@ -1,5 +1,5 @@
 /*
-    Validate that request was sent by valid admin user
+    Validate that request was sent by a valid admin user
 */
 
 const { force_login } = require("./force_login");
@@ -13,7 +13,8 @@ function force_admin(body) {
     }
 
     // verify that user is an admin
+
     return true;
-}
+};
 
 module.exports = { force_admin };
