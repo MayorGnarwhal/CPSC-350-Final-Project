@@ -4,7 +4,7 @@ var posts = {
     fetchPosts : async function() {
         // How else to get posts? Also filtering!
         // This info might need to be sent to client from server on page load
-        return await ajax.fetchJsonAndParse("json/example-post-list.json");
+        return await ajax.fetchAsJson("json/example-post-list.json");
     },
 
     populatePost : async function(postInfo, container) {

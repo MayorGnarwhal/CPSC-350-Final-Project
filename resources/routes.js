@@ -1,10 +1,47 @@
-const root_path = "public";
+/*
+    Define routes (method and URI) and handle routing functions and middleware
 
-const routes = {
-    "GET": {
-        "/index": "public/views/index.html",
-        "/profile": "public/views/profile.html",
+    Each middleware is a psuedo-class with two attributes:
+        args (key, value pair object)
+        func (routing func)
+    middleware.args is used to easily validate that all required args exist
+*/
+
+// Middleware
+const { force_login } = require("./middleware/force_login");
+const { force_admin } = require("./middleware/force_admin");
+
+// Routing functions
+const { fetchPage } = require("./controllers/fetch_page");
+
+// Routing class
+class Routing {
+    constructor(routing, middleware = null) {
+        this.routing = routing;
+        this.middleware = middleware;
+        this.args = routing.args || {};
+    }
+
+    validateRequest(...args) {
+        if (this.middleware === null) { // no middleware, allow request
+            return true;
+        }
+        return this.middleware(...args); // return middleware success
+    }
+
+    async routeRequest(...args) {
+        return await this.routing.func(...args);
     }
 }
 
-module.exports = { root_path, routes };
+// Defined routes
+const routes = {
+    "GET": {
+
+    },
+    "POST": {
+        "/fetch_page": new Routing(fetchPage, force_login),
+    },
+}
+
+module.exports = { routes };
