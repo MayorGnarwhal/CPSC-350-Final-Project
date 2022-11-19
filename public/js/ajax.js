@@ -1,12 +1,12 @@
+const serverUrl = "http://cpsc.roanoke.edu:3003/";
 var fileCache = {};
 
-async function tryCacheOrFetch(path, parseFuncKey) {
+async function tryCacheOrFetch(path, options, parseFuncKey) {
     if (fileCache[path]) {
-        // console.log("pull from cache: " + path);
         return fileCache[path];
     }
 
-    const response = await ajax.fetchFile(path);
+    const response = await ajax.fetch(path, options);
     const body = await response[parseFuncKey]();
     fileCache[path] = body;
     return body;
@@ -18,21 +18,33 @@ var ajax = {
         return response;
     },
 
-    fetchFile : async function(path) {
-        const response = await this.fetch(path, null);
-        return response;
+    fetchAsText : async function(path, options = null) {
+        return await tryCacheOrFetch(path, options, "text");
     },
 
-    fetchFileAsText : async function(path) {
-        return await tryCacheOrFetch(path, "text");
+    fetchAsJson : async function(path, options = null) {
+        return await tryCacheOrFetch(path, options, "json");
     },
 
-    fetchJsonAndParse : async function(path) {
-        return await tryCacheOrFetch(path, "json");
+    fetchPage : async function(pageName) {
+        const url = serverUrl + "fetch_page";
+        const request = {
+            user_id: -1,
+            page: pageName,
+        };
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(request),
+        };
+
+        return await this.fetchAsText(url, options);
     },
 
     fetchHtmlAndInsert : async function(path, container) {
-        container.innerHTML = await this.fetchFileAsText(path);
+        container.innerHTML = await this.fetchAsText(path);
     },
 
     fetchHtmlAndAppend : async function(path, container, overrideChildType) {

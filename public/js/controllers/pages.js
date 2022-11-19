@@ -1,3 +1,4 @@
+import { ajax } from "../ajax";
 import { links } from "./links";
 import { modals } from "./modals";
 import { partials } from "./partials";
@@ -7,8 +8,8 @@ var pages = {
     loadPage : async function(pageName) {
         // Populate body with page contents
         const container = document.body.querySelector("#content");
-        const pagePath = `views/${pageName}.html`;
-        await partials.populatePartialByPath(container, pagePath);
+        const pageContent = await ajax.fetchPage(pageName);
+        container.innerHTML = pageContent;
 
         // Load controllers
         await partials.populateAllPartials();
