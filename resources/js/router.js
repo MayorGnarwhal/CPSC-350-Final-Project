@@ -1,5 +1,5 @@
 const { routes } = require("../routes");
-const { error_handler } = require("./error_handler");
+const { error_handler } = require("../helpers/error_handler");
 
 const validateTypes = ["string", "number", "boolean"];
 
@@ -40,7 +40,7 @@ var router = {
         }
 
         if (!this.validateArguments(body, routing.args)) {
-            error_handler.errorResponse(response, `Invalid arguments for request`, 404);
+            error_handler.errorResponse(response, `Invalid arguments for request`, 400);
             return;
         }
 
