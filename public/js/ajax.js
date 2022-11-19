@@ -40,7 +40,8 @@ var ajax = {
             body: JSON.stringify(request),
         };
 
-        return await this.fetchAsText(url, options);
+        const response = await ajax.fetch(url, options);
+        return await response.text();
     },
 
     fetchHtmlAndInsert : async function(path, container) {
