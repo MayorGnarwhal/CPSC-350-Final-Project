@@ -42,6 +42,9 @@ const routes = {
     "POST": {
         "/fetch_page": new Routing(fetchPage, force_login),
     },
+    "DELETE": {
+
+    },
 };
 
 module.exports = { routes };

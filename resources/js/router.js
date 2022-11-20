@@ -11,18 +11,18 @@ var router = {
             // verify if argument is required
             const isRequired = requirements.find(elem => elem === "required") !== undefined;
             if (isRequired && body[arg] === undefined) {
-                return false;
+                return [false, `Request missing required argument, ${arg}`];
             }
 
             // verify argument types
             const types = requirements.filter(elem => validateTypes.includes(elem));
             const violation = types.find(type => type !== typeof body[arg]);
             if (violation !== undefined) {
-                return false;
+                return [false, `Request argument '${arg}' of invalid type (${typeof body[arg]}). Should be ${violation}`];
             }
         }
         
-        return true;
+        return [true, undefined];
     },
 
     routeRequest : async function(method, url, body, response) {
@@ -34,14 +34,16 @@ var router = {
         }
 
         // verify user has permissions to request
-        if (!routing.validateRequest(body)) {
-            error_handler.errorResponse(response, `Invalid permissions for request`, 403);
+        const [permsSuccess, permsError] = routing.validateRequest(body);
+        if (!permsSuccess) {
+            error_handler.errorResponse(response, `Invalid permissions for request: ${permsError}`, 403);
             return;
         }
 
         // verify proper arguments were passed with body
-        if (!this.validateArguments(body, routing.args)) {
-            error_handler.errorResponse(response, `Invalid arguments for request`, 400);
+        const [argsSuccess, argsError] = this.validateArguments(body, routing.args);
+        if (!argsSuccess) {
+            error_handler.errorResponse(response, argsError, 400);
             return;
         }
 
