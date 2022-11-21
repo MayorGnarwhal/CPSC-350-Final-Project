@@ -9,7 +9,7 @@ const { error_handler } = require("../helpers/error_handler");
 const { router } = require("../js/router.js");
 
 // -- Variables
-const port = 3003;
+const port = 3001;
 const server = http.createServer();
 
 
