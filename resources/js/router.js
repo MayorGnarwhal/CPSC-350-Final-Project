@@ -1,5 +1,5 @@
 const { routes } = require("../routes");
-const { error_handler } = require("../helpers/error_handler");
+const { response_handler } = require("../helpers/response_handler");
 
 const validateTypes = ["string", "number", "boolean"];
 
@@ -29,21 +29,21 @@ var router = {
         const routing = routes[method] && routes[method][url];
         // verify route exists
         if (routing === undefined) {
-            error_handler.errorResponse(response, `Invalid ${method} request '${url}'`, 404);
+            response_handler.errorResponse(response, `Invalid ${method} request '${url}'`, 404);
             return;
         }
 
         // verify user has permissions to request
         const [permsSuccess, permsError] = routing.validateRequest(body);
         if (!permsSuccess) {
-            error_handler.errorResponse(response, `Invalid permissions for request: ${permsError}`, 403);
+            response_handler.errorResponse(response, `Invalid permissions for request: ${permsError}`, 403);
             return;
         }
 
         // verify proper arguments were passed with body
         const [argsSuccess, argsError] = this.validateArguments(body, routing.args);
         if (!argsSuccess) {
-            error_handler.errorResponse(response, argsError, 400);
+            response_handler.errorResponse(response, argsError, 400);
             return;
         }
 

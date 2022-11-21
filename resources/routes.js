@@ -13,6 +13,7 @@ const { force_admin } = require("./middleware/force_admin");
 
 // Routing functions
 const { fetchPage } = require("./controllers/fetch_page");
+const { login } = require("./controllers/login");
 
 // Routing class
 class Routing {
@@ -24,7 +25,7 @@ class Routing {
 
     validateRequest(...args) {
         if (this.middleware === null) { // no middleware, allow request
-            return true;
+            return [true, undefined];
         }
         return this.middleware(...args); // return middleware success
     }
@@ -40,6 +41,7 @@ const routes = {
 
     },
     "POST": {
+        "/login": new Routing(login, null),
         "/fetch_page": new Routing(fetchPage, force_login),
     },
     "DELETE": {

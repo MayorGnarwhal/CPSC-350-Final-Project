@@ -1,3 +1,5 @@
+import { pages } from "./controllers/pages";
+
 const serverUrl = "http://cpsc.roanoke.edu:3003/";
 var fileCache = {};
 
@@ -61,6 +63,20 @@ var ajax = {
 
         return child;
     },
-}
+
+    handleServerResponse : async function(response) {
+        const body = await response.json();
+
+        // response failed
+        if (body.error) {
+            // add some display that response failed
+            console.log("Response errored");
+        }
+        // response has page (redirect to page)
+        else if (body.page) {
+            pages.loadPage(body.page);
+        }
+    },
+};
 
 export { ajax };

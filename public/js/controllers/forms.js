@@ -28,7 +28,7 @@ var forms = {
             var packed = forms.packFormInputs(form);
             
             const response = await ajax.sendRequest("POST", action, packed);
-            console.log(response);
+            ajax.handleServerResponse(response);
         });
     },
 
