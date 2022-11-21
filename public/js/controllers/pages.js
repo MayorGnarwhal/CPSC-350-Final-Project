@@ -1,4 +1,5 @@
 import { ajax } from "../ajax";
+import { forms } from "./forms";
 import { links } from "./links";
 import { modals } from "./modals";
 import { partials } from "./partials";
@@ -16,6 +17,7 @@ var pages = {
         await posts.populateAllPosts();
         modals.handleAllModalButtons();
         links.handleAllLinks();
+        forms.handleAllForms();
     },
 }
 

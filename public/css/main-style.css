@@ -1,5 +1,6 @@
 /* MAIN */
 body {
+    font-family: lato, sans-serif;
     background-color: #ccc;
     margin: 0;
 }
@@ -10,6 +11,10 @@ body {
 /* GENERIC */
 .pull-right {
     float: right;
+}
+
+.center {
+    margin: auto;
 }
 
 /* POST STYLING */

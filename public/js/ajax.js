@@ -26,14 +26,10 @@ var ajax = {
         return await tryCacheOrFetch(path, options, "json");
     },
 
-    fetchPage : async function(pageName) {
-        const url = serverUrl + "fetch_page";
-        const request = {
-            user_id: -1,
-            page: pageName,
-        };
+    sendRequest : async function(method, route, request) {
+        const url = serverUrl + route;
         const options = {
-            method: "POST",
+            method: method,
             headers: {
                 "Content-Type": "application/json"
             },
@@ -41,6 +37,16 @@ var ajax = {
         };
 
         const response = await ajax.fetch(url, options);
+        return response;
+    },
+
+    fetchPage : async function(pageName) {
+        const request = {
+            user_id: -1,
+            page: pageName,
+        };
+
+        const response = await this.sendRequest("POST", "fetch_page", request);
         return await response.text();
     },
 

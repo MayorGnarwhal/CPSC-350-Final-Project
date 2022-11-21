@@ -1,0 +1,23 @@
+label {
+    font-weight: bold;
+    color: #333132;
+    display: inline-block;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    border-radius: 2px;
+    border: 1px solid #d4dae2;
+    background: #ffffff;
+    padding: 6px 10px;
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    line-height: 1.43;
+    color: #555;
+}
