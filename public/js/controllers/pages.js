@@ -22,6 +22,7 @@ var pages = {
         forms.handleAllForms();
     },
 
+    // not a huge fan of this
     applyPageSettings(container) {
         const settings = container.querySelector("input[name='page-settings']");
         const hideNavigation = (settings !== null && settings.getAttribute("data-hide-navigation"));

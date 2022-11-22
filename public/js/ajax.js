@@ -16,8 +16,7 @@ async function tryCacheOrFetch(path, options, parseFuncKey) {
 
 var ajax = {
     fetch : async function(url, options) {
-        const response = await fetch(url, options);
-        return response;
+        return await fetch(url, options);
     },
 
     fetchAsText : async function(path, options = null) {
@@ -28,7 +27,9 @@ var ajax = {
         return await tryCacheOrFetch(path, options, "json");
     },
 
-    sendRequest : async function(method, route, request) {
+    sendRequest : async function(method, route, request = {}) {
+        request.user_id = -1; // pull from some sort of session cache. can be undefined
+
         const url = serverUrl + route;
         const options = {
             method: method,
@@ -38,13 +39,11 @@ var ajax = {
             body: JSON.stringify(request),
         };
 
-        const response = await ajax.fetch(url, options);
-        return response;
+        return await ajax.fetch(url, options);
     },
 
     fetchPage : async function(pageName) {
         const request = {
-            user_id: -1,
             page: pageName,
         };
 
@@ -76,6 +75,11 @@ var ajax = {
         else if (body.page) {
             pages.loadPage(body.page);
         }
+    },
+
+    sendRequestAndHandle : async function(...args) {
+        const response = await this.sendRequest(...args);
+        return await this.handleServerResponse(response);
     },
 };
 

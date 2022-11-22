@@ -16,8 +16,7 @@ var links = {
                 pages.loadPage(href);
             } 
             else {
-                const response = await ajax.sendRequest("POST", href);
-                console.log(response);
+                ajax.sendRequestAndHandle("POST", href);
             }
         });
     },
