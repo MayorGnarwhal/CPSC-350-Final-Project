@@ -8,12 +8,12 @@
 */
 
 // Middleware
-const { force_login } = require("./middleware/force_login");
-const { force_admin } = require("./middleware/force_admin");
+const { force_login } = require("../middleware/force_login");
+const { force_admin } = require("../middleware/force_admin");
 
 // Routing functions
-const { fetchPage } = require("./controllers/fetch_page");
-const { login } = require("./controllers/login");
+const { fetchPage } = require("../controllers/fetch_page");
+const { login } = require("../controllers/login");
 
 // Routing class
 class Routing {
@@ -42,7 +42,7 @@ const routes = {
     },
     "POST": {
         "/login": new Routing(login, null),
-        "/fetch_page": new Routing(fetchPage, force_login),
+        "/fetch_page": new Routing(fetchPage, null),
     },
     "DELETE": {
 

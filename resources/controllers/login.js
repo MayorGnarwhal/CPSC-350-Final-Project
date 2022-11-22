@@ -13,7 +13,6 @@ var login = {
             response.statusCode = 201;
             response.write(`{"page": "index"}`);
             response.end();
-
         }
         else {
             response_handler.errorResponse(response, "Invalid credentials for login");

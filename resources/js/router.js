@@ -1,4 +1,4 @@
-const { routes } = require("../routes");
+const { routes } = require("../config/routes");
 const { response_handler } = require("../helpers/response_handler");
 
 const validateTypes = ["string", "number", "boolean"];

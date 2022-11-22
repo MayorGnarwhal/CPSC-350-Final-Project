@@ -15,15 +15,15 @@ const server = http.createServer();
 
 // -- Route server requests
 server.on("request", function(request, response) {
-    console.log("Method: " + request.method);
-    console.log("URL " + request.url);
-
     helpers.setupCORS(response);
-
+    
     if (request.method === "OPTIONS") {
         response.end();
         return;
     }
+
+    console.log("Method: " + request.method);
+    console.log("URL " + request.url);
 
     let body = {};
     let data = "";

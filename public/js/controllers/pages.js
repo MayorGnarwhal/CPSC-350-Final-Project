@@ -12,12 +12,26 @@ var pages = {
         const pageContent = await ajax.fetchPage(pageName);
         container.innerHTML = pageContent;
 
+        this.applyPageSettings(container);
+
         // Load controllers
         await partials.populateAllPartials();
         await posts.populateAllPosts();
         modals.handleAllModalButtons();
         links.handleAllLinks();
         forms.handleAllForms();
+    },
+
+    applyPageSettings(container) {
+        const settings = container.querySelector("input[name='page-settings']");
+        const hideNavigation = (settings !== null && settings.getAttribute("data-hide-navigation"));
+
+        if (hideNavigation) {
+            document.querySelector(".nav-bar").setAttribute("hidden", true);
+        }
+        else {
+            document.querySelector(".nav-bar").removeAttribute("hidden");
+        }
     },
 }
 
