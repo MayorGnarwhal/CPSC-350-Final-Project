@@ -1,0 +1,38 @@
+<input type="hidden" name="page-settings" data-hide-navigation="true">
+
+<div style="width: 40%; margin: auto; padding-top: 10px;">
+    <form action="/signup">
+        <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input type="text" class="form-control" id="first-name" name="first_name" required>
+        </div>
+        <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input type="text" class="form-control" id="last-name" name="last_name" required>
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" class="form-control" id="confirm-password" required>
+        </div>
+
+        <button class="btn btn-primary btn-lg pull-right">
+            <span class="fas fa-plus"></span> Create Account
+        </button>
+    </form>
+
+    <p>
+        Don't have an account? <a href="signup" data-target="page">Create one here</a>
+    </p>
+</div>

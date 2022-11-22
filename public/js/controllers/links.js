@@ -1,15 +1,23 @@
+import { ajax } from "../ajax";
 import { pages } from "./pages";
 
 var links = {
     queryAllLinks : function() {
-        return document.querySelectorAll(".href-replace:not([listener='true'])");
+        return document.querySelectorAll("a:not([listener='true'])");
     },
 
     handleLinkPress : function(link) {
         link.setAttribute("listener", true);
-        link.addEventListener("click", function(event) {
+        link.addEventListener("click", async function(event) {
             event.preventDefault();
-            pages.loadPage(link.getAttribute("href"));
+            const href = link.getAttribute("href");
+
+            if (link.getAttribute("data-target") === "page") {
+                pages.loadPage(href);
+            } 
+            else {
+                ajax.sendRequestAndHandle("POST", href);
+            }
         });
     },
 

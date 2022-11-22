@@ -1,3 +1,5 @@
+import { pages } from "./controllers/pages";
+
 const serverUrl = "http://cpsc.roanoke.edu:3003/";
 var fileCache = {};
 
@@ -14,8 +16,7 @@ async function tryCacheOrFetch(path, options, parseFuncKey) {
 
 var ajax = {
     fetch : async function(url, options) {
-        const response = await fetch(url, options);
-        return response;
+        return await fetch(url, options);
     },
 
     fetchAsText : async function(path, options = null) {
@@ -26,21 +27,27 @@ var ajax = {
         return await tryCacheOrFetch(path, options, "json");
     },
 
-    fetchPage : async function(pageName) {
-        const url = serverUrl + "fetch_page";
-        const request = {
-            user_id: -1,
-            page: pageName,
-        };
+    sendRequest : async function(method, route, request = {}) {
+        request.user_id = -1; // pull from some sort of session cache. can be undefined
+
+        const url = serverUrl + route;
         const options = {
-            method: "POST",
+            method: method,
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(request),
         };
 
-        const response = await ajax.fetch(url, options);
+        return await ajax.fetch(url, options);
+    },
+
+    fetchPage : async function(pageName) {
+        const request = {
+            page: pageName,
+        };
+
+        const response = await this.sendRequest("POST", "fetch_page", request);
         return await response.text();
     },
 
@@ -55,6 +62,25 @@ var ajax = {
 
         return child;
     },
-}
+
+    handleServerResponse : async function(response) {
+        const body = await response.json();
+
+        // response failed
+        if (body.error) {
+            // add some display that response failed
+            console.log("Response errored");
+        }
+        // response has page (redirect to page)
+        else if (body.page) {
+            pages.loadPage(body.page);
+        }
+    },
+
+    sendRequestAndHandle : async function(...args) {
+        const response = await this.sendRequest(...args);
+        return await this.handleServerResponse(response);
+    },
+};
 
 export { ajax };

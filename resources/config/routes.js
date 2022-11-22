@@ -8,11 +8,14 @@
 */
 
 // Middleware
-const { force_login } = require("./middleware/force_login");
-const { force_admin } = require("./middleware/force_admin");
+const { force_login } = require("../middleware/force_login");
+const { force_admin } = require("../middleware/force_admin");
 
 // Routing functions
-const { fetchPage } = require("./controllers/fetch_page");
+const { fetchPage } = require("../controllers/fetch_page");
+const { login } = require("../controllers/login");
+const { logout } = require("../controllers/logout");
+const { signup } = require("../controllers/signup");
 
 // Routing class
 class Routing {
@@ -24,7 +27,7 @@ class Routing {
 
     validateRequest(...args) {
         if (this.middleware === null) { // no middleware, allow request
-            return true;
+            return [true, undefined];
         }
         return this.middleware(...args); // return middleware success
     }
@@ -40,7 +43,10 @@ const routes = {
 
     },
     "POST": {
-        "/fetch_page": new Routing(fetchPage, force_login),
+        "/login": new Routing(login, null),
+        "/logout": new Routing(logout, force_login),
+        "/signup": new Routing(signup, null),
+        "/fetch_page": new Routing(fetchPage, null),
     },
     "DELETE": {
 

@@ -1,5 +1,7 @@
 const fs = require("fs");
 
+const { response_handler } = require("../helpers/response_handler");
+
 var fetchPage = {
     args: {
         "page": "required|string",
@@ -10,15 +12,13 @@ var fetchPage = {
 
         fs.readFile(pagePath, function(error, data) {
             if (error) {
-                response.statusCode = 404;
-                response.write(`"error": Failed to fetch '${pagePath}'`);
+                response_handler.errorResponse(response, `Failed to fetch '${pagePath}`);
             }
             else {
                 response.statusCode = 201;
                 response.write(data);
+                response.end();
             }
-
-            response.end();
         });
     }
 }
