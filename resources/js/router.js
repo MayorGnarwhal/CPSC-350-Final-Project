@@ -20,6 +20,12 @@ var router = {
             if (violation !== undefined) {
                 return [false, `Request argument '${arg}' of invalid type (${typeof body[arg]}). Should be ${violation}`];
             }
+
+            // validate regex string patterns
+            var regexString = requirements.find(elem => elem.search("regex:") !== -1);
+            if (regexString !== undefined && !body[arg].match(regexString.substring(6))) {
+                return [false, `${arg} field failed regex validation`];
+            }
         }
         
         return [true, undefined];

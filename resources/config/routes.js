@@ -15,6 +15,7 @@ const { force_admin } = require("../middleware/force_admin");
 const { fetchPage } = require("../controllers/fetch_page");
 const { login } = require("../controllers/login");
 const { logout } = require("../controllers/logout");
+const { signup } = require("../controllers/signup");
 
 // Routing class
 class Routing {
@@ -44,6 +45,7 @@ const routes = {
     "POST": {
         "/login": new Routing(login, null),
         "/logout": new Routing(logout, force_login),
+        "/signup": new Routing(signup, null),
         "/fetch_page": new Routing(fetchPage, null),
     },
     "DELETE": {
