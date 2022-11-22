@@ -7,7 +7,7 @@ function verifyAccountInfo(body) {
     }
 
     const username = body.username.trim();
-    const invalidUsername = (username.length !== username.replace(/\s+/g, "").length); // does not work for some reason
+    const invalidUsername = (username.length !== username.replace(/\s+/g, "").length);
     if (invalidUsername) {
         return [false, `Invalid username format. Username cannot contain spaces`];
     }
