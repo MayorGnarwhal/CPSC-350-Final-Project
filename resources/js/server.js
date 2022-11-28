@@ -50,7 +50,7 @@ server.on("request", function(request, response) {
 
 server.listen(port, function() {
     console.log("Server starting on port " + port);
-    database.query("SHOW TABLES", function(error, results, fields) {
-        console.log(error, results);
-    });
+    // database.query("SHOW TABLES", function(error, results, fields) {
+    //     console.log(error, results);
+    // });
 });
