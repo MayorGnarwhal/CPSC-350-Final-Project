@@ -1,4 +1,6 @@
 const { response_handler } = require("../helpers/response_handler");
+const { database } = require("../helpers/database");
+const { helpers } = require("../helpers/helpers");
 
 function verifyAccountInfo(body) {
     const duplicateEmail = false;
@@ -36,9 +38,22 @@ var signup = {
             response_handler.errorResponse(response, `Failed to create account: ${error}`);
         }
         else {
-            response.statusCode = 201;
-            response.write(`{"page": "index"}`);
-            response.end();
+            // ENCRYPT PASSWORD EVENTUALLY
+            database.query(`
+                INSERT INTO Users (username, first_name, last_name, password, email, profile_picture, account_status, is_admin, account_created_time)
+                VALUES ('${body.username}', '${body.first_name}', '${body.last_name}', '${body.password}', '${body.email}', 'public/temp.png', 'ACTIVE', '0', '${helpers.formatDatetime()}');
+            `, function(error, results, fields) {
+                if (error) {
+                    console.log("Failed to insert user to database");
+                    console.log(error);
+                    response_handler.errorResponse(response, `Failed to create account`);
+                }
+                else {
+                    response.statusCode = 201;
+                    response.write(`{"page": "index"}`);
+                    response.end();
+                }
+            });
         }
     }
 };
