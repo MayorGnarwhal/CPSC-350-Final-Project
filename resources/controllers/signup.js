@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt"); 
+
 const { response_handler } = require("../helpers/response_handler");
 const { database } = require("../helpers/database");
 const { helpers } = require("../helpers/helpers");
@@ -38,10 +40,12 @@ var signup = {
             response_handler.errorResponse(response, `Failed to create account: ${error}`);
         }
         else {
-            // ENCRYPT PASSWORD EVENTUALLY
+            const now = helpers.formatDatetime();
+            const password_hash = await bcrypt.hash(body.password, 10);
+
             database.query(`
                 INSERT INTO Users (username, first_name, last_name, password, email, profile_picture, account_status, is_admin, account_created_time)
-                VALUES ('${body.username}', '${body.first_name}', '${body.last_name}', '${body.password}', '${body.email}', 'public/temp.png', 'ACTIVE', '0', '${helpers.formatDatetime()}');
+                VALUES ('${body.username}', '${body.first_name}', '${body.last_name}', '${password_hash}', '${body.email}', 'public/temp.png', 'ACTIVE', '0', '${now}');
             `, function(error, results, fields) {
                 if (error) {
                     console.log("Failed to insert user to database");
