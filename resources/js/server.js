@@ -7,6 +7,7 @@ const crypto = require("crypto");
 const { helpers } = require("../helpers/helpers");
 const { response_handler } = require("../helpers/response_handler");
 const { router } = require("../js/router.js");
+const { database } = require("../helpers/database");
 
 // -- Variables
 const port = 3003;
@@ -49,4 +50,7 @@ server.on("request", function(request, response) {
 
 server.listen(port, function() {
     console.log("Server starting on port " + port);
+    database.query("SHOW TABLES", function(error, results, fields) {
+        console.log(error, results);
+    });
 });
