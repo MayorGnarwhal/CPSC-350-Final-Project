@@ -29,18 +29,23 @@ body {
 .modal {
     display: none;
     position: fixed;
-    top: 50%;
+    top: 25%;
     left: 50%;
     background: #e3e3e3;
     width: 35%;
     transform: translate(-50%, -50%);
     border-radius: 16px;
 }
+.modal .modal-header {
+    padding: 0 10px;
+}
 .modal .close {
     float: right;
     background: none;
     border: none;
     font-size: 22px;
+    font-weight: bold;
+    color: red;
 }
 .modal .close:hover {
     cursor: pointer;
