@@ -83,4 +83,4 @@ var ajax = {
     },
 };
 
-export { ajax, env };
+export { ajax };

@@ -3,9 +3,8 @@ const http = require("http");
 const querystring = require("querystring");
 const crypto = require("crypto");
 
-// -- Set up env
-const { processEnv } = require("../../env");
-processEnv();
+// -- Process .env file
+require("dotenv").config();
 
 // -- Variables from other .js files
 const { helpers } = require("../helpers/helpers");
