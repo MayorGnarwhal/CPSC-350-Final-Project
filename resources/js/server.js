@@ -3,13 +3,16 @@ const http = require("http");
 const querystring = require("querystring");
 const crypto = require("crypto");
 
+// -- Process .env file
+require("dotenv").config();
+
 // -- Variables from other .js files
 const { helpers } = require("../helpers/helpers");
 const { response_handler } = require("../helpers/response_handler");
 const { router } = require("../js/router.js");
+const { database } = require("../helpers/database");
 
 // -- Variables
-const port = 3003;
 const server = http.createServer();
 
 
@@ -21,9 +24,16 @@ server.on("request", function(request, response) {
         response.end();
         return;
     }
-
+    
     console.log("Method: " + request.method);
     console.log("URL " + request.url);
+    
+    if (request.url === "/fetch_env") {
+        response.statusCode = 201;
+        response.write(JSON.stringify(process.env));
+        response.end();
+        return;
+    }
 
     let body = {};
     let data = "";
@@ -47,6 +57,9 @@ server.on("request", function(request, response) {
     });
 });
 
-server.listen(port, function() {
-    console.log("Server starting on port " + port);
+server.listen(process.env.PORT, function() {
+    console.log("Server starting on port " + process.env.PORT);
+    // database.query("SHOW TABLES", function(error, results, fields) {
+    //     console.log(error, results);
+    // });
 });
