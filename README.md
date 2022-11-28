@@ -1,18 +1,22 @@
 # Postit
+Harris, Luke, Karol, Halle
 
-**Temporary URL:**
+# Temporary URL:
 http://cpsc.roanoke.edu/~ehfort/CPSC350/CPSC-350-Final-Project/public/main.html
 
-**Dependencies:**
+# Dependencies:
 - https://www.npmjs.com/package/mysql
 - https://www.npmjs.com/package/dotenv
 - https://fontawesome.com/kits/3ede8fc6c3/use
 
-**How to Use:**
+# How to Use:
 - Run `npm install` to install above dependencies
+- Set up `.env` file
+  - Copy contents of `.env.example` into a new file called `.env`
+  - Update `.env` variables
 - Run `nodemon resources/js/server.js` to open server
 - Visit above url to access website
 
-**Development:**
+# Development:
 - https://code.visualstudio.com/
 - https://code.visualstudio.com/docs/remote/ssh
