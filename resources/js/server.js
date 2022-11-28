@@ -57,8 +57,8 @@ server.on("request", function(request, response) {
     });
 });
 
-server.listen(port, function() {
-    console.log("Server starting on port " + port);
+server.listen(process.env.PORT, function() {
+    console.log("Server starting on port " + process.env.PORT);
     // database.query("SHOW TABLES", function(error, results, fields) {
     //     console.log(error, results);
     // });
