@@ -1,6 +1,6 @@
 import { pages } from "./controllers/pages";
 
-const serverUrl = "http://cpsc.roanoke.edu:3003/";
+var serverUrl = "http://cpsc.roanoke.edu:3003/";
 var fileCache = {};
 
 async function tryCacheOrFetch(path, options, parseFuncKey) {
@@ -83,4 +83,4 @@ var ajax = {
     },
 };
 
-export { ajax };
+export { ajax, env };
