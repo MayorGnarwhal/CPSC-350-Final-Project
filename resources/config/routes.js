@@ -16,6 +16,7 @@ const { fetchPage } = require("../controllers/fetch_page");
 const { login } = require("../controllers/login");
 const { logout } = require("../controllers/logout");
 const { signup } = require("../controllers/signup");
+const { fetchPosts } = require("../controllers/fetch_posts");
 
 // Routing class
 class Routing {
@@ -47,6 +48,7 @@ const routes = {
         "/logout": new Routing(logout, force_login),
         "/signup": new Routing(signup, null),
         "/fetch_page": new Routing(fetchPage, null),
+        "/fetch_posts": new Routing(fetchPosts, force_login),
     },
     "DELETE": {
 

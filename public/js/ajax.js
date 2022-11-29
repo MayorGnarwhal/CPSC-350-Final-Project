@@ -1,9 +1,9 @@
 import { pages } from "./controllers/pages";
 import { modals } from "./controllers/modals";
+import { session } from "./session";
 
 var serverUrl = "http://cpsc.roanoke.edu:3003/";
 var fileCache = {};
-var clientUserID;
 
 async function tryCacheOrFetch(path, options, parseFuncKey) {
     if (fileCache[path]) {
@@ -30,7 +30,7 @@ var ajax = {
     },
 
     sendRequest : async function(method, route, request = {}) {
-        request.user_id = clientUserID; 
+        request.user_id = session.user_id; 
 
         const url = serverUrl + route;
         const options = {
@@ -80,7 +80,7 @@ var ajax = {
         }
 
         if (body.set_user_id) {
-            clientUserID = body.set_user_id;
+            session.user_id = body.set_user_id;
         }
     },
 

@@ -24,8 +24,7 @@ server.on("request", function(request, response) {
         return;
     }
     
-    console.log("Method: " + request.method);
-    console.log("URL " + request.url);
+    console.log(request.method, request.url);
 
     let body = {};
     let data = "";

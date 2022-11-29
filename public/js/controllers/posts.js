@@ -1,10 +1,15 @@
 import { ajax } from "../ajax";
 
 var posts = {
-    fetchPosts : async function() {
-        // How else to get posts? Also filtering!
-        // This info might need to be sent to client from server on page load
-        return await ajax.fetchAsJson("json/example-post-list.json");
+    fetchPosts : async function(container) {
+        const filter = container.getAttribute("data-filter");
+
+        const request = {
+            filter: filter
+        };
+
+        const response = await ajax.sendRequest("POST", "fetch_posts", request);
+        return await response.json();
     },
 
     populatePost : async function(postInfo, container) {
@@ -17,17 +22,14 @@ var posts = {
 
     populateAllPosts : async function() {
         const container = document.querySelector("#post-container"); // assumes only one container per page
-
-        if (!container) {
-            return;
-        }
-
-        this.fetchPosts().then(postInfo => {
-            postInfo.posts.forEach(post => {
-                this.populatePost(post, container, ajax);
+        if (container) {
+            this.fetchPosts(container).then(postInfo => {
+                postInfo.posts.forEach(post => {
+                    this.populatePost(post, container, ajax);
+                });
             });
-        });
+        }
     },
-}
+};
 
 export { posts };
