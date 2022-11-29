@@ -3,6 +3,7 @@ import { modals } from "./controllers/modals";
 
 var serverUrl = "http://cpsc.roanoke.edu:3003/";
 var fileCache = {};
+var clientUserID;
 
 async function tryCacheOrFetch(path, options, parseFuncKey) {
     if (fileCache[path]) {
@@ -29,7 +30,7 @@ var ajax = {
     },
 
     sendRequest : async function(method, route, request = {}) {
-        request.user_id = 1; // pull from some sort of session cache. can be undefined
+        request.user_id = clientUserID; 
 
         const url = serverUrl + route;
         const options = {
@@ -70,10 +71,16 @@ var ajax = {
         // response failed
         if (body.error) {
             modals.errorModal(body.error);
+            return;
         }
+
         // response has page (redirect to page)
-        else if (body.page) {
+        if (body.page) {
             pages.loadPage(body.page);
+        }
+
+        if (body.set_user_id) {
+            clientUserID = body.set_user_id;
         }
     },
 

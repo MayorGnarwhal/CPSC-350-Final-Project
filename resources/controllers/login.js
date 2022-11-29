@@ -45,7 +45,7 @@ var login = {
             }
             else {
                 response.statusCode = 201;
-                response.write(`{"page": "index"}`);
+                response.write(`{"page": "index", "set_user_id": "${results.user_id}"}`);
                 response.end();
              }       
         }

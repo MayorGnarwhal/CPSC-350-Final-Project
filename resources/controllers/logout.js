@@ -18,7 +18,7 @@ var logout = {
         }
         else {
             response.statusCode = 201;
-            response.write(`{"page": "login"}`);
+            response.write(`{"page": "login", "set_user_id": "${null}"}`);
             response.end();
         }
     }
