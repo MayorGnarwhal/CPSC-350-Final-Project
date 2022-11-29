@@ -14,14 +14,14 @@ async function validatePassword(username, raw_password) {
     try {
         const valid = await bcrypt.compare(raw_password, results.password);
         if (valid) {
-            return [true, undefined];
+            return [undefined, results];
         }
         else {
-            return [false, `Password does not match`];
+            return [`Password does not match`, undefined];
         }
     }
     catch {
-        return [false, `User ${username} does not exist in the database`];
+        return [`User ${username} does not exist in the database`, undefined];
     }
 }
 
@@ -33,11 +33,21 @@ var login = {
 
     func : async function(body, response) {
         // verify user is valid
-        const [success, error] = await validatePassword(body.username, body.password);
-        if (success) {
-            response.statusCode = 201;
-            response.write(`{"page": "index"}`);
-            response.end();
+        const [error, results] = await validatePassword(body.username, body.password);
+        if (!error) {
+            const [error] = await DB.query(`
+                INSERT INTO Sessions (user_id, session_uuid)
+                VALUES ('${results.user_id}', '${crypto.randomUUID()}')
+            `);
+
+            if (error && error.code !== "ER_DUP_ENTRY") {
+                response_handler.errorResponse(response, `DB Error: ${error}`);
+            }
+            else {
+                response.statusCode = 201;
+                response.write(`{"page": "index"}`);
+                response.end();
+             }       
         }
         else {
             response_handler.errorResponse(response, `Invalid credentials for login: ${error}`);

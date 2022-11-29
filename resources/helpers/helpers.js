@@ -1,3 +1,5 @@
+const { DB } = require("../helpers/dbi");
+
 var helpers = {
     setupCORS : function(response) {
         response.setHeader("Access-Control-Allow-Origin", "http://cpsc.roanoke.edu");
@@ -8,7 +10,7 @@ var helpers = {
 
     formatDatetime : function(date = new Date()) {
         return date.toISOString().slice(0, 19).replace('T', ' ');
-    }
-}
+    },
+};
 
 module.exports = { helpers };

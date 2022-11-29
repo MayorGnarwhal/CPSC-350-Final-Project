@@ -35,7 +35,7 @@ var modals = {
         const modal = document.querySelector("#error-modal");
         const label = modal.querySelector("#error-message");
 
-        label.textContent = "Error: " + errorMessage;
+        label.textContent = errorMessage;
         modal.style.display = "block";
     },
 };

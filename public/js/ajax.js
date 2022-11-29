@@ -29,7 +29,7 @@ var ajax = {
     },
 
     sendRequest : async function(method, route, request = {}) {
-        request.user_id = -1; // pull from some sort of session cache. can be undefined
+        request.user_id = 1; // pull from some sort of session cache. can be undefined
 
         const url = serverUrl + route;
         const options = {

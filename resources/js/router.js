@@ -40,7 +40,7 @@ var router = {
         }
 
         // verify user has permissions to request
-        const [permsSuccess, permsError] = routing.validateRequest(body);
+        const [permsSuccess, permsError] = await routing.validateRequest(body);
         if (!permsSuccess) {
             response_handler.errorResponse(response, `Invalid permissions for request: ${permsError}`, 403);
             return;

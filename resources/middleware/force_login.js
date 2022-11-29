@@ -2,8 +2,9 @@
     Validate that request was sent by a valid user
 */
 
+const { DB } = require("../helpers/dbi");
 
-function force_login(body) {
+async function force_login(body) {
     const user_id = body.user_id;
 
     // verify user id was passed
@@ -18,8 +19,12 @@ function force_login(body) {
     }
 
     // verify session exists (or create session)
-    const session = true;
-    if (session === undefined) {
+    const [error, results] = await DB.query(`
+        SELECT COUNT(user_id) as count
+        FROM Sessions
+        WHERE user_id='${user_id}'
+    `);
+    if (error || results.count === 0) {
         return [false, "User not logged in"];
     }
 

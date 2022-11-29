@@ -25,11 +25,11 @@ class Routing {
         this.args = routing.args || {};
     }
 
-    validateRequest(...args) {
+    async validateRequest(...args) {
         if (this.middleware === null) { // no middleware, allow request
             return [true, undefined];
         }
-        return this.middleware(...args); // return middleware success
+        return await this.middleware(...args); // return middleware success
     }
 
     routeRequest(...args) {
