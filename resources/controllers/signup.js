@@ -55,7 +55,7 @@ var signup = {
             const now = helpers.formatDatetime();
             const password_hash = await bcrypt.hash(body.password, 10);
 
-            if (process.env.DEBUG_MODE) {
+            if (process.env.DEBUG_MODE === "true") {
                 response_handler.errorResponse(response, "Debug mode enabled");
             }
             else {
