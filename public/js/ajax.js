@@ -1,4 +1,5 @@
 import { pages } from "./controllers/pages";
+import { modals } from "./controllers/modals";
 
 var serverUrl = "http://cpsc.roanoke.edu:3003/";
 var fileCache = {};
@@ -68,8 +69,7 @@ var ajax = {
 
         // response failed
         if (body.error) {
-            // add some display that response failed
-            console.log("Response errored");
+            modals.errorModal(body.error);
         }
         // response has page (redirect to page)
         else if (body.page) {

@@ -17,7 +17,7 @@ var pages = {
         // Load controllers
         await partials.populateAllPartials();
         await posts.populateAllPosts();
-        modals.handleAllModalButtons();
+        modals.handleAllModals();
         links.handleAllLinks();
         forms.handleAllForms();
     },
