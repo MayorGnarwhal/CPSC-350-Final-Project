@@ -64,8 +64,6 @@ var signup = {
                     VALUES ('${body.username}', '${body.first_name}', '${body.last_name}', '${password_hash}', '${body.email}', 'public/temp.png', 'ACTIVE', '0', '${now}');
                 `, function(error, results, fields) {
                     if (error) {
-                        console.log("Failed to insert user to database");
-                        console.log(error);
                         response_handler.errorResponse(response, `Failed to create account`);
                     }
                     else {

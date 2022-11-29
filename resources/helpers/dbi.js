@@ -9,17 +9,14 @@ const { database } = require("./database");
 var DB = {
     query : async function(query_string) {
         const query = util.promisify(database.query).bind(database);
-        var error, response;
 
         try {
             response = await query(query_string);
-            response = response[0];
+            return [undefined, response[0]];
         }
-        catch(err) {
-            error = err;
+        catch(error) {
+            return [error, undefined];
         }
-
-        return [error, response];
     },
 };
 

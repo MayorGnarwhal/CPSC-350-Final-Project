@@ -10,7 +10,6 @@ require("dotenv").config();
 const { helpers } = require("../helpers/helpers");
 const { response_handler } = require("../helpers/response_handler");
 const { router } = require("../js/router.js");
-const { database } = require("../helpers/database");
 
 // -- Variables
 const server = http.createServer();
@@ -59,7 +58,4 @@ server.on("request", function(request, response) {
 
 server.listen(process.env.PORT, function() {
     console.log("Server starting on port " + process.env.PORT);
-    // database.query("SHOW TABLES", function(error, results, fields) {
-    //     console.log(error, results);
-    // });
 });
