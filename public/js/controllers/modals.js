@@ -16,8 +16,6 @@ var modals = {
     },
 
     handleAllModals : function() {
-        // handle modals
-        console.log(this.queryModals());
         this.queryModals().forEach(modal => {
             const dismiss = modal.querySelector(".close");
 
@@ -28,7 +26,6 @@ var modals = {
             }
         });
 
-        // handle modal toggle buttons
         this.queryModalButtons().forEach(button => {
             this.handleModalButton(button);
         });
@@ -41,6 +38,6 @@ var modals = {
         label.textContent = "Error: " + errorMessage;
         modal.style.display = "block";
     },
-}
+};
 
 export { modals };
