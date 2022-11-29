@@ -26,13 +26,6 @@ server.on("request", function(request, response) {
     
     console.log("Method: " + request.method);
     console.log("URL " + request.url);
-    
-    if (request.url === "/fetch_env") {
-        response.statusCode = 201;
-        response.write(JSON.stringify(process.env));
-        response.end();
-        return;
-    }
 
     let body = {};
     let data = "";
