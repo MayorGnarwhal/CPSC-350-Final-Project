@@ -16,6 +16,9 @@ body {
 #content {
     margin-top: 50px;
 }
+textarea {
+    resize: vertical;
+}
 
 /* GENERIC */
 .pull-right {
@@ -46,7 +49,7 @@ body {
     display: flex;
 }
 .indent {
-    padding-left: 6px;
+    padding-left: 6px !important;
 }
 .right-seperator {
     padding-right: 20px;

@@ -12,7 +12,6 @@ async function tryCacheOrFetch(path, options, parseFuncKey) {
 
     const response = await ajax.fetch(path, options);
     const body = await response[parseFuncKey]();
-    console.log(body);
     fileCache[path] = body;
     return body;
 }

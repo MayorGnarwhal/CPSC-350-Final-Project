@@ -74,3 +74,17 @@ img {
     font-size: 36px;
     text-decoration: underline;
 }
+
+
+/* EDIT POST VIEW */
+.header .title {
+    margin: 0 6px;
+    font-weight: bold;
+    font-size: 36px;
+}
+
+.post-form-container {
+    width: 80%;
+    margin: auto;
+    padding-top: 16px;
+}

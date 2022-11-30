@@ -1,0 +1,40 @@
+<div class="header">
+    <p class="title">New Post</p>
+</div>
+
+<div class="post-form-container">
+    <form action="">
+        <div class="form-group">
+            <label for="form-title">Title</label>
+            <input type="text" class="form-control" name="title" id="form-title">
+        </div>
+        <div class="form-group">
+            <label for="">Caption</label>
+            <textarea class="form-control" name="caption" id="" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="">Image</label>
+            <input type="file" class="form-control" name="image" accept="image/*">
+        </div>
+    
+        <hr>
+    
+        <div id="post-options">
+            <label for="group-select">Post to Groups</label>
+            <div id="group-select" class="master-checkbox">
+                <div class="checkbox-control master">
+                    <input type="checkbox" id="opt-all" name="groups[]">
+                    <label for="opt-all">All</label>
+                </div>
+                <div class="checkbox-control">
+                    <input type="checkbox" id="opt-work" name="groups[]">
+                    <label for="opt-work">Work</label>
+                </div>
+                <div class="checkbox-control">
+                    <input type="checkbox" id="opt-family" name="groups[]">
+                    <label for="opt-family">Family</label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

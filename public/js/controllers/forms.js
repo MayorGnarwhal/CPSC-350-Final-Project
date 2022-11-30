@@ -35,6 +35,31 @@ var forms = {
     handleAllForms : function() {
         this.queryAllForms().forEach(form => {
             this.handleFormSubmit(form);
+
+            this.handleMasterCheckbox(form);
+        });
+    },
+
+    handleMasterCheckbox : function(form) {
+        const containers = form.querySelectorAll(".master-checkbox");
+        
+        containers.forEach(container => {
+            const master = container.querySelector("div.master > input");
+            const options = container.querySelectorAll("div:not(.master) > input");
+            
+            master.addEventListener("click", function(event) {
+                options.forEach(option => {
+                    option.checked = master.checked;
+                });
+            });
+
+            options.forEach(option => {
+                option.addEventListener("click", function(event) {
+                    if (!option.checked) {
+                        master.checked = false;
+                    }
+                });
+            });
         });
     },
 };
