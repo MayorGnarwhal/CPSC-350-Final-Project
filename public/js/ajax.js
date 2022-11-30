@@ -74,13 +74,14 @@ var ajax = {
             return;
         }
 
+        // update session cache
+        if (body.set_user_id) {
+            session.user_id = body.set_user_id;
+        }
+
         // response has page (redirect to page)
         if (body.page) {
             pages.loadPage(body.page);
-        }
-
-        if (body.set_user_id) {
-            session.user_id = body.set_user_id;
         }
     },
 

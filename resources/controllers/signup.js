@@ -6,6 +6,10 @@ const { helpers } = require("../helpers/helpers");
 const { DB } = require("../helpers/dbi");
 
 async function verifyAccountInfo(body) {
+    if (body.password !== body.password2) {
+        return [false, `Confirmation password does not match.`];
+    }
+
     // verify username format
     const username = body.username.trim();
     const invalidUsername = (username.length !== username.replace(/\s+/g, "").length);
@@ -43,6 +47,7 @@ var signup = {
         "email":      "required|regex:^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", // https://stackoverflow.com/a/719543
         "username":   "required|string",
         "password":   "required|string",
+        "password2":  "required|string",
     },
 
     func : async function(body, response) {

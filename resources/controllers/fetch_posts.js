@@ -4,7 +4,7 @@ const { response_handler } = require("../helpers/response_handler");
 
 var fetchPosts = {
     args: {
-
+        "filter": "required",
     },
 
     func : async function(body, response) {

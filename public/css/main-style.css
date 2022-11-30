@@ -35,6 +35,7 @@ body {
     width: 35%;
     transform: translate(-50%, -50%);
     border-radius: 16px;
+    z-index: 100;
 }
 .modal .modal-header {
     padding: 0 10px;

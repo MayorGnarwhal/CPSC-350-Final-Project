@@ -25,7 +25,7 @@ var posts = {
         if (container) {
             this.fetchPosts(container).then(postInfo => {
                 postInfo.posts.forEach(post => {
-                    this.populatePost(post, container, ajax);
+                    this.populatePost(post, container);
                 });
             });
         }
