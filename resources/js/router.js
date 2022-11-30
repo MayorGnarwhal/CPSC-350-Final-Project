@@ -10,7 +10,7 @@ var router = {
             
             // verify if argument is required
             const isRequired = requirements.find(elem => elem === "required") !== undefined;
-            if (isRequired && body[arg] === undefined) {
+            if (isRequired && (body[arg] === undefined || body[arg] === null)) {
                 return [false, `Request missing required argument, ${arg}`];
             }
 

@@ -24,9 +24,11 @@ var posts = {
         const container = document.querySelector("#post-container"); // assumes only one container per page
         if (container) {
             this.fetchPosts(container).then(postInfo => {
-                postInfo.posts.forEach(post => {
-                    this.populatePost(post, container);
-                });
+                if (!postInfo.error) {
+                    postInfo.posts.forEach(post => {
+                        this.populatePost(post, container);
+                    });
+                }
             });
         }
     },

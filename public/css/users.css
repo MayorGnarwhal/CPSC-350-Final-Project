@@ -1,0 +1,19 @@
+.profile-picture {
+    border: solid black 1px;
+    width: 100px;
+    height: 100px;
+}
+
+.profile-username {
+    list-style: none;
+    margin: 0;
+}
+
+#user-name {
+    font-size: 28px;
+    font-weight: bold;
+}
+#user-username, #user-email {
+    padding-left: 8px;
+    font-style: italic;
+}
