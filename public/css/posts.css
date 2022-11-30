@@ -50,13 +50,14 @@ img {
 } */
 
 .post-image-frame {
-    min-width: 40%;
-    max-width: 40%;
+    max-width: 50%;
+    max-height: 350px;
+    float: right;
 }
 #post-image {
     width: 100%;
-    height: auto;
-    float: right;
+    height: 100%;
+    object-fit: contain;
     border-radius: 6px;
 }
 

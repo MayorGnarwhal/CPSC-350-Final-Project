@@ -13,7 +13,7 @@ var posts = {
     },
 
     populatePost : async function(postInfo, container) {
-        const partialPath = "partials/post_.html";
+        const partialPath = "partials/post.html";
         const post = await ajax.fetchHtmlAndAppend(partialPath, container);
 
         post.querySelector("#title").innerHTML = postInfo.title;
