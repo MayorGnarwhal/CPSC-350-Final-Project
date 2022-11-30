@@ -1,5 +1,5 @@
 var session = {
-    user_id: undefined,
+    user_id: 1,
 };
 
 export { session };

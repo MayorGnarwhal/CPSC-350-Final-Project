@@ -13,11 +13,11 @@ var posts = {
     },
 
     populatePost : async function(postInfo, container) {
-        const partialPath = "partials/post.html";
+        const partialPath = "partials/post_.html";
         const post = await ajax.fetchHtmlAndAppend(partialPath, container);
 
         post.querySelector("#title").innerHTML = postInfo.title;
-        post.querySelector("#body").innerHTML = postInfo.body;
+        post.querySelector("#comment").innerHTML = postInfo.body;
     },
 
     populateAllPosts : async function() {

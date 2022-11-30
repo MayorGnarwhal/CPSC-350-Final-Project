@@ -4,6 +4,7 @@
     top: 0;
     font-size: 18px;
     font-family: lato,sans-serif;
+    z-index: 1000;
 }
 
 .nav-bar ul {
