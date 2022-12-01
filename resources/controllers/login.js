@@ -32,7 +32,6 @@ var login = {
     },
 
     func : async function(body, response) {
-        // verify user is valid
         const [error, results] = await validatePassword(body.username, body.password);
         if (!error) {
             const [error] = await DB.query(`

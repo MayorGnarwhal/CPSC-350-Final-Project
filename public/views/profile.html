@@ -1,8 +1,8 @@
 <script type="module" src="js/controllers/page_controllers/profile_controller.js"></script>
 <div class="header row-2">
     <div class="right-flex">
-        <div class="profile-picture">
-            <img src="" alt="">
+        <div id="profile-picture-frame">
+            <img id="profile-picture" src="" alt="">
         </div>
         <div class="inline">
             <ul class="profile-username">
@@ -16,7 +16,7 @@
         <button class="btn btn-primary" data-toggle="modal" data-target="#edit-profile-modal">
             <span class="fas fa-edit"></span> Edit Profile
         </button>
-        <p>72 Friends</p>
+        <p id="friend-count">72 Friends</p>
     </div>
 </div>
 
@@ -37,11 +37,11 @@
             </div>
             <div class="form-group">
                 <label for="last-name">Last Name</label>
-                <input type="text" class="form-control" name="last_name" id="first-name" required>
+                <input type="text" class="form-control" name="last_name" id="last-name" required>
             </div>
             <div class="form-group">
-                <label for="profile-picture">Upload Profile Picture</label>
-                <input type="file" class="form-control" accept="images/*" name="profile_picture" id="profile-picture" required>
+                <label for="picture">Upload Profile Picture</label>
+                <input type="file" class="form-control" accept="images/*" name="profile_picture" id="picture" required>
             </div>
             <hr>
         </div>

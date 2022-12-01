@@ -5,6 +5,8 @@ const { database } = require("../helpers/database");
 const { helpers } = require("../helpers/helpers");
 const { DB } = require("../helpers/dbi");
 
+const { login } = require("./login");
+
 async function verifyAccountInfo(body) {
     if (body.password !== body.password2) {
         return [false, `Confirmation password does not match.`];
@@ -81,9 +83,7 @@ var signup = {
                         response_handler.errorResponse(response, `Failed to create account`);
                     }
                     else {
-                        response.statusCode = 201;
-                        response.write(`{"page": "index"}`);
-                        response.end();
+                        login.func(body, response);
                     }
                 });
             }

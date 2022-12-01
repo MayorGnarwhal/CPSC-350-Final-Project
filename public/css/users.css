@@ -1,7 +1,12 @@
-.profile-picture {
+#profile-picture-frame {
     border: solid black 1px;
     width: 100px;
     height: 100px;
+    border-radius: 50%;
+}
+
+#profile-picture {
+    border-radius: 50%;
 }
 
 .profile-username {
@@ -16,4 +21,5 @@
 #user-username, #user-email {
     padding-left: 8px;
     font-style: italic;
+    font-size: 16px;
 }

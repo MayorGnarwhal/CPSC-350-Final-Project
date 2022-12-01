@@ -18,6 +18,7 @@ const { logout } = require("../controllers/logout");
 const { signup } = require("../controllers/signup");
 const { login } = require("../controllers/login");
 const { storePost } = require("../controllers/store_post");
+const { fetchUser, updateUser } = require("../controllers/user_methods");
 
 
 // Routing class
@@ -52,6 +53,10 @@ const routes = {
         "/fetch_page": new Routing(fetchPage, null),
         "/fetch_posts": new Routing(fetchPosts, force_login),
         "/store_post": new Routing(storePost, force_login),
+        "/fetch_user": new Routing(fetchUser, force_login),
+    },
+    "PUT": {
+        "/update_user": new Routing(updateUser, force_login),
     },
     "DELETE": {
 
