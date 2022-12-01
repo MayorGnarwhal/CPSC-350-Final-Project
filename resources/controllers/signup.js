@@ -25,9 +25,9 @@ async function verifyAccountInfo(body) {
         FROM Users 
         WHERE username='${body.username}'
     `);
-    if (response.duplicates > 0) {
-        return [false, `Username ${username} already in use`];
-    }
+    // if (response.duplicates > 0) {
+    //     return [false, `Username ${username} already in use`];
+    // }
 
     // check email duplicates
     var [error, response] = await DB.query(`
@@ -35,9 +35,9 @@ async function verifyAccountInfo(body) {
         FROM Users 
         WHERE email='${body.email}'
     `);
-    if (response.duplicates > 0) {
-        return [false, `Email ${body.email} already in use`];
-    }
+    // if (response.duplicates > 0) {
+    //     return [false, `Email ${body.email} already in use`];
+    // }
 
     return [true, undefined]
 }
@@ -80,7 +80,7 @@ var signup = {
 
                 database.query(`INSERT INTO Users SET ?`, entry, function(error, results, fields) {
                     if (error) {
-                        response_handler.errorResponse(response, `Failed to create account`);
+                        response_handler.errorResponse(response, `DB ERROR: ${error}`);
                     }
                     else {
                         login.func(body, response);

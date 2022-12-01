@@ -2,7 +2,7 @@ import { pages } from "./controllers/pages";
 import { modals } from "./controllers/modals";
 import { session } from "./session";
 
-var serverUrl = "http://cpsc.roanoke.edu:3003/";
+var serverUrl = "http://cpsc.roanoke.edu:3004/";
 var fileCache = {};
 
 async function tryCacheOrFetch(path, options, parseFuncKey) {
