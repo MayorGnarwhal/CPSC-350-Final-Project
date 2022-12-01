@@ -23,8 +23,7 @@ var forms = {
             return await promise;
         }
         catch {
-            console.log("Failed to read file");
-            return "";
+            return undefined;
         }
     },
 
@@ -37,7 +36,6 @@ var forms = {
         await Promise.all(inputs.map(async input => {
             if (input.getAttribute("type") === "file") { // pack file inputs
                 const encoded = await this.readFileInput(input);
-                console.log(encoded);
                 packed[input.name] = encoded;
             }
             else if (input.name.substr(-2) === "[]") { // pack array inputs
@@ -66,11 +64,10 @@ var forms = {
             event.preventDefault();
 
             const action = form.getAttribute("action").replace("/", "");
+            const method = (form.getAttribute("method") || "POST").toUpperCase();
             var packed = await forms.packFormInputs(form);
 
-            console.log(packed);
-
-            const response = await ajax.sendRequest("POST", action, packed);
+            const response = await ajax.sendRequest(method, action, packed);
             ajax.handleServerResponse(response);
         });
     },

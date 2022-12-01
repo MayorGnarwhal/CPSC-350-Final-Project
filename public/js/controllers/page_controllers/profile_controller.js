@@ -17,8 +17,10 @@ async function profileController() {
     document.querySelector("#user-name").textContent = user.first_name + " " + user.last_name;
     document.querySelector("#user-username").textContent = "@" + user.username;
     document.querySelector("#user-email").textContent = user.email;
+    // will need a way to display default picture if src does not exist
     document.querySelector("#profile-picture").src = user.profile_picture.slice(7);
     document.querySelector("#friend-count").textContent = "13 friends";
+    document.querySelector("#hidden_user_input").value = user.user_id;
 
 
     // handle update modal
