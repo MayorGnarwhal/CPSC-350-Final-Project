@@ -5,6 +5,8 @@ import { modals } from "./modals";
 import { partials } from "./partials";
 import { posts } from "./posts";
 
+import { bindPageController } from "./page_controllers/handler";
+
 var pages = {
     loadPage : async function(pageName) {
         // Populate body with page contents
@@ -20,6 +22,8 @@ var pages = {
         modals.handleAllModals();
         links.handleAllLinks();
         forms.handleAllForms();
+
+        bindPageController(pageName);
     },
 
     // not a huge fan of this

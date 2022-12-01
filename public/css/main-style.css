@@ -32,6 +32,15 @@ textarea {
 .inline {
     display: inline;
 }
+.underline {
+    text-decoration: underline;
+}
+.italicize {
+    font-style: italic;
+}
+.bold {
+    font-weight: bold;
+}
 .strip {
     margin: 0;
     padding: 0;
@@ -64,13 +73,13 @@ textarea {
 .modal {
     display: none;
     position: fixed;
-    top: 25%;
+    top: 50%;
     left: 50%;
     background: #e3e3e3;
     width: 35%;
     transform: translate(-50%, -50%);
     border-radius: 16px;
-    z-index: 100;
+    z-index: 1000;
 }
 .modal .modal-header {
     padding: 0 10px;
@@ -85,6 +94,12 @@ textarea {
 }
 .modal .close:hover {
     cursor: pointer;
+}
+.modal-body {
+    padding: 0 12px;
+}
+.modal-footer {
+    padding: 10px;
 }
 
 /* ROW STYLING */
