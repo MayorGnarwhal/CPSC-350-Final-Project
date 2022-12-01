@@ -89,3 +89,10 @@ img {
     margin: auto;
     padding-top: 16px;
 }
+
+.post-form-content {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    grid-column-gap: 40px;
+
+}

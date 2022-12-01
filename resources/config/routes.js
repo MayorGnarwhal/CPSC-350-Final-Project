@@ -12,11 +12,13 @@ const { force_login } = require("../middleware/force_login");
 const { force_admin } = require("../middleware/force_admin");
 
 // Routing functions
+const { fetchPosts } = require("../controllers/fetch_posts");
 const { fetchPage } = require("../controllers/fetch_page");
-const { login } = require("../controllers/login");
 const { logout } = require("../controllers/logout");
 const { signup } = require("../controllers/signup");
-const { fetchPosts } = require("../controllers/fetch_posts");
+const { login } = require("../controllers/login");
+const { storePost } = require("../controllers/store_post");
+
 
 // Routing class
 class Routing {
@@ -49,6 +51,7 @@ const routes = {
         "/signup": new Routing(signup, null),
         "/fetch_page": new Routing(fetchPage, null),
         "/fetch_posts": new Routing(fetchPosts, force_login),
+        "/store_post": new Routing(storePost, force_login),
     },
     "DELETE": {
 

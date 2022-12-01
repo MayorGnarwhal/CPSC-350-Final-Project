@@ -64,10 +64,19 @@ var signup = {
                 response_handler.errorResponse(response, "Debug mode enabled");
             }
             else {
-                database.query(`
-                    INSERT INTO Users (username, first_name, last_name, password, email, profile_picture, account_status, is_admin, account_created_time)
-                    VALUES ('${body.username}', '${body.first_name}', '${body.last_name}', '${password_hash}', '${body.email}', 'public/temp.png', 'ACTIVE', '0', '${now}');
-                `, function(error, results, fields) {
+                const entry = {
+                    username: body.username,
+                    first_name: body.first_name,
+                    last_name: body.last_name,
+                    password: password_hash,
+                    email: body.email,
+                    profile_picture: "public/storage/images/default-profile-picture.jpg",
+                    account_status: "ACTIVE",
+                    is_admin: 0,
+                    account_created_time: now
+                };
+
+                database.query(`INSERT INTO Users SET ?`, entry, function(error, results, fields) {
                     if (error) {
                         response_handler.errorResponse(response, `Failed to create account`);
                     }
