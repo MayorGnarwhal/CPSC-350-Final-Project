@@ -1,3 +1,3 @@
 *.env
-public/storage/user_images
+public/storage/user_images/*
 node_modules

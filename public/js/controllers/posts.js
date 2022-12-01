@@ -16,8 +16,9 @@ var posts = {
         const partialPath = "partials/post.html";
         const post = await ajax.fetchHtmlAndAppend(partialPath, container);
 
-        post.querySelector("#title").innerHTML = postInfo.title;
-        post.querySelector("#comment").innerHTML = postInfo.body;
+        post.querySelector("#title").innerHTML = postInfo.post_title;
+        post.querySelector("#comment").innerHTML = postInfo.post_text;
+        post.querySelector("#timestamp").innerHTML = new Date(postInfo.post_created_time).toLocaleString();
     },
 
     populateAllPosts : async function() {
@@ -25,7 +26,7 @@ var posts = {
         if (container) {
             this.fetchPosts(container).then(postInfo => {
                 if (!postInfo.error) {
-                    postInfo.posts.forEach(post => {
+                    postInfo.forEach(post => {
                         this.populatePost(post, container);
                     });
                 }

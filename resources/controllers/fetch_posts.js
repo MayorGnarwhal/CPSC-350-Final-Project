@@ -1,6 +1,7 @@
 const fs = require("fs");
 
 const { response_handler } = require("../helpers/response_handler");
+const { database } =  require("../helpers/database");
 
 var fetchPosts = {
     args: {
@@ -8,15 +9,19 @@ var fetchPosts = {
     },
 
     func : async function(body, response) {
-        const tempPath = "public/json/example-post-list.json";
+        const whereClause = body.filter ? `WHERE post_user_id=${body.filter}` : "";
 
-        fs.readFile(tempPath, function(error, data) {
+        // need to join tables for extra information
+        //    first_name, last_name, username, count(reactions), groups[]
+        // need to apply algorithm
+        //    also need to do this elsewhere, and then pull from there?
+        database.query(`SELECT * FROM Posts ${whereClause}`, function(error, results) {
             if (error) {
-                response_handler.errorResponse(response, "Failed to fetch posts");
+                response_handler.errorResponse(response, `Failed to fetch posts for user of id ${body.user_id}`);
             }
             else {
                 response.statusCode = 201;
-                response.write(data);
+                response.write(JSON.stringify(results));
                 response.end();
             }
         });

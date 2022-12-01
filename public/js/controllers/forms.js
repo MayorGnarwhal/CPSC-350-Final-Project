@@ -35,7 +35,7 @@ var forms = {
         
         var packed = {};
         await Promise.all(inputs.map(async input => {
-            if (input.getAttribute("type") === "file") {
+            if (input.getAttribute("type") === "file") { // pack file inputs
                 const encoded = await this.readFileInput(input);
                 console.log(encoded);
                 packed[input.name] = encoded;
