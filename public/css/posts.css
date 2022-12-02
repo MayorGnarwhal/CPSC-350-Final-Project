@@ -5,6 +5,10 @@
     padding-top: 16px;
 }
 
+.post-frame {
+    max-width: 1000px;
+    margin: auto;
+}
 .post {
     border: solid black 1px;
     margin-top: 10px;
