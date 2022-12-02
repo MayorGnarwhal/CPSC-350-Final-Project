@@ -67,8 +67,7 @@ var forms = {
             const method = (form.getAttribute("method") || "POST").toUpperCase();
             var packed = await forms.packFormInputs(form);
 
-            const response = await ajax.sendRequest(method, action, packed);
-            ajax.handleServerResponse(response);
+            const response = await ajax.sendRequestAndHandle(method, action, packed);
         });
     },
 

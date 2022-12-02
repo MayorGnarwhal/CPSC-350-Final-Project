@@ -2,7 +2,7 @@ const { response_handler } = require("../helpers/response_handler");
 const { database } = require("../helpers/database");
 const { file } = require("../helpers/file");
 
-const updateIgnoreColumns = ["user_id", "target_user_id", "profile_picture"];
+const updateIgnoreColumns = ["session_id", "user_id", "target_user_id", "profile_picture"];
 
 var fetchUser = {
     args: {
@@ -48,6 +48,8 @@ var updateUser = {
             }
 
             if (body.profile_picture !== undefined) {
+                // delete old profile picture (requires join from user)
+                //    https://stackoverflow.com/a/25195330
                 updates.profile_picture = await file.store(body.profile_picture, "public/storage/user_images", ".png");
             }
 

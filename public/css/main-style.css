@@ -81,6 +81,9 @@ textarea {
     border-radius: 16px;
     z-index: 1000;
 }
+#error-modal {
+    z-index: 1001;
+}
 .modal .modal-header {
     padding: 0 10px;
 }
