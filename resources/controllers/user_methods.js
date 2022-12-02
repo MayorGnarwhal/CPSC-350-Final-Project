@@ -14,7 +14,7 @@ var fetchUser = {
     func : async function(body, response) {
         database.query(`SELECT * from Users WHERE user_id=${body.target_user_id}`, function(error, result) {
             if (error) {
-                response_handler.errorResponse(response, `DB Error: ${error}`);
+                response_handler.errorResponse(response, `DB Error: ${error}`, 400);
             }
             else {
                 response_handler.endResponse(response, JSON.stringify(result));
@@ -36,7 +36,7 @@ var updateUser = {
         body.target_user_id = parseInt(body.target_user_id);
 
         if (body.user_id !== body.target_user_id) { // or check if admin
-            response_handler.errorResponse(response, "Cannot edit user that is not yourself");
+            response_handler.errorResponse(response, "Cannot edit user that is not yourself", 401);
         }
         else {
             // do status change?
@@ -53,7 +53,7 @@ var updateUser = {
 
             database.query(`UPDATE Users SET ? WHERE user_id=${body.target_user_id}`, updates, function(error, result) {
                 if (error) {
-                    response_handler.errorResponse(response, `DB Error: ${error}`);
+                    response_handler.errorResponse(response, `DB Error: ${error}`, 400);
                 }
                 else {
                     response_handler.endResponse(response, `{"page": "profile", "user_id": "${body.target_user_id}"}`);

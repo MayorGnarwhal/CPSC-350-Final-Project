@@ -17,7 +17,7 @@ var fetchPosts = {
         //    also need to do this elsewhere, and then pull from there?
         database.query(`SELECT * FROM Posts ${whereClause}`, function(error, results) {
             if (error) {
-                response_handler.errorResponse(response, `Failed to fetch posts for user of id ${body.user_id}`);
+                response_handler.errorResponse(response, `Failed to fetch posts for user of id ${body.user_id}`, 404);
             }
             else {
                 response_handler.endResponse(response, JSON.stringify(results));

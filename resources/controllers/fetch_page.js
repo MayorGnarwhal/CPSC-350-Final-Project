@@ -12,7 +12,7 @@ var fetchPage = {
 
         fs.readFile(pagePath, function(error, data) {
             if (error) {
-                response_handler.errorResponse(response, `Failed to fetch '${pagePath}`);
+                response_handler.errorResponse(response, `Failed to fetch '${pagePath}`, 404);
             }
             else {
                 response_handler.endResponse(response, data);

@@ -56,14 +56,14 @@ var signup = {
         const [success, error] = await verifyAccountInfo(body);
 
         if (!success) {
-            response_handler.errorResponse(response, `Failed to create account: ${error}`);
+            response_handler.errorResponse(response, `Failed to create account: ${error}`, 400);
         }
         else {
             const now = helpers.formatDatetime();
             const password_hash = await bcrypt.hash(body.password, 10);
 
             if (process.env.DEBUG_MODE === "true") {
-                response_handler.errorResponse(response, "Debug mode enabled");
+                response_handler.errorResponse(response, "Debug mode enabled", 418);
             }
             else {
                 const entry = {
@@ -80,7 +80,7 @@ var signup = {
 
                 database.query(`INSERT INTO Users SET ?`, entry, function(error, results, fields) {
                     if (error) {
-                        response_handler.errorResponse(response, `Failed to create account`);
+                        response_handler.errorResponse(response, `DB Error: ${error}`, 400);
                     }
                     else {
                         login.func(body, response);

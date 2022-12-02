@@ -37,14 +37,14 @@ var login = {
             `);
 
             if (error && error.code !== "ER_DUP_ENTRY") {
-                response_handler.errorResponse(response, `DB Error: ${error}`);
+                response_handler.errorResponse(response, `DB Error: ${error}`, 400);
             }
             else {
                 response_handler.endResponse(response, `{"page": "index", "session_id": "${sessionID}"}`);
              }       
         }
         else {
-            response_handler.errorResponse(response, `Invalid credentials for login: ${error}`);
+            response_handler.errorResponse(response, `Invalid credentials for login: ${error}`, 401);
         }
     }
 };

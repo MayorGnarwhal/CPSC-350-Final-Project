@@ -14,7 +14,7 @@ var logout = {
         `);
 
         if (error) {
-            response_handler.errorResponse(response, `DB Error: ${error}`);
+            response_handler.errorResponse(response, `DB Error: ${error}`, 400);
         }
         else {
             response_handler.endResponse(response, `{"page": "login", "session_id": "${null}"}`);

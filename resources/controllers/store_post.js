@@ -28,12 +28,12 @@ var storePost = {
         };
 
         if (process.env.DEBUG_MODE === "true") {
-            response_handler.errorResponse(response, "Debug mode enabled");
+            response_handler.errorResponse(response, "Debug mode enabled", 418);
         }
         else {
             database.query(`INSERT INTO Posts SET ?`, entry, function(error, result) {
                 if (error) {
-                    response_handler.errorResponse(response, `DB Error: ${error}`);
+                    response_handler.errorResponse(response, `DB Error: ${error}`, 400);
                 }
                 else {
                     if (!global) {
@@ -45,7 +45,7 @@ var storePost = {
 
                             database.query(`INSERT INTO PostVisibility SET ?`, map, function(err, res) {
                                 if (error) {
-                                    response_handler.errorResponse(response, `DB Error: ${err}`);
+                                    response_handler.errorResponse(response, `DB Error: ${err}`, 400);
                                 }
                             });
                         });
