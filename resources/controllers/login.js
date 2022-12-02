@@ -5,16 +5,12 @@ const { response_handler } = require("../helpers/response_handler");
 const { DB } = require("../helpers/dbi");
 
 async function validatePassword(username, raw_password) {
-    const [error, results] = await DB.query(`
-        SELECT user_id, password
-        FROM Users
-        WHERE username='${username}'
-    `);
-
+    const [error, user] = await DB.getUserByUsername(username);
+    
     try {
-        const valid = await bcrypt.compare(raw_password, results.password);
+        const valid = await bcrypt.compare(raw_password, user.password);
         if (valid) {
-            return [undefined, results];
+            return [undefined, user];
         }
         else {
             return [`Password does not match`, undefined];

@@ -5,6 +5,7 @@
 const util = require("util");
 
 const { database } = require("./database");
+const { queries } = require("../config/queries");
 
 var DB = {
     query : async function(query_string) {
@@ -19,6 +20,10 @@ var DB = {
         }
     },
 
+    queryWhere : async function(queryString, whereClause) {
+        return await this.query(queryString + " " + whereClause);
+    },
+
     getUserBySession : async function(session_id) {
         var [error, session] = await this.query(`SELECT user_id FROM Sessions WHERE session_uuid='${session_id}'`);
         if (error || session === undefined) {
@@ -30,14 +35,12 @@ var DB = {
     },
 
     getUserById : async function(user_id) {
-        var [error, user] = await this.query(`SELECT * FROM Users WHERE user_id='${user_id}'`);
-        if (error || user === undefined) {
-            return ["User does not exist in database", undefined];
-        }
-        else {
-            return [undefined, user];
-        }
-    }
+        return await this.queryWhere(queries.USER, `WHERE user_id='${user_id}'`)
+    },
+
+    getUserByUsername : async function(username) {
+        return await this.queryWhere(queries.USER, `WHERE username='${username}'`);
+    },
 };
 
 module.exports = { DB };
