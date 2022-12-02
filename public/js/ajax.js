@@ -1,6 +1,7 @@
 import { pages } from "./controllers/pages";
 import { modals } from "./controllers/modals";
-import { session } from "./session";
+// import { session } from "./session";
+import { setCookie, getCookie } from "./cookies";
 
 var serverUrl = "http://cpsc.roanoke.edu:3003/";
 var fileCache = {};
@@ -30,7 +31,8 @@ var ajax = {
     },
 
     sendRequest : async function(method, route, request = {}) {
-        request.user_id = session.user_id; 
+        // request.user_id = 1; // replace with session id
+        request.session_id = getCookie("session_id");
 
         const url = serverUrl + route;
         const options = {
@@ -75,8 +77,8 @@ var ajax = {
         }
 
         // update session cache
-        if (body.set_user_id) {
-            session.user_id = body.set_user_id;
+        if (body.session_id) {
+            setCookie("session_id", body.session_id, 100);
         }
 
         // response has page (redirect to page)

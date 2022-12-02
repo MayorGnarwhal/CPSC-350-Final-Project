@@ -34,9 +34,10 @@ var login = {
     func : async function(body, response) {
         const [error, results] = await validatePassword(body.username, body.password);
         if (!error) {
+            const sessionID = crypto.randomUUID();
             const [error] = await DB.query(`
                 INSERT INTO Sessions (user_id, session_uuid)
-                VALUES ('${results.user_id}', '${crypto.randomUUID()}')
+                VALUES ('${results.user_id}', '${sessionID}')
             `);
 
             if (error && error.code !== "ER_DUP_ENTRY") {
@@ -44,7 +45,7 @@ var login = {
             }
             else {
                 response.statusCode = 201;
-                response.write(`{"page": "index", "set_user_id": "${results.user_id}"}`);
+                response.write(`{"page": "index", "session_id": "${sessionID}"}`);
                 response.end();
              }       
         }
