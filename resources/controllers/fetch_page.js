@@ -15,9 +15,7 @@ var fetchPage = {
                 response_handler.errorResponse(response, `Failed to fetch '${pagePath}`);
             }
             else {
-                response.statusCode = 201;
-                response.write(data);
-                response.end();
+                response_handler.endResponse(response, data);
             }
         });
     }

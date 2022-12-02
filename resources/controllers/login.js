@@ -6,7 +6,7 @@ const { DB } = require("../helpers/dbi");
 
 async function validatePassword(username, raw_password) {
     const [error, user] = await DB.getUserByUsername(username);
-    
+
     try {
         const valid = await bcrypt.compare(raw_password, user.password);
         if (valid) {
@@ -40,9 +40,7 @@ var login = {
                 response_handler.errorResponse(response, `DB Error: ${error}`);
             }
             else {
-                response.statusCode = 201;
-                response.write(`{"page": "index", "session_id": "${sessionID}"}`);
-                response.end();
+                response_handler.endResponse(response, `{"page": "index", "session_id": "${sessionID}"}`);
              }       
         }
         else {

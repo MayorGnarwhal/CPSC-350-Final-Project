@@ -5,6 +5,12 @@ var response_handler = {
         response.write(`{"error": "${errorMessage}"}`);
         response.end();
     },
+
+    endResponse : function(response, messageBody, statusCode = 201) {
+        response.statusCode = statusCode;
+        response.write(messageBody);
+        response.end();
+    },
 };
 
 module.exports = { response_handler };

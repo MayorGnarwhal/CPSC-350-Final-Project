@@ -17,9 +17,7 @@ var logout = {
             response_handler.errorResponse(response, `DB Error: ${error}`);
         }
         else {
-            response.statusCode = 201;
-            response.write(`{"page": "login", "session_id": "${null}"}`);
-            response.end();
+            response_handler.endResponse(response, `{"page": "login", "session_id": "${null}"}`);
         }
     }
 };

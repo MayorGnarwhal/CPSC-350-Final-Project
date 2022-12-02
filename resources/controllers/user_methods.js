@@ -17,9 +17,7 @@ var fetchUser = {
                 response_handler.errorResponse(response, `DB Error: ${error}`);
             }
             else {
-                response.statusCode = 201;
-                response.write(JSON.stringify(result));
-                response.end();
+                response_handler.endResponse(response, JSON.stringify(result));
             }
         });
     }
@@ -58,9 +56,7 @@ var updateUser = {
                     response_handler.errorResponse(response, `DB Error: ${error}`);
                 }
                 else {
-                    response.statusCode = 201;
-                    response.write(`{"page": "profile", "user_id": "${body.target_user_id}"}`);
-                    response.end();
+                    response_handler.endResponse(response, `{"page": "profile", "user_id": "${body.target_user_id}"}`);
                 }
             });
         }

@@ -51,9 +51,7 @@ var storePost = {
                         });
                     }
 
-                    response.statusCode = 201;
-                    response.write(`{"page": "profile", "user_id": "${body.user_id}"}`);
-                    response.end();
+                    response_handler.endResponse(response, `{"page": "profile", "user_id": "${body.user_id}"}`);
                 }
             });
         }

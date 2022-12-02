@@ -1,3 +1,4 @@
+const { response_handler } = require("../helpers/response_handler");
 const { DB } = require("../helpers/dbi");
 
 var init = {
@@ -9,13 +10,10 @@ var init = {
         const [error, user] = await DB.getUserBySession(body.session_id);
         
         if (error) {
-            response.statusCode = 200;
-            response.end(`{"page": "login"}`);
+            response_handler.endResponse(response, '{"page": "login"}');
         }
         else {
-            response.statusCode = 201;
-            response.write(`{"page": "index"}`);
-            response.end();
+            response_handler.endResponse(response, '{"page": "index"}');
         }
     }
 };
