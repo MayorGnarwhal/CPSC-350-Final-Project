@@ -23,11 +23,18 @@ var file = {
             return await promise;
         }
         catch(error) {
-            console.log("Failed to store file");
-            console.log(error);
-            return "storage/images/default-profile-picture.jpg";
+            return null;
         }
     },
+
+    fetch : async function(filePath) {
+        try {
+            return fs.readFileSync(filePath);
+        }
+        catch {
+            return fs.readFileSync("public/storage/images/default-profile-picture.jpg");
+        }
+    }
 };
 
 module.exports = { file };

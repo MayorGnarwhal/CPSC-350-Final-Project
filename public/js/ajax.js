@@ -1,6 +1,5 @@
 import { pages } from "./controllers/pages";
 import { modals } from "./controllers/modals";
-// import { session } from "./session";
 import { setCookie, getCookie } from "./cookies";
 
 var serverUrl = "http://cpsc.roanoke.edu:3003/";
@@ -31,7 +30,6 @@ var ajax = {
     },
 
     sendRequest : async function(method, route, request = {}) {
-        // request.user_id = 1; // replace with session id
         request.session_id = getCookie("session_id");
 
         const url = serverUrl + route;
@@ -53,6 +51,16 @@ var ajax = {
 
         const response = await this.sendRequest("POST", "fetch_page", request);
         return await response.text();
+    },
+
+    fetchImage : async function(imagePath) {
+        const request = {
+            src: imagePath
+        };
+
+        const response = await this.sendRequest("POST", "fetch_image", request);
+        const buffer = await response.json();
+        return "data:image/png;base64," + toBase64(buffer.data);
     },
 
     fetchHtmlAndInsert : async function(path, container) {
@@ -97,5 +105,11 @@ var ajax = {
         await this.sendRequestAndHandle("POST", "init");
     }
 };
+
+function toBase64(arr) {
+    return btoa(
+       arr.reduce((data, byte) => data + String.fromCharCode(byte), '')
+    );
+}
 
 export { ajax };

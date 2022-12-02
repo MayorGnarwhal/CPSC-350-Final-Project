@@ -20,6 +20,7 @@ const { login } = require("../controllers/login");
 const { storePost } = require("../controllers/store_post");
 const { fetchUser, updateUser } = require("../controllers/user_methods");
 const { init } = require("../controllers/initial_request");
+const { fetchImage } = require("../controllers/fetch_image");
 
 
 // Routing class
@@ -55,6 +56,7 @@ const routes = {
         "/fetch_posts": new Routing(fetchPosts, force_login),
         "/store_post": new Routing(storePost, force_login),
         "/fetch_user": new Routing(fetchUser, force_login),
+        "/fetch_image": new Routing(fetchImage, null),
     },
     "PUT": {
         "/update_user": new Routing(updateUser, force_login),

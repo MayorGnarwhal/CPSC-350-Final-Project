@@ -16,12 +16,11 @@ var posts = {
         const partialPath = "partials/post.html";
         const post = await ajax.fetchHtmlAndAppend(partialPath, container);
 
-        console.log(postInfo);
-
+        
         post.querySelector("#title").innerHTML = postInfo.post_title;
         post.querySelector("#comment").innerHTML = postInfo.post_text;
         post.querySelector("#timestamp").innerHTML = new Date(postInfo.post_created_time).toLocaleString();
-        post.querySelector("#post-image").src = postInfo.post_picture.slice(7);
+        post.querySelector("#post-image").src = await ajax.fetchImage(postInfo.post_picture);
     },
 
     populateAllPosts : async function() {
