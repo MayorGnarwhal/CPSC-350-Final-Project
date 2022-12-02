@@ -33,7 +33,7 @@ Final project for CPSC350 Databases and Web Programming
 
 
 ## Contributors
-* Harris Fort [@MayorGnarhwal](https://github.com/MayorGnarwhal)
+* Harris Fort [@MayorGnarwhal](https://github.com/MayorGnarwhal)
 * Luke Elder [@lhelder](https://github.com/lhelder)
 * Karol Kusmierczuk [@xkk26x](https://github.com/xkk26x)
 * Halle Fernstrum [@hallefern](https://github.com/hallefern)
