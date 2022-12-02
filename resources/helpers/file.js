@@ -22,8 +22,10 @@ var file = {
         try {
             return await promise;
         }
-        catch {
-            return null;
+        catch(error) {
+            console.log("Failed to store file");
+            console.log(error);
+            return "storage/images/default-profile-picture.jpg";
         }
     },
 };

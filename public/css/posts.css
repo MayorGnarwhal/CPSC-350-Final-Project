@@ -90,6 +90,7 @@ img {
 
 .post-form-container {
     width: 80%;
+    max-width: 1200px;
     margin: auto;
     padding-top: 16px;
 }
