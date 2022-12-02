@@ -19,6 +19,7 @@ const { signup } = require("../controllers/signup");
 const { login } = require("../controllers/login");
 const { storePost } = require("../controllers/store_post");
 const { fetchUser, updateUser } = require("../controllers/user_methods");
+const { init } = require("../controllers/initial_request");
 
 
 // Routing class
@@ -44,9 +45,9 @@ class Routing {
 // Defined routes
 const routes = {
     "GET": {
-
     },
     "POST": {
+        "/init": new Routing(init, null),
         "/login": new Routing(login, null),
         "/logout": new Routing(logout, force_login),
         "/signup": new Routing(signup, null),

@@ -91,6 +91,11 @@ var ajax = {
         const response = await this.sendRequest(...args);
         return await this.handleServerResponse(response);
     },
+
+    // first request sent to server to get session state
+    initialRequest : async function() {
+        await this.sendRequestAndHandle("POST", "init");
+    }
 };
 
 export { ajax };

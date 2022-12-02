@@ -1,6 +1,6 @@
 import { partials } from "./controllers/partials.js";
-import { pages } from "./controllers/pages.js"
+import { ajax } from "./ajax.js";
 
 await partials.populatePartial(document.querySelector("#nav-bar"));
-await pages.loadPage("login");
+await ajax.initialRequest();
 console.log(document.cookie);
