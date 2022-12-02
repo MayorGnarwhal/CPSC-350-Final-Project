@@ -17,7 +17,7 @@ var fetchUser = {
                 response_handler.errorResponse(response, `DB Error: ${error}`, 400);
             }
             else {
-                response_handler.endResponse(response, JSON.stringify(result));
+                response_handler.endResponse(response, JSON.stringify(result), 200);
             }
         });
     }

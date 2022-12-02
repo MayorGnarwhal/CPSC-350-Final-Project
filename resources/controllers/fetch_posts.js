@@ -20,7 +20,7 @@ var fetchPosts = {
                 response_handler.errorResponse(response, `Failed to fetch posts for user of id ${body.user_id}`, 404);
             }
             else {
-                response_handler.endResponse(response, JSON.stringify(results));
+                response_handler.endResponse(response, JSON.stringify(results), 200);
             }
         });
     }

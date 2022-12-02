@@ -51,7 +51,7 @@ var storePost = {
                         });
                     }
 
-                    response_handler.endResponse(response, `{"page": "profile", "user_id": "${body.user_id}"}`);
+                    response_handler.endResponse(response, `{"page": "profile", "user_id": "${body.user_id}"}`, 201);
                 }
             });
         }

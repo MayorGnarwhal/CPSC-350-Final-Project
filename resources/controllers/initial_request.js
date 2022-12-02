@@ -10,10 +10,10 @@ var init = {
         const [error, user] = await DB.getUserBySession(body.session_id);
         
         if (error) {
-            response_handler.endResponse(response, '{"page": "login"}');
+            response_handler.endResponse(response, '{"page": "login"}', 200);
         }
         else {
-            response_handler.endResponse(response, '{"page": "index"}');
+            response_handler.endResponse(response, '{"page": "index"}', 200);
         }
     }
 };

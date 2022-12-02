@@ -40,7 +40,7 @@ var login = {
                 response_handler.errorResponse(response, `DB Error: ${error}`, 400);
             }
             else {
-                response_handler.endResponse(response, `{"page": "index", "session_id": "${sessionID}"}`);
+                response_handler.endResponse(response, `{"page": "index", "session_id": "${sessionID}"}`, 201);
              }       
         }
         else {

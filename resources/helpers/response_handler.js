@@ -6,7 +6,7 @@ var response_handler = {
         response.end();
     },
 
-    endResponse : function(response, messageBody, statusCode = 201) {
+    endResponse : function(response, messageBody, statusCode = 200) {
         response.statusCode = statusCode;
         response.write(messageBody);
         response.end();

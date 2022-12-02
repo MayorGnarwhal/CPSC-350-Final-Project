@@ -15,7 +15,7 @@ var fetchPage = {
                 response_handler.errorResponse(response, `Failed to fetch '${pagePath}`, 404);
             }
             else {
-                response_handler.endResponse(response, data);
+                response_handler.endResponse(response, data, 200);
             }
         });
     }
