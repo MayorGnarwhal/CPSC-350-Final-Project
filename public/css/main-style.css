@@ -193,3 +193,6 @@ textarea {
 #no_bullets li{
     list-style-type: none;
 }
+#no_bullets ul{
+    list-style-type: none;
+}
