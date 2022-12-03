@@ -3,3 +3,4 @@ import { pages } from "./controllers/pages.js"
 
 await partials.populatePartial(document.querySelector("#nav-bar"));
 await pages.loadPage("friend_profile");
+console.log("hello");
