@@ -185,3 +185,11 @@ textarea {
     background-color: #c29302;
     background-image: linear-gradient(to bottom,#FCBF06,#c29302);
 }
+
+.spacing {
+    padding-right: 10px;
+}
+
+.no_bullets {
+    list-style: none;
+}
