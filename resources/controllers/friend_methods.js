@@ -20,6 +20,9 @@ var friendRequest = {
         if (error) {
             response_handler.errorResponse(response, `DB ERROR: ${error}`);
         }
+        else if (friendUser === undefined) {
+            response_handler.errorResponse(response, `Invalid user given`);
+        }
         else {
             const now = helpers.formatDatetime();
 

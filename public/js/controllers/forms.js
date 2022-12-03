@@ -59,17 +59,19 @@ var forms = {
         return document.querySelectorAll("form");
     },
 
-    // TODO: multi submit forms
-    //  friends.html
     handleFormSubmit : function(form) {
-        form.addEventListener("submit", async function(event) {
-            event.preventDefault();
+        const submitButtons = form.querySelectorAll("button[type='submit']");
+        
+        submitButtons.forEach(button => {
+            button.addEventListener("click", async function(event) {
+                event.preventDefault();
+                const action = (button.getAttribute("data-action") || form.getAttribute("action")).replace("/", "");
+                const method = (button.getAttribute("data-method") || form.getAttribute("method") || "POST");
+                
+                var packed = await forms.packFormInputs(form);
 
-            const action = form.getAttribute("action").replace("/", "");
-            const method = (form.getAttribute("method") || "POST").toUpperCase();
-            var packed = await forms.packFormInputs(form);
-
-            const response = await ajax.sendRequestAndHandle(method, action, packed);
+                const response = await ajax.sendRequestAndHandle(method, action, packed);
+            });
         });
     },
 
