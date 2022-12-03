@@ -1,9 +1,6 @@
-.typeahead {
-
-}
-
 .typeahead-result-holder {
     position: relative;
+    z-index: 999;
 }
 
 .typeahead-buffer {
@@ -12,7 +9,7 @@
 }
 
 .typeahead-result {
-    background-color: #e4e4e4;
+    background-color: #c2c1c1;
 }
 
 .typeahead-result {

@@ -3,8 +3,33 @@
 </div>
 
 <div class="content">
-    <div class="form-group">
-        <div class="typeahead" data-input="user" data-label="Search Users"></div>
+    <div class="btn btn-primary" data-toggle="modal" data-target="#add-friend-modal">
+        <span class="fas fa-plus"></span> Add Friends
     </div>
-    <p>hello world</p>
+    
+
+    <div class="modal" id="add-friend-modal">
+        <form action="/friend_request" method="PUT" class="multi-submit">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h1 class="underline">Add Friends</h1>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="typeahead" data-input="target_user_id" data-label="Search Users"></div>
+                </div>
+                <hr>
+            </div>
+            <div class="modal-footer" style="text-align: right">
+                <button type="submit" class="btn btn-primary">
+                    View Profile
+                </button>
+                <button type="submit" class="btn btn-success">
+                    Send Friend Request
+                </button>
+            </div>
+        </form>
+    </div>
 </div>

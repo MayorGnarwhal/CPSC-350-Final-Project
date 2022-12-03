@@ -59,6 +59,8 @@ var forms = {
         return document.querySelectorAll("form");
     },
 
+    // TODO: multi submit forms
+    //  friends.html
     handleFormSubmit : function(form) {
         form.addEventListener("submit", async function(event) {
             event.preventDefault();

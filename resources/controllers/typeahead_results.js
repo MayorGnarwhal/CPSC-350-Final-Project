@@ -12,7 +12,7 @@ var typeahead = {
     func : async function(body, response) {
         const searchTerm = body.search_term.trim();
         
-        if (searchTerm <= 3) {
+        if (searchTerm.length < 3) {
             response_handler.endResponse(response, undefined, 201);
         }
 
@@ -20,6 +20,7 @@ var typeahead = {
             `${queries.USER} 
             WHERE first_name LIKE '%%${searchTerm}%%'
             OR last_name LIKE '%%${searchTerm}%%'
+            LIMIT 5
         `, function(error, users) {
             if (error) {
                 response_handler.errorResponse(response, `DB ERROR: ${error}`);
