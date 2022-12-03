@@ -86,7 +86,7 @@ var ajax = {
 
         // response failed
         if (body.error) {
-            modals.errorModal(body.error);
+            modals.errorModal(body.error, response.status);
             return undefined;
         }
 

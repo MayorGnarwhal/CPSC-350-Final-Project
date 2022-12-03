@@ -31,11 +31,11 @@ var modals = {
         });
     },
 
-    errorModal : function(errorMessage) {
+    errorModal : function(errorMessage, statusCode) {
         const modal = document.querySelector("#error-modal");
         const label = modal.querySelector("#error-message");
 
-        label.textContent = errorMessage;
+        label.textContent = `${statusCode} ERROR: ${errorMessage}`;
         modal.style.display = "block";
     },
 };

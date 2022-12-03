@@ -69,8 +69,7 @@ var forms = {
                 const method = (button.getAttribute("data-method") || form.getAttribute("method") || "POST");
                 
                 var packed = await forms.packFormInputs(form);
-
-                const response = await ajax.sendRequestAndHandle(method, action, packed);
+                await ajax.sendRequestAndHandle(method, action, packed);
             });
         });
     },
