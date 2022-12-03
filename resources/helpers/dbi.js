@@ -24,6 +24,10 @@ var DB = {
         return await this.query(queryString + " " + whereClause);
     },
 
+    getSessionByUser : async function(user_id) {
+        return await this.queryWhere(queries.SESSION, `WHERE user_id='${user_id}'`);
+    },
+
     getUserBySession : async function(session_id) {
         var [error, session] = await this.query(`SELECT user_id FROM Sessions WHERE session_uuid='${session_id}'`);
         if (error || session === undefined) {
