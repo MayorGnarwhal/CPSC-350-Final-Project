@@ -4,6 +4,7 @@ import { links } from "./links";
 import { modals } from "./modals";
 import { partials } from "./partials";
 import { posts } from "./posts";
+import { typeahead } from "./typeahead";
 
 import { bindPageController } from "./page_controllers/handler";
 
@@ -22,6 +23,7 @@ var pages = {
         modals.handleAllModals();
         links.handleAllLinks();
         forms.handleAllForms();
+        typeahead.handleAllTypeaheads();
 
         bindPageController(pageName);
     },

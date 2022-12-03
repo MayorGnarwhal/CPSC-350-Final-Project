@@ -76,12 +76,18 @@ var ajax = {
     },
 
     handleServerResponse : async function(response) {
-        const body = await response.json();
+        var body;
+        try {
+            body = await response.json();
+        }
+        catch {
+            return undefined;
+        }
 
         // response failed
         if (body.error) {
             modals.errorModal(body.error);
-            return;
+            return undefined;
         }
 
         // update session cache
@@ -93,6 +99,8 @@ var ajax = {
         if (body.page) {
             pages.loadPage(body.page);
         }
+
+        return body;
     },
 
     sendRequestAndHandle : async function(...args) {
