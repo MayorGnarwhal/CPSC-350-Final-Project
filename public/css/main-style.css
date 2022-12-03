@@ -190,9 +190,9 @@ textarea {
     padding-right: 10px;
 }
 
-#no_bullets li{
+#no-bullets li{
     list-style-type: none;
 }
-#no_bullets ul{
+#no-bullets ul{
     list-style-type: none;
 }
