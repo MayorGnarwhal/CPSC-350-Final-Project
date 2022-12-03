@@ -191,5 +191,5 @@ textarea {
 }
 
 .no_bullets {
-    list-style: none;
+    list-style-type: none;
 }
