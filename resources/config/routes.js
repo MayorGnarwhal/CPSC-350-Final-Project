@@ -22,7 +22,7 @@ const { fetchUser, fetchAllUsers, updateUser } = require("../controllers/user_me
 const { init } = require("../controllers/initial_request");
 const { fetchImage } = require("../controllers/fetch_image");
 const { typeahead } = require("../controllers/typeahead_results");
-const { friendRequest } = require("../controllers/friend_methods");
+const { fetchFriends, friendRequest } = require("../controllers/friend_methods");
 
 
 // Routing class
@@ -61,6 +61,7 @@ const routes = {
         "/fetch_users": new Routing(fetchAllUsers, force_login),
         "/fetch_image": new Routing(fetchImage, null),
         "/typeahead_results": new Routing(typeahead, force_login),
+        "/fetch_friends": new Routing(fetchFriends, force_login),
     },
     "PUT": {
         "/update_user": new Routing(updateUser, force_login),

@@ -20,5 +20,6 @@
 
 .typeahead-result:hover {
     background-color: #0e76bb;
+    color: white;
     font-weight: bold;
 }

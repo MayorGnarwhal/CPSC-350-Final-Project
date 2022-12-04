@@ -4,6 +4,43 @@ const { queries } = require("../config/queries");
 const { DB } = require("../helpers/dbi");
 const { helpers } = require("../helpers/helpers");
 
+var fetchFriends = {
+    args: {
+        // TODO: Some sort of filters
+    },
+
+    func : async function(body, response) {
+        database.query(`
+            SELECT * FROM Friends
+            WHERE friend_status='ACCEPTED' AND (
+                initiator_user_id='${body.user_id}'
+                OR receiver_user_id='${body.user_id}'
+            )
+        `, function(error, friendRelations) {
+            if (error) {
+                response_handler.errorResponse(response, `DB ERROR: ${error}`, 404);
+            }
+            else {
+                const friendIDs = friendRelations.map(rel => {
+                    return rel.initiator_user_id !== body.user_id ? rel.initiator_user_id : rel.receiver_user_id
+                });
+
+                database.query(`
+                    ${queries.USER}
+                    WHERE user_id IN (?)
+                `, friendIDs, function(error, users) {
+                    if (error) {
+                        response_handler.errorResponse(response, `DB ERROR: ${error}`, 404);
+                    }
+                    else {
+                        response_handler.endResponse(response, JSON.stringify(users));
+                    }
+                });
+            }
+        });
+    },
+};
+
 var friendRequest = {
     args: {
         target_user_id: "required|number"
@@ -55,4 +92,4 @@ var friendRequest = {
     }
 };
 
-module.exports = { friendRequest };
+module.exports = { fetchFriends, friendRequest };

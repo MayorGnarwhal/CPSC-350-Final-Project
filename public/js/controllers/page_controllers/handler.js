@@ -1,8 +1,10 @@
+import { friendsController } from "./friends_controller";
 import { profileController } from "./profile_controller";
 
 const controllerMap = {
-    "profile": profileController
-}
+    "profile": profileController,
+    "friends": friendsController,
+};
 
 function bindPageController(pageName) {
     const controllerFunc = controllerMap[pageName];

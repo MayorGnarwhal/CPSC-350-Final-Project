@@ -16,6 +16,7 @@ var pages = {
         container.innerHTML = pageContent;
 
         this.applyPageSettings(container);
+        bindPageController(pageName);
 
         // Load controllers
         await partials.populateAllPartials();
@@ -25,7 +26,6 @@ var pages = {
         forms.handleAllForms();
         typeahead.handleAllTypeaheads();
 
-        bindPageController(pageName);
     },
 
     // not a huge fan of this

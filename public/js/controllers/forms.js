@@ -80,6 +80,17 @@ var forms = {
 
             this.handleMasterCheckbox(form);
         });
+
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeName === "FORM") {
+                        forms.handleFormSubmit(node);
+                    }
+                });
+            });
+        });
+        observer.observe(document.querySelector("#content"), {subtree: true, childList: true});;
     },
 
     handleMasterCheckbox : function(form) {
