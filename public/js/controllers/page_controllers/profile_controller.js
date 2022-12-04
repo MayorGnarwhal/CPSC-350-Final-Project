@@ -1,17 +1,7 @@
 import { ajax } from "../../ajax";
 
-async function fetchUser(args) {
-    const request = {
-        target_user_id: args.user_id,
-    };
-    const response = await ajax.sendRequest("POST", "fetch_user", request);
-    var user = await response.json();
-
-    return user;
-}
-
 async function profileController(args) {
-    var user = await fetchUser(args);
+    var user = await ajax.fetchUser(args.user_id);
 
     // populate page info
     document.querySelector("#user-name").textContent = user.first_name + " " + user.last_name;

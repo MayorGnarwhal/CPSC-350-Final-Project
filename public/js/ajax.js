@@ -75,6 +75,14 @@ var ajax = {
         return child;
     },
 
+    fetchUser : async function(target_user_id) {
+        const request = {
+            target_user_id: target_user_id
+        };
+        const response = await this.sendRequest("POST", "fetch_user", request);
+        return await response.json();
+    },
+
     handleServerResponse : async function(response) {
         var body;
         try {
