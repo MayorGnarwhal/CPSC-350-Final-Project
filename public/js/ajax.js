@@ -29,9 +29,8 @@ var ajax = {
         return await tryCacheOrFetch(path, options, "json");
     },
 
-    sendRequest : async function(method, route, request = {}) {
+    sendRequest : async function(method, route, request= {}) {
         request.session_id = getCookie("session_id");
-
         const url = serverUrl + route;
         const options = {
             method: method,

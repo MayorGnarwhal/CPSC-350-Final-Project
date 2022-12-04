@@ -5,17 +5,31 @@ const { database } =  require("../helpers/database");
 
 var fetchPosts = {
     args: {
-        "filter": "nullable",
+        "filter": "number",
     },
 
     func : async function(body, response) {
-        const whereClause = body.filter ? `WHERE user_id=${body.filter}` : "";
-
+        const whereClause = body.filter ? `WHERE A.user_id=${body.filter}` : "";
         // need to join tables for extra information
         //    first_name, last_name, username, count(reactions), groups[]
         // need to apply algorithm
         //    also need to do this elsewhere, and then pull from there?
-        database.query(`SELECT * FROM Posts ${whereClause}`, function(error, results) {
+        database.query(`SELECT post_id, A.user_id, alg_reaction, 
+                            alg_group, alg_time, algorithm_score,
+                            post_user_id, post_title, post_picture, 
+                            post_text, is_visible, is_global, 
+                            post_created_time, post_updated_time, 
+                            reaction_score, username, first_name, 
+                            last_name, password, email, 
+                            profile_picture, account_status, 
+                            is_admin, account_created_time
+                            FROM AlgorithmScores AS A
+                            JOIN Posts USING(post_id)
+                            JOIN PostReactionScores USING(post_id)
+                            JOIN Users AS U ON post_user_id = U.user_id
+                            ${whereClause}
+                            ORDER BY algorithm_score DESC;`, 
+        function(error, results) {
             if (error) {
                 response_handler.errorResponse(response, `Failed to fetch posts for user of id ${body.user_id}`, 404);
             }
