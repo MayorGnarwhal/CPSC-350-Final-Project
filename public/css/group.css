@@ -1,3 +1,5 @@
-.top-space {
-    height:50%;
+.center-btn {
+    display: flex;  
+    justify-content: center;  
+    align-items: center; 
 }
