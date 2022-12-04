@@ -97,7 +97,7 @@ var ajax = {
 
         // response has page (redirect to page)
         if (body.page) {
-            pages.loadPage(body.page);
+            pages.loadPage(body.page, body.page_args || {});
         }
 
         return body;

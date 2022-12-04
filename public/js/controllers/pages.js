@@ -9,14 +9,14 @@ import { typeahead } from "./typeahead";
 import { bindPageController } from "./page_controllers/handler";
 
 var pages = {
-    loadPage : async function(pageName) {
+    loadPage : async function(pageName, pageArgs = {}) {
         // Populate body with page contents
         const container = document.body.querySelector("#content");
         const pageContent = await ajax.fetchPage(pageName);
         container.innerHTML = pageContent;
 
         this.applyPageSettings(container);
-        bindPageController(pageName);
+        bindPageController(pageName, pageArgs);
 
         // Load controllers
         await partials.populateAllPartials();

@@ -2,25 +2,37 @@ const { response_handler } = require("../helpers/response_handler");
 const { database } = require("../helpers/database");
 const { queries } = require("../config/queries");
 const { file } = require("../helpers/file");
+const { DB } = require("../helpers/dbi");
 
 const updateIgnoreColumns = ["session_id", "user_id", "target_user_id", "profile_picture"];
 
 var fetchUser = {
     args: {
-        "target_user_id": "required|number",
+        "target_user_id": "number",
     },
 
-    // this returns sensitive information, but lets ignore that
-    //    join tables to get friend count
     func : async function(body, response) {
-        database.query(`${queries.USER} WHERE user_id=${body.target_user_id}`, function(error, result) {
-            if (error) {
-                response_handler.errorResponse(response, `DB Error: ${error}`, 400);
+        // try by target user id first
+        var [error, user] = await DB.getUserById(body.target_user_id);
+        if (error) {
+            response_handler.errorResponse(response, `DB ERROR: ${error}`, 400);
+        }
+        else {
+            if (user === undefined) {
+                // try user from session id
+                [error, user] = await DB.getUserBySession(body.session_id);
+                if (error) {
+                    response_handler.errorResponse(response, `DB ERROR: ${error}`, 400);
+                }
+            }
+
+            if (user !== undefined) {
+                response_handler.endResponse(response, JSON.stringify(user), 200);
             }
             else {
-                response_handler.endResponse(response, JSON.stringify(result), 200);
+                response.errorResponse(response, "Cannot find user", 404);
             }
-        });
+        }
     }
 };
 

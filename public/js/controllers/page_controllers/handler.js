@@ -6,10 +6,10 @@ const controllerMap = {
     "friends": friendsController,
 };
 
-function bindPageController(pageName) {
+function bindPageController(pageName, args) {
     const controllerFunc = controllerMap[pageName];
     if (controllerFunc) {
-        controllerFunc();
+        controllerFunc(args);
     }
 }
 
