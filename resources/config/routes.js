@@ -49,7 +49,7 @@ const routes = {
         "/fetch_page": new Routing(fetchPage, null),
     },
     "DELETE": {
-
+        
     },
 };
 
