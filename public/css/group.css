@@ -3,3 +3,7 @@
     justify-content: center;  
     align-items: center; 
 }
+
+.space {
+    margin: 0 5px 5px;
+}
