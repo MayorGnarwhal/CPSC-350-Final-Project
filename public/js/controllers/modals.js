@@ -11,10 +11,15 @@ var modals = {
 
     handleModalButton : function(button) {
         const modal = document.querySelector(button.getAttribute("data-target"));
+        console.log(button, modal);
 
-        button.addEventListener("click", function() {
-            modal.style.display = "block";
-        });
+        if (modal) {
+            button.addEventListener("click", function(event) {
+                event.preventDefault();
+
+                modal.style.display = "block";
+            });
+        }
     },
 
     handleAllModals : function() {
@@ -32,7 +37,7 @@ var modals = {
             this.handleModalButton(button);
         });
 
-        // addMutationObserver
+        addMutationObserver(undefined, "button[data-toggle='modal']", this.handleModalButton);
     },
 
     errorModal : function(errorMessage, statusCode) {
