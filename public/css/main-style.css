@@ -190,9 +190,10 @@ textarea {
     margin-right: 10px;
 }
 
-#no-bullets li{
+.nobull {
     list-style-type: none;
 }
-#no-bullets ul{
-    list-style-type: none;
+
+.vertical-center {
+    align-items: center
 }
