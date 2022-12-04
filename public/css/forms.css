@@ -33,3 +33,9 @@ label {
 .master-checkbox div:not(.master) {
     padding-left: 1em;
 }
+
+
+.center-radio{
+    margin: auto;
+    justify-content: center;
+}
