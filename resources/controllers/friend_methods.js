@@ -112,6 +112,39 @@ var friendRequest = {
     }
 };
 
+var acceptFriend = {
+    args: {
+        target_user_id: "required|number",
+    },
+
+    func: async function(body, response) {
+        var [error, friendship] = await DB.getFriendship(body.user_id, body.target_user_id, `friend_status='PENDING'`);
+        if (error) {
+            response_handler.errorResponse(response, `DB ERROR: ${error}`, 404);
+        }
+        else if (friendship === undefined) {
+            response_handler.errorResponse(response, "No existing friend request", 401);
+        }
+        else {
+            database.query(`
+                UPDATE Friends
+                SET friend_status='ACCEPTED'
+                WHERE (
+                    initiator_user_id='${friendship.initiator_user_id}'
+                    AND receiver_user_id='${friendship.receiver_user_id}'
+                )
+            `, function(error, results) {
+                if (error) {
+                    response_handler.errorResponse(response, `DB ERROR: ${error}`, 401);
+                }
+                else {
+                    response_handler.endResponse(response, `{"page": "friends"}`, 201);
+                }
+            });
+        }
+    }
+};
+
 var blockFriend = {
     args: {
         target_user_id: "required|number",
@@ -129,7 +162,7 @@ var blockFriend = {
             const friendStatus = friendship.initiator_user_id === body.user_id ? "INITIATOR_BLOCKED" : "RECIEVER_BLOCKED";
             database.query(`
                 UPDATE Friends
-                SET action_type='BLOCK', friend_status='${friendStatus}'
+                SET action_type='BLOCKED', friend_status='${friendStatus}'
                 WHERE (
                     initiator_user_id='${friendship.initiator_user_id}'
                     AND receiver_user_id='${friendship.receiver_user_id}'
@@ -146,4 +179,4 @@ var blockFriend = {
     }
 };
 
-module.exports = { fetchFriends, friendRequest, blockFriend };
+module.exports = { fetchFriends, friendRequest, acceptFriend, blockFriend };
