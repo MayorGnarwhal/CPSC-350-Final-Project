@@ -22,7 +22,7 @@ const { fetchUser, fetchAllUsers, updateUser, viewProfile } = require("../contro
 const { init } = require("../controllers/initial_request");
 const { fetchImage } = require("../controllers/fetch_image");
 const { typeahead } = require("../controllers/typeahead_results");
-const { fetchFriends, friendRequest, blockFriend } = require("../controllers/friend_methods");
+const { fetchFriends, friendRequest, acceptFriend, blockFriend } = require("../controllers/friend_methods");
 
 
 // Routing class
@@ -67,6 +67,7 @@ const routes = {
     "PUT": {
         "/update_user": new Routing(updateUser, force_login),
         "/friend_request": new Routing(friendRequest, force_login),
+        "/accept_friend": new Routing(acceptFriend, force_login),
     },
     "DELETE": {
         "/remove_friend": new Routing(blockFriend, force_login),

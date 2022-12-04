@@ -1,9 +1,8 @@
 import { ajax } from "../../ajax";
 
 const userFramePartialPath = "partials/user_preview.html";
-const friendOptionsPartialPath = "partials/options/friend_actions.html";
 
-async function populateFriendList(requestArgs) {
+async function populateFriendList(requestArgs, partialName = "friend_actions") {
     const response = await ajax.sendRequest("POST", "fetch_friends", requestArgs);
     const friends = await response.json();
     const friendsList = document.querySelector("#friend-list");
@@ -15,10 +14,12 @@ async function populateFriendList(requestArgs) {
         noFriendsMessage.classList.add("hidden");
         friendsList.classList.remove("hidden");
 
+        const optionPartialPath = `partials/options/${partialName}.html`;
+
         friends.forEach(async friend => {
             const frame = await ajax.fetchHtmlAndAppend(userFramePartialPath, friendsList);
             const optionsFrame = frame.querySelector(".preview-options");
-            await ajax.fetchHtmlAndInsert(friendOptionsPartialPath, optionsFrame);
+            await ajax.fetchHtmlAndInsert(optionPartialPath, optionsFrame);
             optionsFrame.querySelector("input[type='hidden']").value = friend.user_id;
     
             frame.querySelector("#name").textContent = friend.first_name + " " + friend.last_name;
@@ -45,7 +46,7 @@ async function friendsController() {
                 "is_initiator": button.getAttribute("data-initiator"),
             };
 
-            populateFriendList(request);
+            populateFriendList(request, button.getAttribute("data-partial"));
         });
     });
 }
