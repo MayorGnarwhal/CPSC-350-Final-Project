@@ -32,7 +32,7 @@ var fetchFriends = {
                     database.query(`
                         ${queries.USER}
                         WHERE user_id IN (?)
-                    `, friendIDs, function(error, users) {
+                    `, [friendIDs], function(error, users) {
                         if (error) {
                             response_handler.errorResponse(response, `DB ERROR: ${error}`, 404);
                         }

@@ -6,7 +6,6 @@ const friendOptionsPartialPath = "partials/options/friend_actions.html";
 async function friendsController() {
     const response = await ajax.sendRequest("POST", "fetch_friends");
     const friends = await response.json();
-
     const friendsList = document.querySelector("#friend-list");
 
     if (Object.keys(friends).length > 0) {
