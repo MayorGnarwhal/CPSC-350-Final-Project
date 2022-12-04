@@ -13,7 +13,6 @@ var DB = {
 
         try {
             response = await query(query_string);
-            console.log(response);
             return [undefined, response[0]];
         }
         catch(error) {

@@ -17,3 +17,8 @@
     margin: auto;
     margin-bottom:  12px;
 }
+
+#stats {
+    padding-left: 10px;
+    font-style: italic;
+}

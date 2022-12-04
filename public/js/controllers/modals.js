@@ -1,3 +1,5 @@
+import { addMutationObserver } from "../observer";
+
 var modals = {
     queryModalButtons : function() {
         return document.querySelectorAll("[data-toggle=modal]");
@@ -29,6 +31,8 @@ var modals = {
         this.queryModalButtons().forEach(button => {
             this.handleModalButton(button);
         });
+
+        // addMutationObserver
     },
 
     errorModal : function(errorMessage, statusCode) {

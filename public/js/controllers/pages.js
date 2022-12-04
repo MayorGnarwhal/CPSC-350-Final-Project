@@ -16,7 +16,7 @@ var pages = {
         container.innerHTML = pageContent;
 
         this.applyPageSettings(container);
-        bindPageController(pageName, pageArgs);
+        await bindPageController(pageName, pageArgs);
 
         // Load controllers
         await partials.populateAllPartials();
