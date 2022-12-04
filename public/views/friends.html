@@ -3,15 +3,27 @@
 </div>
 
 <div class="content">
-    <div style="text-align: right; margin-bottom: 16px">
+    <div id="friend-page-buttons" class="row-3 tabs">
+        <button class="btn btn-primary" data-status="ACCEPTED">
+            <span class="fa-solid fa-user-group"></span> Friends
+        </button>
+        <button class="btn btn-primary" data-status="PENDING" data-initiator="false">
+            <span class="fa-solid fa-spinner"></span> Pending Friend Requests
+        </button>
+        <button class="btn btn-primary" data-status="PENDING" data-initiator="true">
+            <span class="fa-solid fa-right-from-bracket"></span> Outgoing Friend Requests
+        </button>
+    </div>
+
+    <div style="text-align: right; margin: 16px 0">
         <div class="btn btn-primary" data-toggle="modal" data-target="#add-friend-modal">
             <span class="fas fa-plus"></span> Add Friends
         </div>
     </div>
-
     
-    <div id="friend-list">
-        
+    <div id="friend-list"></div>
+    <div id="no-friends-message">
+        <h1 style="text-align: center">Nothing to Display</h1>
     </div>
 </div>
 
@@ -31,10 +43,10 @@
             <hr>
         </div>
         <div class="modal-footer" style="text-align: right">
-            <button type="submit" class="btn btn-primary" data-action="/profile">
+            <button type="submit" class="btn btn-primary" data-action="/view_profile" data-method="POST">
                 View Profile
             </button>
-            <button type="submit" class="btn btn-success" data-action="/friend_request">
+            <button type="submit" class="btn btn-success" data-action="/friend_request" data-method="PUT">
                 Send Friend Request
             </button>
         </div>

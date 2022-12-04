@@ -1,21 +1,36 @@
 const { response_handler } = require("../helpers/response_handler");
 const { database } = require("../helpers/database");
+const { helpers } = require("../helpers/helpers");
 const { queries } = require("../config/queries");
 const { DB } = require("../helpers/dbi");
-const { helpers } = require("../helpers/helpers");
 
 var fetchFriends = {
     args: {
         // TODO: Some sort of filters
+        "friend_status": "string", // ACCEPTED, PENDING, BLOCKED
+        "is_initiator": "string" // bool
     },
 
     func : async function(body, response) {
+        const friendStatus = body.friend_status || "ACCEPTED";
+
+        const initiatorCondition = `initiator_user_id=${body.user_id}`;
+        const recieverCondition = `receiver_user_id='${body.user_id}'`;
+
+        var condition;
+        if (body.is_initiator === "true") {
+            condition = initiatorCondition;
+        }
+        else if (body.is_initiator === "false") {
+            condition = recieverCondition;
+        }
+        else {
+            condition = initiatorCondition + " OR " + recieverCondition;
+        }
+
         database.query(`
             SELECT * FROM Friends
-            WHERE friend_status='ACCEPTED' AND (
-                initiator_user_id='${body.user_id}'
-                OR receiver_user_id='${body.user_id}'
-            )
+            WHERE friend_status='${friendStatus}' AND (${condition})
         `, function(error, friendRelations) {
             if (error) {
                 response_handler.errorResponse(response, `DB ERROR: ${error}`, 404);

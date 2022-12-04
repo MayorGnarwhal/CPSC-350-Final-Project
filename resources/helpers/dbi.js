@@ -31,7 +31,7 @@ var DB = {
     getUserBySession : async function(session_id) {
         var [error, session] = await this.query(`SELECT user_id FROM Sessions WHERE session_uuid='${session_id}'`);
         if (error || session === undefined) {
-            return ["User not logged or session expired", undefined];
+            return ["User not logged in or session expired", undefined];
         }
         else {
             return this.getUserById(session.user_id);
