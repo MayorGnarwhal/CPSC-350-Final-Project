@@ -5,6 +5,10 @@
     padding-top: 16px;
 }
 
+.post-frame {
+    max-width: 1000px;
+    margin: auto;
+}
 .post {
     border: solid black 1px;
     margin-top: 10px;
@@ -52,6 +56,7 @@ img {
 .post-image-frame {
     max-width: 50%;
     max-height: 350px;
+    min-width: 200px;
     float: right;
 }
 #post-image {
@@ -86,6 +91,7 @@ img {
 
 .post-form-container {
     width: 80%;
+    max-width: 1200px;
     margin: auto;
     padding-top: 16px;
 }

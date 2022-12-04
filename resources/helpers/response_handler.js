@@ -8,7 +8,9 @@ var response_handler = {
 
     endResponse : function(response, messageBody, statusCode = 200) {
         response.statusCode = statusCode;
-        response.write(messageBody);
+        if (messageBody !== undefined) {
+            response.write(messageBody);
+        }
         response.end();
     },
 };

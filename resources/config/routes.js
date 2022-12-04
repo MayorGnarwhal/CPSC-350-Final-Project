@@ -18,8 +18,11 @@ const { logout } = require("../controllers/logout");
 const { signup } = require("../controllers/signup");
 const { login } = require("../controllers/login");
 const { storePost } = require("../controllers/store_post");
-const { fetchUser, updateUser } = require("../controllers/user_methods");
+const { fetchUser, fetchAllUsers, updateUser, viewProfile } = require("../controllers/user_methods");
 const { init } = require("../controllers/initial_request");
+const { fetchImage } = require("../controllers/fetch_image");
+const { typeahead } = require("../controllers/typeahead_results");
+const { fetchFriends, friendRequest, blockFriend } = require("../controllers/friend_methods");
 
 
 // Routing class
@@ -55,12 +58,18 @@ const routes = {
         "/fetch_posts": new Routing(fetchPosts, force_login),
         "/store_post": new Routing(storePost, force_login),
         "/fetch_user": new Routing(fetchUser, force_login),
+        "/fetch_users": new Routing(fetchAllUsers, force_login),
+        "/fetch_image": new Routing(fetchImage, null),
+        "/typeahead_results": new Routing(typeahead, force_login),
+        "/fetch_friends": new Routing(fetchFriends, force_login),
+        "/view_profile": new Routing(viewProfile, force_login),
     },
     "PUT": {
         "/update_user": new Routing(updateUser, force_login),
+        "/friend_request": new Routing(friendRequest, force_login),
     },
     "DELETE": {
-
+        "/remove_friend": new Routing(blockFriend, force_login),
     },
 };
 

@@ -20,7 +20,7 @@ var storePost = {
             post_user_id: body.user_id,
             post_title: body.title,
             post_picture: imagePath,
-            post_text: body.caption,
+            post_text: body.caption, // can we add more space in database?
             is_visible: 1,
             is_global: global ? 1 : 0, 
             post_created_time: now,

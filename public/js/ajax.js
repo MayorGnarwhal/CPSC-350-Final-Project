@@ -1,6 +1,5 @@
 import { pages } from "./controllers/pages";
 import { modals } from "./controllers/modals";
-// import { session } from "./session";
 import { setCookie, getCookie } from "./cookies";
 
 var serverUrl = "http://cpsc.roanoke.edu:3003/";
@@ -31,7 +30,6 @@ var ajax = {
     },
 
     sendRequest : async function(method, route, request = {}) {
-        // request.user_id = 1; // replace with session id
         request.session_id = getCookie("session_id");
 
         const url = serverUrl + route;
@@ -55,6 +53,16 @@ var ajax = {
         return await response.text();
     },
 
+    fetchImage : async function(imagePath) {
+        const request = {
+            src: imagePath
+        };
+
+        const response = await this.sendRequest("POST", "fetch_image", request);
+        const buffer = await response.json();
+        return "data:image/png;base64," + toBase64(buffer.data);
+    },
+
     fetchHtmlAndInsert : async function(path, container) {
         container.innerHTML = await this.fetchAsText(path);
     },
@@ -67,13 +75,27 @@ var ajax = {
         return child;
     },
 
+    fetchUser : async function(target_user_id) {
+        const request = {
+            target_user_id: target_user_id
+        };
+        const response = await this.sendRequest("POST", "fetch_user", request);
+        return await response.json();
+    },
+
     handleServerResponse : async function(response) {
-        const body = await response.json();
+        var body;
+        try {
+            body = await response.json();
+        }
+        catch {
+            return undefined;
+        }
 
         // response failed
         if (body.error) {
-            modals.errorModal(body.error);
-            return;
+            modals.errorModal(body.error, response.status);
+            return undefined;
         }
 
         // update session cache
@@ -83,8 +105,10 @@ var ajax = {
 
         // response has page (redirect to page)
         if (body.page) {
-            pages.loadPage(body.page);
+            pages.loadPage(body.page, body.page_args || {});
         }
+
+        return body;
     },
 
     sendRequestAndHandle : async function(...args) {
@@ -97,5 +121,11 @@ var ajax = {
         await this.sendRequestAndHandle("POST", "init");
     }
 };
+
+function toBase64(arr) {
+    return btoa(
+       arr.reduce((data, byte) => data + String.fromCharCode(byte), '')
+    );
+}
 
 export { ajax };

@@ -4,17 +4,19 @@ import { links } from "./links";
 import { modals } from "./modals";
 import { partials } from "./partials";
 import { posts } from "./posts";
+import { typeahead } from "./typeahead";
 
 import { bindPageController } from "./page_controllers/handler";
 
 var pages = {
-    loadPage : async function(pageName) {
+    loadPage : async function(pageName, pageArgs = {}) {
         // Populate body with page contents
         const container = document.body.querySelector("#content");
         const pageContent = await ajax.fetchPage(pageName);
         container.innerHTML = pageContent;
 
         this.applyPageSettings(container);
+        bindPageController(pageName, pageArgs);
 
         // Load controllers
         await partials.populateAllPartials();
@@ -22,8 +24,8 @@ var pages = {
         modals.handleAllModals();
         links.handleAllLinks();
         forms.handleAllForms();
+        typeahead.handleAllTypeaheads();
 
-        bindPageController(pageName);
     },
 
     // not a huge fan of this

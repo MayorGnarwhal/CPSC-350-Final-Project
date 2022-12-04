@@ -16,7 +16,7 @@ var router = {
 
             // verify argument types
             const types = requirements.filter(elem => validateTypes.includes(elem));
-            const violation = types.find(type => !(type === typeof body[arg] || type === typeof parseFloat(body[arg])));
+            const violation = types.find(type => body[arg] && !(type === typeof body[arg] || type === typeof parseFloat(body[arg])));
             if (violation !== undefined) {
                 return [false, `Request argument '${arg}' of invalid type (${typeof body[arg]}). Should be ${violation}`];
             }

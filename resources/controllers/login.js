@@ -28,23 +28,28 @@ var login = {
     },
 
     func : async function(body, response) {
-        const [error, results] = await validatePassword(body.username, body.password);
-        if (!error) {
-            const sessionID = crypto.randomUUID();
-            const [error] = await DB.query(`
-                INSERT INTO Sessions (user_id, session_uuid)
-                VALUES ('${results.user_id}', '${sessionID}')
-            `);
-
-            if (error && error.code !== "ER_DUP_ENTRY") {
-                response_handler.errorResponse(response, `DB Error: ${error}`, 400);
-            }
-            else {
-                response_handler.endResponse(response, `{"page": "index", "session_id": "${sessionID}"}`, 201);
-             }       
+        var [error, user] = await validatePassword(body.username, body.password);
+        if(error) {
+            response_handler.errorResponse(response, `Invalid credentials for login: ${error}`, 401);
         }
         else {
-            response_handler.errorResponse(response, `Invalid credentials for login: ${error}`, 401);
+            var [error, session] = await DB.getSessionByUser(user.user_id);
+            if (session) { // session already exists
+                response_handler.endResponse(response, `{"page": "index", "session_id": "${session.session_uuid}"}`, 201);
+            }
+            else { // session does not exist - create new
+                const sessionID = crypto.randomUUID();
+                var [error, session] = await DB.query(`
+                    INSERT INTO Sessions (user_id, session_uuid)
+                    VALUES ('${user.user_id}', '${sessionID}')
+                `);
+                if (error) {
+                    response_handler.errorResponse(response, `DB Error: ${error}`, 400);
+                }
+                else {
+                    response_handler.endResponse(response, `{"page": "index", "session_id": "${sessionID}"}`, 201);
+                }
+            }
         }
     }
 };

@@ -14,6 +14,7 @@ var init = {
         }
         else {
             response_handler.endResponse(response, '{"page": "index"}', 200);
+            // response_handler.endResponse(response, '{"page": "friends"}', 200);
         }
     }
 };

@@ -16,6 +16,12 @@ body {
 #content {
     margin-top: 50px;
 }
+.content {
+    width: 80%;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px 0;
+}
 textarea {
     resize: vertical;
 }
@@ -34,6 +40,9 @@ textarea {
 }
 .underline {
     text-decoration: underline;
+}
+.hidden {
+    display: none;
 }
 .italicize {
     font-style: italic;
@@ -67,42 +76,6 @@ textarea {
 .left-seperator {
     padding-left: 20px;
     border-left: solid black 3px;
-}
-
-/* MODAL STYLING */
-.modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    background: #e3e3e3;
-    width: 35%;
-    transform: translate(-50%, -50%);
-    border-radius: 16px;
-    z-index: 1000;
-}
-#error-modal {
-    z-index: 1001;
-}
-.modal .modal-header {
-    padding: 0 10px;
-}
-.modal .close {
-    float: right;
-    background: none;
-    border: none;
-    font-size: 22px;
-    font-weight: bold;
-    color: red;
-}
-.modal .close:hover {
-    cursor: pointer;
-}
-.modal-body {
-    padding: 0 12px;
-}
-.modal-footer {
-    padding: 10px;
 }
 
 /* ROW STYLING */

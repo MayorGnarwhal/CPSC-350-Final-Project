@@ -1,0 +1,25 @@
+.typeahead-result-holder {
+    position: relative;
+    z-index: 999;
+}
+
+.typeahead-buffer {
+    position: absolute;
+    width: 100%;
+}
+
+.typeahead-result {
+    background-color: #c2c1c1;
+}
+
+.typeahead-result {
+    margin: 0;
+    font-size: 24px;
+    padding: 4px;
+}
+
+.typeahead-result:hover {
+    background-color: #0e76bb;
+    color: white;
+    font-weight: bold;
+}

@@ -22,10 +22,19 @@ var file = {
         try {
             return await promise;
         }
-        catch {
+        catch(error) {
             return null;
         }
     },
+
+    fetch : async function(filePath) {
+        try {
+            return fs.readFileSync(filePath);
+        }
+        catch {
+            return fs.readFileSync("public/storage/images/default-profile-picture.jpg");
+        }
+    }
 };
 
 module.exports = { file };

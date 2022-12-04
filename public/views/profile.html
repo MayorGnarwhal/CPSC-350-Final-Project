@@ -1,4 +1,3 @@
-<script type="module" src="js/controllers/page_controllers/profile_controller.js"></script>
 <div class="header row-2">
     <div class="right-flex">
         <div id="profile-picture-frame">
@@ -13,9 +12,19 @@
         </div>
     </div>
     <div class="left-seperator">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#edit-profile-modal">
-            <span class="fas fa-edit"></span> Edit Profile
-        </button>
+        <div id="local-user-options" class="hidden">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#edit-profile-modal">
+                <span class="fas fa-edit"></span> Edit Profile
+            </button>
+        </div>
+        <div id="friend-user-options" class="hidden">
+            <form action="/remove_friend" method="DELETE">
+                <input type="hidden" name="target_user_id">
+                <button type="submit" class="btn btn-danger">
+                    <span class="fa-solid fa-ban"></span> Block
+                </button>
+            </form>
+        </div>
         <p id="friend-count">72 Friends</p>
     </div>
 </div>

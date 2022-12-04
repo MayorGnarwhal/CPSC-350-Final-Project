@@ -23,3 +23,13 @@
     font-style: italic;
     font-size: 16px;
 }
+
+/* USER PREVIEW PARTIAL */
+.user-preview {
+    border: 1px solid black;
+    border-radius: 16px;
+    padding: 6px 10px;
+    max-width: 600px;
+    margin: auto;
+    margin-bottom:  12px;
+}
