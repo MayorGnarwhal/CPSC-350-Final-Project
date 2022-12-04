@@ -185,3 +185,11 @@ textarea {
     background-color: #c29302;
     background-image: linear-gradient(to bottom,#FCBF06,#c29302);
 }
+
+
+.row-2-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 20px;
+    row-gap: 20px;
+}

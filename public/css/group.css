@@ -4,7 +4,7 @@
     align-items: center; 
 }
 
-.row-2-2 {
+.row-2-22 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 20px;
