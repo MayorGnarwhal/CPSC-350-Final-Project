@@ -187,15 +187,12 @@ textarea {
 }
 
 .nobull {
-    list-style-type: square;
+    list-style-type: none;
 }
 
 .vertical-center {
     align-items: center
 }
-
-.row-2-2 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: 20px;
+.spacing {
+    margin-right: 10px;
 }
