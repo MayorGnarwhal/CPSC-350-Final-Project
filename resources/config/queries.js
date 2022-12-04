@@ -9,6 +9,8 @@ var queries = {
     USER: `SELECT * FROM Users`,
 
     SESSION: `SELECT * FROM Sessions`,
+
+    FRIENDSHIP: `SELECT * FROM Friends`
 };
 
 module.exports = { queries };

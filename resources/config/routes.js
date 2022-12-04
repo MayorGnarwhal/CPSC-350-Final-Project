@@ -22,7 +22,7 @@ const { fetchUser, fetchAllUsers, updateUser } = require("../controllers/user_me
 const { init } = require("../controllers/initial_request");
 const { fetchImage } = require("../controllers/fetch_image");
 const { typeahead } = require("../controllers/typeahead_results");
-const { fetchFriends, friendRequest } = require("../controllers/friend_methods");
+const { fetchFriends, friendRequest, removeFriend } = require("../controllers/friend_methods");
 
 
 // Routing class
@@ -68,7 +68,7 @@ const routes = {
         "/friend_request": new Routing(friendRequest, force_login),
     },
     "DELETE": {
-
+        "/remove_friend": new Routing(removeFriend, force_login),
     },
 };
 

@@ -25,17 +25,22 @@ var fetchFriends = {
                     return rel.initiator_user_id !== body.user_id ? rel.initiator_user_id : rel.receiver_user_id
                 });
 
-                database.query(`
-                    ${queries.USER}
-                    WHERE user_id IN (?)
-                `, friendIDs, function(error, users) {
-                    if (error) {
-                        response_handler.errorResponse(response, `DB ERROR: ${error}`, 404);
-                    }
-                    else {
-                        response_handler.endResponse(response, JSON.stringify(users));
-                    }
-                });
+                if (friendIDs.length === 0) { // has no friends, next query would error
+                    response_handler.endResponse(response, "{}", 201);
+                }
+                else {
+                    database.query(`
+                        ${queries.USER}
+                        WHERE user_id IN (?)
+                    `, friendIDs, function(error, users) {
+                        if (error) {
+                            response_handler.errorResponse(response, `DB ERROR: ${error}`, 404);
+                        }
+                        else {
+                            response_handler.endResponse(response, JSON.stringify(users));
+                        }
+                    });
+                }
             }
         });
     },
@@ -92,4 +97,41 @@ var friendRequest = {
     }
 };
 
-module.exports = { fetchFriends, friendRequest };
+var removeFriend = {
+    args: {
+        friend_user_id: "required|number",
+    },
+
+    func: async function(body, response) {
+        var [error, friendship] = await DB.getFriendship(body.user_id, body.friend_user_id);
+        if (error) {
+            response_handler.errorResponse(response, `DB ERROR: ${error}`, 404);
+        }
+        else if (friendship === undefined) {
+            response_handler.errorResponse(response, "Friendship between users does not exist", 401);
+        }
+        else {
+            // console.log(friendship);
+            // response_handler.endResponse(response, JSON.stringify(friendship), 201);
+            const friendStatus = friendship.initiator_user_id === body.user_id ? "INITIATOR_BLOCKED" : "RECIEVER_BLOCKED";
+            database.query(`
+                UPDATE Friends
+                SET action_type='BLOCK', friend_status='${friendStatus}'
+                WHERE (
+                    initiator_user_id='${friendship.initiator_user_id}'
+                    AND receiver_user_id='${friendship.receiver_user_id}'
+                )
+            `, function(error, results) {
+                if (error) {
+                    response_handler.errorResponse(response, `DB ERROR: ${error}`, 401);
+                }
+                else {
+                    console.log(error, results);
+                    response_handler.endResponse(response, `{"page": "friends"}`, 201);
+                }
+            });
+        }
+    }
+};
+
+module.exports = { fetchFriends, friendRequest, removeFriend };

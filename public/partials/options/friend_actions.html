@@ -1,12 +1,11 @@
 <form action="" method="POST">
-    <div class="row-3">
+    <input type="hidden" name="friend_user_id">
+
+    <div class="row-2">
         <button type="submit" class="btn btn-primary" data-action="/profile">
             <span class="fa-solid fa-eye"></span> View Profile
         </button>
-        <button type="submit" class="btn btn-warning">
-            <span class="fa-sharp fa-solid fa-user-minus"></span> Remove Friend
-        </button>
-        <button type="submit" class="btn btn-danger">
+        <button type="submit" class="btn btn-danger" data-action="/remove_friend" data-method="DELETE">
             <span class="fa-solid fa-ban"></span> Block
         </button>
     </div>

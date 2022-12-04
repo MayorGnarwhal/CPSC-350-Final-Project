@@ -9,15 +9,18 @@ async function friendsController() {
 
     const friendsList = document.querySelector("#friend-list");
 
-    friends.forEach(async friend => {
-        const frame = await ajax.fetchHtmlAndAppend(userFramePartialPath, friendsList);
-        const optionsFrame = frame.querySelector(".preview-options");
-        await ajax.fetchHtmlAndInsert(friendOptionsPartialPath, optionsFrame);
-
-        frame.querySelector("#name").textContent = friend.first_name + " " + friend.last_name;
-        frame.querySelector("#username").textContent = "@" + friend.username;
-        frame.querySelector("#profile-picture").src = await ajax.fetchImage(friend.profile_picture);
-    });
+    if (Object.keys(friends).length > 0) {
+        friends.forEach(async friend => {
+            const frame = await ajax.fetchHtmlAndAppend(userFramePartialPath, friendsList);
+            const optionsFrame = frame.querySelector(".preview-options");
+            await ajax.fetchHtmlAndInsert(friendOptionsPartialPath, optionsFrame);
+            optionsFrame.querySelector("input[type='hidden']").value = friend.user_id;
+    
+            frame.querySelector("#name").textContent = friend.first_name + " " + friend.last_name;
+            frame.querySelector("#username").textContent = "@" + friend.username;
+            frame.querySelector("#profile-picture").src = await ajax.fetchImage(friend.profile_picture);
+        });
+    }
 }
 
 export { friendsController };

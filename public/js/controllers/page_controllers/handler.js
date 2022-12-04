@@ -13,4 +13,4 @@ function bindPageController(pageName) {
     }
 }
 
-export { bindPageController } ;
+export { bindPageController };
