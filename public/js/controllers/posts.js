@@ -23,8 +23,10 @@ var posts = {
         post.querySelector("#post-image").src = await ajax.fetchImage(postInfo.post_picture);
     },
 
-    populateAllPosts : async function() {
+    populateAllPosts : async function(args) {
+        var user = await ajax.fetchUser(args.user_id);
         const container = document.querySelector("#post-container"); // assumes only one container per page
+        container.setAttribute("data-filter",user.user_id);
         if (container) {
             this.fetchPosts(container).then(postInfo => {
                 if (!postInfo.error) {

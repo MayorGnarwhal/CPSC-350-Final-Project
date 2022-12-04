@@ -20,7 +20,7 @@ var pages = {
 
         // Load controllers
         await partials.populateAllPartials();
-        await posts.populateAllPosts();
+        await posts.populateAllPosts(pageArgs);
         modals.handleAllModals();
         links.handleAllLinks();
         forms.handleAllForms();

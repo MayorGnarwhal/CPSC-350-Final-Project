@@ -9,7 +9,7 @@ var fetchPosts = {
     },
 
     func : async function(body, response) {
-        const whereClause = body.filter ? `WHERE post_user_id=${body.filter}` : "";
+        const whereClause = body.filter ? `WHERE user_id=${body.filter}` : "";
 
         // need to join tables for extra information
         //    first_name, last_name, username, count(reactions), groups[]
