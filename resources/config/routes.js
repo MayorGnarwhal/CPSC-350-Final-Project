@@ -18,7 +18,7 @@ const { logout } = require("../controllers/logout");
 const { signup } = require("../controllers/signup");
 const { login } = require("../controllers/login");
 const { storePost } = require("../controllers/store_post");
-const { fetchUser, fetchAllUsers, updateUser } = require("../controllers/user_methods");
+const { fetchUser, fetchAllUsers, updateUser, viewProfile } = require("../controllers/user_methods");
 const { init } = require("../controllers/initial_request");
 const { fetchImage } = require("../controllers/fetch_image");
 const { typeahead } = require("../controllers/typeahead_results");
@@ -62,6 +62,7 @@ const routes = {
         "/fetch_image": new Routing(fetchImage, null),
         "/typeahead_results": new Routing(typeahead, force_login),
         "/fetch_friends": new Routing(fetchFriends, force_login),
+        "/view_profile": new Routing(viewProfile, force_login),
     },
     "PUT": {
         "/update_user": new Routing(updateUser, force_login),

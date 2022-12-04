@@ -97,4 +97,26 @@ var updateUser = {
     }
 };
 
-module.exports = { fetchUser, fetchAllUsers, updateUser };
+var viewProfile = {
+    args: {
+        target_user_id: "required|number"
+    },
+
+    func: async function(body, response) {
+        var [error, user] = await DB.getUserById(body.target_user_id);
+        if (error) {
+            response_handler.errorResponse(response, `DB ERROR: ${error}`);
+        }
+        else {
+            const data = {
+                page: "profile",
+                page_args: {
+                    user_id: body.target_user_id
+                }
+            };
+            response_handler.endResponse(response, JSON.stringify(data), 200);
+        }
+    }
+};
+
+module.exports = { fetchUser, fetchAllUsers, updateUser, viewProfile };

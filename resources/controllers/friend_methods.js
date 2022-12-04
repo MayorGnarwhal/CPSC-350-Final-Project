@@ -99,11 +99,11 @@ var friendRequest = {
 
 var blockFriend = {
     args: {
-        friend_user_id: "required|number",
+        target_user_id: "required|number",
     },
 
     func: async function(body, response) {
-        var [error, friendship] = await DB.getFriendship(body.user_id, body.friend_user_id);
+        var [error, friendship] = await DB.getFriendship(body.user_id, body.target_user_id);
         if (error) {
             response_handler.errorResponse(response, `DB ERROR: ${error}`, 404);
         }
