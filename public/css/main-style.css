@@ -186,14 +186,16 @@ textarea {
     background-image: linear-gradient(to bottom,#FCBF06,#c29302);
 }
 
-.spacing {
-    margin-right: 100px;
-}
-
 .nobull {
-    list-style-type: none;
+    list-style-type: square;
 }
 
 .vertical-center {
     align-items: center
+}
+
+.row-2-2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 20px;
 }
