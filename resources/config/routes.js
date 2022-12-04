@@ -23,6 +23,7 @@ const { init } = require("../controllers/initial_request");
 const { fetchImage } = require("../controllers/fetch_image");
 const { typeahead } = require("../controllers/typeahead_results");
 const { fetchFriends, friendRequest, acceptFriend, blockFriend } = require("../controllers/friend_methods");
+const { storeGroup, fetchGroups } = require("../controllers/group_methods");
 
 
 // Routing class
@@ -63,11 +64,13 @@ const routes = {
         "/typeahead_results": new Routing(typeahead, force_login),
         "/fetch_friends": new Routing(fetchFriends, force_login),
         "/view_profile": new Routing(viewProfile, force_login),
+        "/fetch_groups": new Routing(fetchGroups, force_login),
     },
     "PUT": {
         "/update_user": new Routing(updateUser, force_login),
         "/friend_request": new Routing(friendRequest, force_login),
         "/accept_friend": new Routing(acceptFriend, force_login),
+        "/store_group": new Routing(storeGroup, force_login),
     },
     "DELETE": {
         "/remove_friend": new Routing(blockFriend, force_login),

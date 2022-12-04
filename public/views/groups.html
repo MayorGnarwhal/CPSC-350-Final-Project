@@ -1,0 +1,61 @@
+<div class="header">
+    <h1 class="title">Groups</h1>
+</div>
+
+<div class="content">
+    <div style="text-align: right; margin: 16px 0">
+        <div class="btn btn-primary" data-toggle="modal" data-target="#add-group-modal">
+            <span class="fas fa-plus"></span> Create Group
+        </div>
+    </div>
+
+    <div id="group-list"></div>
+</div>
+
+
+<div class="modal" id="add-group-modal">
+    <form action="/store_group" method="PUT">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h1 class="underline">Create Group</h1>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="i-name">Group Name</label>
+                <input type="text" class="form-control" name="name" id="i-name">
+            </div>
+            <div class="form-group">
+                <label for="i-priority">Priority</label>
+                <div class="priority-select">
+                    <input type="radio" name="priority" id="pri-very-high" value="1">
+                    <label for="pri-very-high">Very High</label>  
+                    <input type="radio" name="priority" id="pri-high" value="2">
+                    <label for="pri-high">High</label>  
+                    <input type="radio" name="priority" id="pri-neutral" value="3">
+                    <label for="pri-neutral">Neutral</label>
+                    <input type="radio" name="priority" id="pri-low" value="4">
+                    <label for="pri-low">Low</label>  
+                    <input type="radio" name="priority" id="pri-very-low" value="5">
+                    <label for="pri-very-low">Very Low</label>  
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="typeahead-input" for="typeahead">Add Friends</label>
+                <div class="member-typeahead-container">
+                    <div class="typeahead" data-input="target_user_id"></div>
+                    <button class="btn btn-primary">
+                        <span class="fas fa-plus"></span>
+                    </button>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="modal-footer" style="text-align: right">
+            <button type="submit" class="btn btn-success">
+                Create Group
+            </button>
+        </div>
+    </form>
+</div>

@@ -13,6 +13,7 @@ var DB = {
 
         try {
             response = await query(query_string);
+            console.log(response);
             return [undefined, response[0]];
         }
         catch(error) {
@@ -53,7 +54,7 @@ var DB = {
                 OR (initiator_user_id='${user_id_2}' AND receiver_user_id='${user_id_1}')
             ) ${extraCondition ? "AND " + extraCondition : ""}
         `);
-    }
+    },
 };
 
 module.exports = { DB };

@@ -1,0 +1,19 @@
+#group-info {
+    margin: 0;
+    list-style: none;
+    padding-left: 8px;
+}
+
+.member-typeahead-container {
+    display: grid;
+    grid-template-columns: 9fr 1fr;
+}
+
+.group-preview {
+    border: 1px solid black;
+    border-radius: 16px;
+    padding: 6px 10px;
+    max-width: 600px;
+    margin: auto;
+    margin-bottom:  12px;
+}

@@ -10,7 +10,9 @@ var queries = {
 
     SESSION: `SELECT * FROM Sessions`,
 
-    FRIENDSHIP: `SELECT * FROM Friends`
+    FRIENDSHIP: `SELECT * FROM Friends`,
+
+    GROUPS: `SELECT * FROM Groups`,
 };
 
 module.exports = { queries };
