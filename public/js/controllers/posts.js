@@ -11,6 +11,7 @@ var posts = {
     },
 
     populatePost : async function(postInfo, container, pageName) {
+        // console.log(postInfo);
         const partialPath = "partials/post.html";
         const post = await ajax.fetchHtmlAndAppend(partialPath, container);
 
@@ -39,6 +40,12 @@ var posts = {
         post.querySelector("#downvote").addEventListener("click", function() {
             likesCount.textContent = parseInt(likesCount.textContent) - 1;
         });
+
+        const postVisibility = post.querySelector("#post-visibility");
+        if (!postInfo.is_visible) {
+            postVisibility.querySelector("input").value = "true";
+            postVisibility.querySelector("button").innerHTML = `<span class="fas fa-eye"></span> Show`
+        }
     },
 
     populateAllPosts : async function(pageName, args) {

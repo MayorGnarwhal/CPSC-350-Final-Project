@@ -20,9 +20,10 @@
                             <span class="fas fa-edit"></span> Edit
                         </button>
                     </div>
-                    <div>
-                        <button type="submit" class="btn btn-primary">
-                            <span class="fas fa-eye"></span> Hide
+                    <div id="post-visibility">
+                        <input type="hidden" name="is_visible" value="false">
+                        <button type="submit" class="btn btn-primary" data-action="/hide_post" data-method="PUT">
+                            <span class="fa-sharp fa-solid fa-eye-slash"></span> Hide
                         </button>
                     </div>
                     <div>

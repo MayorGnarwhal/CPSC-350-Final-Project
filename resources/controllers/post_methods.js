@@ -146,6 +146,31 @@ var deletePost = {
     }
 };
 
+var hidePost = {
+    args: {
+        post_id: "required|number",
+        is_visible: "required|string" // true or false
+    },
+
+    func: async function(body, response) {
+        database.query(`
+            UPDATE Posts
+            SET is_visible='${body.is_visible === "true" ? 1 : 0}'
+            WHERE post_id='${body.post_id}' AND post_user_id='${body.user_id}'
+        `, function(error, results) {
+            if (error) {
+                response_handler.errorResponse(response, `DB ERROR: ${error}`, 401);
+            }
+            else if (results.affectedRows === 0) {
+                response_handler.errorResponse(response, "Cannot update a post that is not your own");
+            }
+            else {
+                response_handler.endResponse(response, `{"page": "profile"}`, 201);
+            }
+        });
+    }
+};
+
 var postReaction = {
     args: {
         post_id: "required|number",
@@ -193,4 +218,4 @@ var postReaction = {
 };
 
 
-module.exports = { fetchPosts, storePost, deletePost, postReaction };
+module.exports = { fetchPosts, storePost, deletePost, hidePost, postReaction };
