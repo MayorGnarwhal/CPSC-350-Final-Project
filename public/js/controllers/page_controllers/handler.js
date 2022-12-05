@@ -2,7 +2,6 @@ import { profileController } from "./profile_controller";
 
 const controllerMap = {
     "profile": profileController,
-    "friend_profile": profileController,
 }
 
 function bindPageController(pageName) {
