@@ -15,13 +15,12 @@ var pages = {
         const container = document.body.querySelector("#content");
         const pageContent = await ajax.fetchPage(pageName);
         container.innerHTML = pageContent;
-
         this.applyPageSettings(container);
         await bindPageController(pageName, pageArgs);
 
         // Load controllers
         await partials.populateAllPartials();
-        await posts.populateAllPosts();
+        await posts.populateAllPosts(pageName, pageArgs);
         modals.handleAllModals();
         links.handleAllLinks();
         forms.handleAllForms();
