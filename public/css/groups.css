@@ -4,6 +4,10 @@
     padding-left: 8px;
 }
 
+#member-list {
+    margin-top: 24px;
+}
+
 .member-typeahead-container {
     display: grid;
     grid-template-columns: 8fr 2fr;

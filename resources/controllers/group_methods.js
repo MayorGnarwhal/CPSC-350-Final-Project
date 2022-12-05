@@ -200,4 +200,36 @@ var deleteGroup = {
     }
 };
 
-module.exports = { fetchGroups, viewGroup, fetchGroupMembers, createGroup, addToGroup, updateGroup, deleteGroup };
+var removeFromGroup = {
+    args: {
+        group_id: "required|number",
+        target_user_id: "required:number",
+    },
+
+    func: async function(body, response) {
+        const ownsGroup = await DB.userOwnsGroup(body.user_id, body.group_id);
+        if (!ownsGroup) {
+            return response_handler.errorResponse(response, "Cannot remember member from group you do not own", 401);
+        }
+
+        database.query(`
+            DELETE FROM GroupMembership
+            WHERE group_id='${body.group_id}'
+            AND user_id='${body.target_user_id}'
+        `, function(error, results) {
+            if (error) {
+                response_handler.errorResponse(response, `DB ERROR: ${error}`, 401);
+            }
+            else {
+                if (results.affectedRows === 0) {
+                    response_handler.errorResponse(response, "User does not exist in group", 401);
+                }
+                else {
+                    viewGroup.func(body, response);
+                }
+            }
+        });
+    }
+};
+
+module.exports = { fetchGroups, viewGroup, fetchGroupMembers, createGroup, addToGroup, updateGroup, deleteGroup, removeFromGroup };
