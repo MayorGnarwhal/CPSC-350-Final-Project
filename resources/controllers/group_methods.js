@@ -24,6 +24,51 @@ var fetchGroups = {
     }
 };
 
+var viewGroup = {
+    args: {
+        group_id: "required|number"
+    },
+
+    func: async function(body, response) {
+        var [error, group] = await DB.getGroupById(body.group_id);
+        if (error) {
+            response_handler.errorResponse(response, `DB ERROR: ${error}`, 401);
+        }
+        else {
+            const data = {
+                page: "group",
+                page_args: {
+                    group: group
+                }
+            };
+            response_handler.endResponse(response, JSON.stringify(data), 200);
+        }
+    }
+};
+
+var fetchGroupMembers = {
+    args: {
+        group_id: "required|number"
+    },
+
+    func: async function(body, response) {
+        database.query(`
+            SELECT ${queries.USER_COLUMNS}
+            FROM GroupMembership
+            INNER JOIN Users
+            ON GroupMembership.user_id=Users.user_id
+            WHERE group_id='${body.group_id}'
+        `, function(error, members) {
+            if (error) {
+                response_handler.errorResponse(response, `DB ERROR: ${error}`, 401);
+            }
+            else {
+                response_handler.endResponse(response, JSON.stringify(members), 200);
+            }
+        });
+    }
+};
+
 var createGroup = {
     args: {
         "name": "required|string",
@@ -50,6 +95,35 @@ var createGroup = {
             }
             else {
                 response_handler.endResponse(response, `{"page": "groups"}`, 201);
+            }
+        });
+    }
+};
+
+var addToGroup = {
+    args: {
+        group_id: "required|number",
+        target_user_id: "required|number"
+    },
+
+    func: async function(body, response) {
+        const entry = {
+            group_id: body.group_id,
+            user_id: body.target_user_id
+        };
+
+        // make sure requester owns group
+        database.query(`INSERT INTO GroupMembership SET ?`, entry, function(error, results) {
+            if (error) {
+                if (error.code === "ER_DUP_ENTRY") {
+                    response_handler.errorResponse(response, "User is already in group", 401);
+                }
+                else {
+                    response_handler.errorResponse(response, `DB ERROR: ${error}`);
+                }
+            }
+            else {
+                viewGroup.func(body, response);
             }
         });
     }
@@ -111,4 +185,4 @@ var deleteGroup = {
     }
 };
 
-module.exports = { fetchGroups, createGroup, updateGroup, deleteGroup };
+module.exports = { fetchGroups, viewGroup, fetchGroupMembers, createGroup, addToGroup, updateGroup, deleteGroup };

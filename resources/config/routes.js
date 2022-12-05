@@ -23,7 +23,7 @@ const { init } = require("../controllers/initial_request");
 const { fetchImage } = require("../controllers/fetch_image");
 const { typeahead } = require("../controllers/typeahead_results");
 const { fetchFriends, friendRequest, acceptFriend, blockFriend } = require("../controllers/friend_methods");
-const { createGroup, fetchGroups, updateGroup, deleteGroup } = require("../controllers/group_methods");
+const { createGroup, fetchGroups, updateGroup, deleteGroup, fetchGroupMembers, viewGroup, addToGroup } = require("../controllers/group_methods");
 
 
 // Routing class
@@ -66,12 +66,15 @@ const routes = {
         "/view_profile": new Routing(viewProfile, force_login),
         "/fetch_groups": new Routing(fetchGroups, force_login),
         "/update_group": new Routing(updateGroup, force_login),
+        "/fetch_group_members": new Routing(fetchGroupMembers, force_login),
+        "/view_group": new Routing(viewGroup, force_login),
     },
     "PUT": {
         "/update_user": new Routing(updateUser, force_login),
         "/friend_request": new Routing(friendRequest, force_login),
         "/accept_friend": new Routing(acceptFriend, force_login),
         "/create_group": new Routing(createGroup, force_login),
+        "/add_group_member": new Routing(addToGroup, force_login),
     },
     "DELETE": {
         "/remove_friend": new Routing(blockFriend, force_login),

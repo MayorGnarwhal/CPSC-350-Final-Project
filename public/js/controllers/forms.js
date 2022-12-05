@@ -58,7 +58,6 @@ var forms = {
             }
         }));
 
-        console.log(packed);
         return packed;
     },
 

@@ -6,7 +6,10 @@
 
 .member-typeahead-container {
     display: grid;
-    grid-template-columns: 9fr 1fr;
+    grid-template-columns: 8fr 2fr;
+}
+#member-add-button {
+    margin: 0 20px;
 }
 
 .group-preview {
