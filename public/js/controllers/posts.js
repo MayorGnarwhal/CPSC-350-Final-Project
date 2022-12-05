@@ -23,6 +23,7 @@ var posts = {
         post.querySelector("#title").textContent = postInfo.post_title;
         post.querySelector("#comment").textContent = postInfo.post_text;
         post.querySelector("#timestamp").textContent = new Date(postInfo.post_created_time).toLocaleString();
+        post.querySelector("#post-profile-image").src = await ajax.fetchImage(postInfo.profile_picture);
         post.querySelector("#post-image").src = await ajax.fetchImage(postInfo.post_picture);
     },
 
