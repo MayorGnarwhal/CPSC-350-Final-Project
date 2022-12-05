@@ -1,4 +1,5 @@
 import { ajax } from "../ajax";
+import { addMutationObserver } from "../observer";
 
 const inputTypes = ["input", "select", "textarea"];
 
@@ -47,6 +48,11 @@ var forms = {
                     packed[name].push(input.id);
                 }
             }
+            else if (input.getAttribute("type") === "radio") { // pack radio inputs
+                if (input.checked) {
+                    packed[input.name] = input.value;
+                }
+            }
             else { // pack standard inputs
                 packed[input.name] = input.value;
             }
@@ -60,8 +66,12 @@ var forms = {
     },
 
     handleFormSubmit : function(form) {
+        if (form.getAttribute("form-submit-handled")) {
+            return;
+        }
+        form.setAttribute("form-submit-handled", true);
+
         const submitButtons = form.querySelectorAll("button[type='submit']");
-        
         submitButtons.forEach(button => {
             button.addEventListener("click", async function(event) {
                 event.preventDefault();
@@ -81,16 +91,7 @@ var forms = {
             this.handleMasterCheckbox(form);
         });
 
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                mutation.addedNodes.forEach(function(node) {
-                    if (node.nodeName === "FORM") {
-                        forms.handleFormSubmit(node);
-                    }
-                });
-            });
-        });
-        observer.observe(document.querySelector("#content"), {subtree: true, childList: true});;
+        addMutationObserver("nodeName", "FORM", forms.handleFormSubmit);
     },
 
     handleMasterCheckbox : function(form) {

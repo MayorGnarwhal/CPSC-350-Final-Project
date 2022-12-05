@@ -36,6 +36,7 @@ var storePost = {
                     response_handler.errorResponse(response, `DB Error: ${error}`, 400);
                 }
                 else {
+                    // store visibility mappings
                     if (!global) {
                         body.groups.forEach(group => {
                             const map = {

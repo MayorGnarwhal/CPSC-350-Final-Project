@@ -46,13 +46,22 @@ var DB = {
         return await this.queryWhere(queries.USER, `WHERE username='${username}'`);
     },
 
-    getFriendship : async function(user_id_1, user_id_2) {
+    getFriendship : async function(user_id_1, user_id_2, extraCondition) {
         return await this.queryWhere(queries.FRIENDSHIP, `
             WHERE (
                 (initiator_user_id='${user_id_1}' AND receiver_user_id='${user_id_2}')
                 OR (initiator_user_id='${user_id_2}' AND receiver_user_id='${user_id_1}')
-            )
+            ) ${extraCondition ? "AND " + extraCondition : ""}
         `);
+    },
+
+    getGroupById : async function(group_id) {
+        return await this.queryWhere(queries.GROUPS, `WHERE group_id='${group_id}'`);
+    },
+
+    userOwnsGroup : async function(user_id, group_id) {
+        const [error, result] = await this.queryWhere(queries.GROUPS, `WHERE group_id='${group_id}' AND group_user_id='${user_id}'`);
+        return (error === undefined && result !== undefined);
     }
 };
 

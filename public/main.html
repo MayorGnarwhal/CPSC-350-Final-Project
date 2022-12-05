@@ -17,11 +17,19 @@
     <link rel="stylesheet" href="css/users.css">
     <link rel="stylesheet" href="css/typeahead.css">
     <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/groups.css">
 </head>
 <body>
     <div class="nav-bar" id="nav-bar" data-toggle="partial" data-target="navigation"></div>
 
-    <div data-toggle="partial" data-target="error"></div>
+    <div class="modal" id="error-modal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h2 id="error-message">[ERROR]</h2>
+        </div>
+    </div>
 
     <div id="content"></div>
 

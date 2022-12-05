@@ -1,3 +1,5 @@
+import { addMutationObserver } from "../observer";
+
 var modals = {
     queryModalButtons : function() {
         return document.querySelectorAll("[data-toggle=modal]");
@@ -10,9 +12,29 @@ var modals = {
     handleModalButton : function(button) {
         const modal = document.querySelector(button.getAttribute("data-target"));
 
-        button.addEventListener("click", function() {
-            modal.style.display = "block";
-        });
+        if (modal) {
+            button.addEventListener("click", function(event) {
+                event.preventDefault();
+                modal.style.display = "block";
+
+                const dataset = Object.assign({}, button.dataset);
+                for (const [dataKey, dataValue] of Object.entries(dataset)) {
+                    // https://stackoverflow.com/a/47836484
+                    const elementID = "#" + dataKey.replace(/[A-Z]/g, m => "-" + m.toLowerCase()).replace("-dup", "");
+                    const element = modal.querySelector(elementID);
+                    if (element) {
+                        const [type, value] = dataValue.split(":");
+                        if (type === "attr") {
+                            const [attr, val] = value.split("|");
+                            element.setAttribute(attr, val);
+                        }
+                        else {
+                            element[type] = value; // for value and textContent
+                        }
+                    }
+                }
+            });
+        }
     },
 
     handleAllModals : function() {
@@ -29,6 +51,8 @@ var modals = {
         this.queryModalButtons().forEach(button => {
             this.handleModalButton(button);
         });
+
+        addMutationObserver(undefined, "button[data-toggle='modal']", this.handleModalButton);
     },
 
     errorModal : function(errorMessage, statusCode) {

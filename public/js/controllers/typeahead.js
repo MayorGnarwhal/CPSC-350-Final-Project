@@ -6,15 +6,13 @@ var typeahead = {
     },
 
     handleTypeahead : async function(container) {
-        const partialPath = `partials/typeahead/input.html`;
+        const partialPath = `partials/typeahead/typeahead.html`;
         await ajax.fetchHtmlAndInsert(partialPath, container);
 
-        const label = container.querySelector(".typeahead-input");
         const formValue = container.querySelector("input[type='hidden']");
         const input = container.querySelector("input[type='text']");
         const buffer = container.querySelector(".typeahead-buffer");
 
-        label.textContent = container.getAttribute("data-label");
         formValue.setAttribute("name", container.getAttribute("data-input"));
 
         function onTypeaheadSelect(user) {

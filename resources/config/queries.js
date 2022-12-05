@@ -8,9 +8,13 @@ var queries = {
     // TODO: join other tables for more info
     USER: `SELECT * FROM Users`,
 
+    USER_COLUMNS: "Users.user_id, username, first_name, last_name, profile_picture",
+
     SESSION: `SELECT * FROM Sessions`,
 
-    FRIENDSHIP: `SELECT * FROM Friends`
+    FRIENDSHIP: `SELECT * FROM Friends`,
+
+    GROUPS: `SELECT * FROM Groups`,
 };
 
 module.exports = { queries };
