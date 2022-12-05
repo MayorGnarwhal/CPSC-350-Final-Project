@@ -133,13 +133,14 @@ var deletePost = {
             SELECT post_id 
             FROM Posts
             WHERE post_id='${body.post_id}' AND post_user_id='${body.user_id}'
-        `, async function(error, post_id) {
-            if (post_id.length === 0) {
+        `, async function(error, results) {
+            if (results.length === 0) {
                 response_handler.errorResponse(response, "Cannot  delete post that is not your own", 401);
             }
             else {
-                await DB.query(`DELETE FROM AlgorithmComponents WHERE post_id='${post_id}'`);
-                await DB.query(`DELETE FROM Posts WHERE post_id='${post_id}'`);
+                await DB.query(`DELETE FROM AlgorithmComponents WHERE post_id='${body.post_id}'`);
+                await DB.query(`DELETE FROM Reactions WHERE post_id='${body.post_id}'`);
+                await DB.query(`DELETE FROM Posts WHERE post_id='${body.post_id}'`);
                 response_handler.endResponse(response, `{"page": "profile"}`, 201);
             }
         });
