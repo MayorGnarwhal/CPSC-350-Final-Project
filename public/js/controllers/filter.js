@@ -20,7 +20,6 @@ var filter = {
                     const filter = child.getAttribute("data-filter");
                     if (filter) {
                         const matches = searchTerms.filter(term => filter.search(term) !== -1);
-                        console.log(matches.length, searchTerms.length);
                         if (matches.length === searchTerms.length) {
                             child.classList.remove("hidden");
                         }
