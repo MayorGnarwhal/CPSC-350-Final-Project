@@ -5,14 +5,20 @@
 <div class="content">
     <form action="/add_group_member" method="PUT">
         <input type="hidden" name="group_id" id="hidden-group-field">
-        <label for="typeahead-input">Search Friends</label>
-        <div class="member-typeahead-container">
+        <label for="typeahead-input">Add Friends to Group</label>
+        <div class="member-typeahead-container form-group">
             <div class="typeahead" data-input="target_user_id" data-filter="FRIENDS_ONLY"></div>
             <button type="submit" id="member-add-button" class="btn btn-success">
                 <span class="fas fa-plus"></span> Add To Group
             </button>
         </div>
     </form>
+
+    <div class="form-group">
+        <hr>
+    </div>
+
+    <div class="result-filter" data-label="Filter Results" data-target="#member-list"></div>
 
     <div id="member-list"></div>
     <div id="no-member-message">

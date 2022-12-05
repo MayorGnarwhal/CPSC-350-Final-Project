@@ -7,6 +7,7 @@ import { posts } from "./posts";
 import { typeahead } from "./typeahead";
 
 import { bindPageController } from "./page_controllers/handler";
+import { filter } from "./filter";
 
 var pages = {
     loadPage : async function(pageName, pageArgs = {}) {
@@ -25,7 +26,7 @@ var pages = {
         links.handleAllLinks();
         forms.handleAllForms();
         typeahead.handleAllTypeaheads();
-
+        filter.handleAllFilters();
     },
 
     // not a huge fan of this
