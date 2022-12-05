@@ -48,11 +48,17 @@ var forms = {
                     packed[name].push(input.id);
                 }
             }
+            else if (input.getAttribute("type") === "radio") { // pack radio inputs
+                if (input.checked) {
+                    packed[input.name] = input.value;
+                }
+            }
             else { // pack standard inputs
                 packed[input.name] = input.value;
             }
         }));
 
+        console.log(packed);
         return packed;
     },
 
