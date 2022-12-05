@@ -2,6 +2,58 @@ const { response_handler } = require("../helpers/response_handler");
 const { database } =  require("../helpers/database");
 const { helpers } = require("../helpers/helpers");
 const { file } = require("../helpers/file");
+const { DB } = require("../helpers/dbi");
+
+var fetchPosts = {
+    args: {
+        "filter": "required|number",
+        "page" : "required|string",
+    },
+    func : async function(body, response) {
+        //const whereClause = body.filter ? `WHERE A.user_id=${body.filter}` : "";
+        var query;
+        if(body.page === "index"){
+            query = `SELECT post_id, A.user_id, alg_reaction, 
+                            alg_group, alg_time, algorithm_score,
+                            post_user_id, post_title, post_picture, 
+                            post_text, is_visible, is_global, 
+                            post_created_time, post_updated_time, 
+                            reaction_score, username, first_name, 
+                            last_name, password, email, 
+                            profile_picture, account_status, 
+                            is_admin, account_created_time
+                            FROM AlgorithmScores AS A
+                            JOIN Posts USING(post_id)
+                            JOIN PostReactionScores USING(post_id)
+                            JOIN Users AS U ON post_user_id = U.user_id
+                            WHERE A.user_id = ${body.filter}
+                            ORDER BY algorithm_score DESC;`
+        }
+        else if(body.page === "profile"){
+            query = `SELECT post_id, user_id, 
+                            post_user_id, post_title, post_picture, 
+                            post_text, is_visible, is_global, 
+                            post_created_time, post_updated_time, 
+                            reaction_score, username, first_name, 
+                            last_name, password, email, 
+                            profile_picture, account_status, 
+                            is_admin, account_created_time
+                            FROM Posts
+                            JOIN PostReactionScores USING(post_id)
+                            JOIN Users ON post_user_id = user_id
+                            WHERE post_user_id = ${body.filter}
+                            ORDER BY post_created_time DESC`
+        }
+        database.query(query, function(error, results) {
+            if (error) {
+                response_handler.errorResponse(response, `Failed to fetch posts for user of id ${body.user_id}`, 404);
+            }
+            else {
+                response_handler.endResponse(response, JSON.stringify(results), 200);
+            }
+        });
+    }
+};
 
 var storePost = {
     args: {
@@ -60,6 +112,40 @@ var storePost = {
     }
 };
 
+var postVisibility = {
+    args: {
+        post_id: "required|number",
+        visible: "required|string", // "true" or "false"
+    },
+
+    func: async function(body, response) {
+
+    }
+};
+
+var deletePost = {
+    args: {
+        post_id: "required|number"
+    },
+
+    func: async function(body, response) {
+        database.query(`
+            SELECT post_id 
+            FROM Posts
+            WHERE post_id='${body.post_id}' AND post_user_id='${body.user_id}'
+        `, async function(error, post_id) {
+            if (post_id.length === 0) {
+                response_handler.errorResponse(response, "Cannot  delete post that is not your own", 401);
+            }
+            else {
+                await DB.query(`DELETE FROM AlgorithmComponents WHERE post_id='${post_id}'`);
+                await DB.query(`DELETE FROM Posts WHERE post_id='${post_id}'`);
+                response_handler.endResponse(response, `{"page": "profile"}`, 201);
+            }
+        });
+    }
+};
+
 var postReaction = {
     args: {
         post_id: "required|number",
@@ -107,4 +193,4 @@ var postReaction = {
 };
 
 
-module.exports = { storePost, postReaction };
+module.exports = { fetchPosts, storePost, deletePost, postReaction };

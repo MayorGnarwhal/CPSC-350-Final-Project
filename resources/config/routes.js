@@ -12,12 +12,11 @@ const { force_login } = require("../middleware/force_login");
 const { force_admin } = require("../middleware/force_admin");
 
 // Routing functions
-const { fetchPosts } = require("../controllers/fetch_posts");
 const { fetchPage } = require("../controllers/fetch_page");
 const { logout } = require("../controllers/logout");
 const { signup } = require("../controllers/signup");
 const { login } = require("../controllers/login");
-const { storePost, postReaction } = require("../controllers/store_post");
+const { fetchPosts, storePost, postReaction, deletePost } = require("../controllers/post_methods");
 const { fetchUser, fetchAllUsers, updateUser, viewProfile } = require("../controllers/user_methods");
 const { init } = require("../controllers/initial_request");
 const { fetchImage } = require("../controllers/fetch_image");
@@ -81,6 +80,7 @@ const routes = {
         "/remove_friend": new Routing(blockFriend, force_login),
         "/delete_group": new Routing(deleteGroup, force_login),
         "/remove_group_member": new Routing(removeFromGroup, force_login),
+        "/delete_post": new Routing(deletePost, force_login),
     },
 };
 

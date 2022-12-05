@@ -12,23 +12,26 @@
                 </ul>
             </div>
             
-            <div id="post-options" class="right-flex">
-                <div>
-                    <button class="btn btn-success">
-                        <span class="fas fa-edit"></span> Edit
-                    </button>
+            <form action="">
+                <input type="hidden" name="post_id">
+                <div id="post-options" class="right-flex">
+                    <div>
+                        <button type="submit" class="btn btn-success">
+                            <span class="fas fa-edit"></span> Edit
+                        </button>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="fas fa-eye"></span> Hide
+                        </button>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-danger" data-action="/delete_post" data-method="DELETE">
+                            <span class="fas fa-trash"></span> Delete
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <button class="btn btn-primary">
-                        <span class="fas fa-eye"></span> Hide
-                    </button>
-                </div>
-                <div>
-                    <button class="btn btn-danger">
-                        <span class="fas fa-trash"></span> Delete
-                    </button>
-                </div>
-            </div>
+            </form>
         </div>
         
         <div id="post-main-content" class="left-flex">
