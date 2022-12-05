@@ -11,7 +11,6 @@ var posts = {
     },
 
     populatePost : async function(postInfo, container, pageName) {
-        console.log(postInfo);
         const partialPath = "partials/post.html";
         const post = await ajax.fetchHtmlAndAppend(partialPath, container);
 
@@ -34,10 +33,10 @@ var posts = {
             input.value = postInfo.post_id;
         });
 
-        document.querySelector("#upvote").addEventListener("click", function() {
+        post.querySelector("#upvote").addEventListener("click", function() {
             likesCount.textContent = parseInt(likesCount.textContent) + 1;
         });
-        document.querySelector("#downvote").addEventListener("click", function() {
+        post.querySelector("#downvote").addEventListener("click", function() {
             likesCount.textContent = parseInt(likesCount.textContent) - 1;
         });
     },
