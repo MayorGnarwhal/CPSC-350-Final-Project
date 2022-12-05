@@ -5,8 +5,8 @@ const { database } =  require("../helpers/database");
 
 var fetchPosts = {
     args: {
-        "filter": "number",
-        "page" : "string",
+        "filter": "required|number",
+        "page" : "required|string",
     },
     func : async function(body, response) {
         //const whereClause = body.filter ? `WHERE A.user_id=${body.filter}` : "";
@@ -46,8 +46,7 @@ var fetchPosts = {
         //    first_name, last_name, username, count(reactions), groups[]
         // need to apply algorithm
         //    also need to do this elsewhere, and then pull from there?
-        database.query(query, 
-        function(error, results) {
+        database.query(query, function(error, results) {
             if (error) {
                 response_handler.errorResponse(response, `Failed to fetch posts for user of id ${body.user_id}`, 404);
             }
