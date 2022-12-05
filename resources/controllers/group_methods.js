@@ -107,6 +107,16 @@ var addToGroup = {
     },
 
     func: async function(body, response) {
+        const ownsGroup = await DB.userOwnsGroup(body.user_id, body.group_id);
+        if (!ownsGroup) {
+            return response_handler.errorResponse(response, "Cannot member to group you do not own", 401);
+        }
+
+        var [error, friendship] = await DB.getFriendship(body.user_id, body.target_user_id);
+        if (!friendship) {
+            return response_handler.errorResponse(response, "Cannot add non-friend to group", 401);
+        }
+
         const entry = {
             group_id: body.group_id,
             user_id: body.target_user_id
@@ -137,6 +147,11 @@ var updateGroup = {
     },
 
     func: async function(body, response) {
+        const ownsGroup = await DB.userOwnsGroup(body.user_id, body.group_id);
+        if (!ownsGroup) {
+            return response_handler.errorResponse(response, "Cannot update group you do not own", 401);
+        }
+
         const updates = {
             group_name: body.name,
             group_priority: body.priority

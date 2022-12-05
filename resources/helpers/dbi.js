@@ -57,6 +57,11 @@ var DB = {
 
     getGroupById : async function(group_id) {
         return await this.queryWhere(queries.GROUPS, `WHERE group_id='${group_id}'`);
+    },
+
+    userOwnsGroup : async function(user_id, group_id) {
+        const [error, result] = await this.queryWhere(queries.GROUPS, `WHERE group_id='${group_id}' AND group_user_id='${user_id}'`);
+        return (error === undefined && result !== undefined);
     }
 };
 
