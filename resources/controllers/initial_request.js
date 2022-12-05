@@ -9,12 +9,12 @@ var init = {
     func : async function(body, response) {
         const [error, user] = await DB.getUserBySession(body.session_id);
         
-        if (error) {
+        if (error || user === undefined) {
             response_handler.endResponse(response, '{"page": "login"}', 200);
         }
         else {
-            response_handler.endResponse(response, '{"page": "index"}', 200);
-            // response_handler.endResponse(response, '{"page": "groups"}', 200);
+            // response_handler.endResponse(response, '{"page": "index"}', 200);
+            response_handler.endResponse(response, '{"page": "groups"}', 200);
         }
     }
 };

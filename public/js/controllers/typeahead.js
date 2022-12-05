@@ -12,6 +12,7 @@ var typeahead = {
         const formValue = container.querySelector("input[type='hidden']");
         const input = container.querySelector("input[type='text']");
         const buffer = container.querySelector(".typeahead-buffer");
+        const filter = container.getAttribute("data-filter");
 
         formValue.setAttribute("name", container.getAttribute("data-input"));
 
@@ -24,8 +25,9 @@ var typeahead = {
 
         input.addEventListener("input", async function() {
             const request = {
-                search_term: input.value
-            }
+                search_term: input.value,
+                filter: filter,
+            };
             buffer.removeAttribute("disabled");
             const users = await ajax.sendRequestAndHandle("POST", "typeahead_results", request);
             typeahead.populateTypeaheadResults(buffer, users, onTypeaheadSelect);
