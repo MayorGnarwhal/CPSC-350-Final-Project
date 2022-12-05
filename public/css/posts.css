@@ -98,6 +98,6 @@ img {
 
 .post-form-content {
     display: grid;
-    grid-template-columns: 5fr 1fr;
+    grid-template-columns: 5fr 2fr;
     grid-column-gap: 40px;
 }

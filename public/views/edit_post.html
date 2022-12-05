@@ -21,21 +21,24 @@
             </div>
         
             <div id="post-options">
-                <label for="group-select">Post to Groups</label>
-                <div id="group-select" class="master-checkbox">
-                    <div class="checkbox-control master">
-                        <input type="checkbox" id="opt-all" name="groups[]">
-                        <label for="opt-all">All</label>
+                <div id="post-global" class="form-group">
+                    <label for="global">Post Visibility</label>
+                    <div class="radio-control">
+                        <input type="radio" name="global" id="global" value="true">
+                        <label for="global">Global Visibility</label>
                     </div>
-                    <!-- Populate groups with javascript -->
-                    <!-- Format as 'opt-${group_id}' -->
-                    <div class="checkbox-control">
-                        <input type="checkbox" id="opt-work" name="groups[]">
-                        <label for="opt-work">Work</label>
+                    <div class="radio-control">
+                        <input type="radio" name="global" id="not-global" value="true">
+                        <label for="not-global">Select Group Visibilities</label>
                     </div>
-                    <div class="checkbox-control">
-                        <input type="checkbox" id="opt-family" name="groups[]">
-                        <label for="opt-family">Family</label>
+                </div>
+                <div id="group-options" class="hidden">
+                    <label for="group-select">Post to Groups</label>
+                    <div id="group-select" class="master-checkbox">
+                        <div class="checkbox-control master">
+                            <input type="checkbox" id="opt-all" name="groups[]">
+                            <label for="opt-all">All</label>
+                        </div>
                     </div>
                 </div>
             </div>

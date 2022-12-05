@@ -14,7 +14,7 @@ var init = {
         }
         else {
             // response_handler.endResponse(response, '{"page": "index"}', 200);
-            response_handler.endResponse(response, '{"page": "groups"}', 200);
+            response_handler.endResponse(response, '{"page": "edit_post"}', 200);
         }
     }
 };

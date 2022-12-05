@@ -22,7 +22,7 @@ label {
     color: #555;
 }
 
-.checkbox-control label, radio-control label {
+.checkbox-control label, .radio-control label {
     font-weight: normal;
 }
 
