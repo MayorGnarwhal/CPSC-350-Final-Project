@@ -24,7 +24,7 @@ var fetchGroups = {
     }
 };
 
-var storeGroup = {
+var createGroup = {
     args: {
         "name": "required|string",
         "priority": "required|number"
@@ -55,4 +55,60 @@ var storeGroup = {
     }
 };
 
-module.exports = { fetchGroups, storeGroup };
+var updateGroup = {
+    args: {
+        "group_id": "required|number",
+        "name": "required|string",
+        "priority": "required|number"
+    },
+
+    func: async function(body, response) {
+        const updates = {
+            group_name: body.name,
+            group_priority: body.priority
+        };
+
+        database.query(`
+            UPDATE Groups
+            SET ?
+            WHERE group_id='${body.group_id}'
+            AND group_user_id='${body.user_id}'
+        `, updates, function(error, results) {
+            if (error) {
+                response_handler.errorResponse(response, `DB ERROR: ${error}`, 401);
+            }
+            else {
+                if (results.affectedRows === 0) {
+                    response_handler.errorResponse(response, "Failed to update group. Group does not exist or user does not have permissions for update", 401);
+                }
+                else {
+                    response_handler.endResponse(response, `{"page": "groups"}`, 201);
+                }
+            }
+        });
+    }
+};
+
+var deleteGroup = {
+    args: {
+        group_id: "required|number"
+    },
+
+    func: async function(body, response) {
+        database.query(`DELETE FROM Groups WHERE group_id='${body.group_id}'`, function(error, results) {
+            if (error) {
+                response_handler.errorResponse(response, `DB ERROR: ${error}`, 401);
+            }
+            else {
+                if (results.affectedRows === 0) {
+                    response_handler.errorResponse(response, "Group does not exist", 401);
+                }
+                else {
+                    response_handler.endResponse(response, `{"page": "groups"}`, 201);
+                }
+            }
+        });
+    }
+};
+
+module.exports = { fetchGroups, createGroup, updateGroup, deleteGroup };

@@ -54,6 +54,10 @@ var DB = {
             ) ${extraCondition ? "AND " + extraCondition : ""}
         `);
     },
+
+    getGroupById : async function(group_id) {
+        return await this.queryWhere(queries.GROUPS, `WHERE group_id='${group_id}'`);
+    }
 };
 
 module.exports = { DB };

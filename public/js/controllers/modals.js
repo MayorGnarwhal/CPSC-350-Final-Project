@@ -20,12 +20,13 @@ var modals = {
                 const dataset = Object.assign({}, button.dataset);
                 for (const [dataKey, dataValue] of Object.entries(dataset)) {
                     // https://stackoverflow.com/a/47836484
-                    const elementID = "#" + dataKey.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
+                    const elementID = "#" + dataKey.replace(/[A-Z]/g, m => "-" + m.toLowerCase()).replace("-dup", "");
                     const element = modal.querySelector(elementID);
                     if (element) {
                         const [type, value] = dataValue.split(":");
                         if (type === "attr") {
-                            element.setAttribute(type, value);
+                            const [attr, val] = value.split("|");
+                            element.setAttribute(attr, val);
                         }
                         else {
                             element[type] = value; // for value and textContent

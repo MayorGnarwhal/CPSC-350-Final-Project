@@ -17,11 +17,15 @@ async function groupsController() {
 
         frame.querySelector("#name").textContent = group.group_name;
         frame.querySelector("#stats").textContent = "2 friends, 40 posts";
+        optionsFrame.querySelector("input[type='hidden']").value = group.group_id;
 
         const modalButton = frame.querySelector("button[data-toggle='modal']");
         modalButton.setAttribute("data-group-name", `value:${group.group_name}`);
         modalButton.setAttribute(`data-priority-${group.group_priority}`, "checked:true");
         modalButton.setAttribute("data-header-title", "textContent:Update Group");
+        modalButton.setAttribute("data-group-form", "attr:action|update_group");
+        modalButton.setAttribute("data-group-form-dup", "attr:method|POST");
+        modalButton.setAttribute("data-set-group-id", `value:${group.group_id}`);
     });
 }
 
