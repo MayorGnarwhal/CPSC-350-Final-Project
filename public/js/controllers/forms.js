@@ -66,8 +66,12 @@ var forms = {
     },
 
     handleFormSubmit : function(form) {
+        if (form.getAttribute("form-submit-handled")) {
+            return;
+        }
+        form.setAttribute("form-submit-handled", true);
+
         const submitButtons = form.querySelectorAll("button[type='submit']");
-        
         submitButtons.forEach(button => {
             button.addEventListener("click", async function(event) {
                 event.preventDefault();
