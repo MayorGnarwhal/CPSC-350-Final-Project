@@ -8,19 +8,20 @@ var storePost = {
         "title": "required|string",
         "caption": "required|string",
         "image": "required|string",
-        "groups": "required|object",
+        "global": "required|string", // "true" or "false"
+        "groups": "object",
     },
 
     func : async function(body, response) {
         const imagePath = await file.store(body.image, "public/storage/user_images", "png");
         const now = helpers.formatDatetime();
-        const global = body.groups.find(group => group === "opt-all") !== undefined;
+        const global = body.global === "true";
 
         const entry = {
             post_user_id: body.user_id,
             post_title: body.title,
             post_picture: imagePath,
-            post_text: body.caption, // can we add more space in database?
+            post_text: body.caption,
             is_visible: 1,
             is_global: global ? 1 : 0, 
             post_created_time: now,

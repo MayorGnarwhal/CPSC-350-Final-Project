@@ -11,7 +11,7 @@ var posts = {
     },
 
     populatePost : async function(postInfo, container, pageName) {
-        const partialPath = "partials/post.html";
+        const partialPath = "partials/post_.html";
         const post = await ajax.fetchHtmlAndAppend(partialPath, container);
         if(pageName === "index"){
             post.querySelector("#post-options").style.visibility = "hidden";
@@ -29,13 +29,8 @@ var posts = {
     populateAllPosts : async function(pageName, args) {
         var user = await ajax.fetchUser(args.user_id);
         const container = document.querySelector("#post-container"); // assumes only one container per page
-        console.log(container);
-        // console.log(user.user_id);
-        // container.setAttribute("data-filter", user.user_id);
-        // console.log(container.getAttribute("data-filter") + "filter data");
         if (container) {
             this.fetchPosts(container, user.user_id, pageName).then(postInfo => {
-                console.log(postInfo);
                 if (!postInfo.error) {
                     postInfo.forEach(post => {
                         this.populatePost(post, container, pageName);
