@@ -40,7 +40,8 @@ var fetchPosts = {
                             FROM Posts
                             JOIN PostReactionScores USING(post_id)
                             JOIN Users ON post_user_id = user_id
-                            WHERE post_user_id = ${body.filter};`
+                            WHERE post_user_id = ${body.filter}
+                            ORDER BY post_created_time DESC;`
         }
         // need to join tables for extra information
         //    first_name, last_name, username, count(reactions), groups[]
