@@ -34,10 +34,8 @@
         <div id="post-main-content" class="left-flex">
             <div>
                 <div id="main-post-info">
-                    <p id="title">My First Post</p>
-                    <p id="comment">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    </p>
+                    <p id="title"></p>
+                    <p id="comment"></p>
                 </div>
             </div>
             <div class="post-image-frame">
@@ -47,21 +45,27 @@
     
         <div id="post-footer" class="row-3">
             <div id="post-reactions">
-                <form action="">
-                    <button class="btn btn-success">
+                <form action="/post_reaction" method="PUT" class="inline">
+                    <input type="hidden" name="post_id">
+                    <input type="hidden" name="rating" value="1">
+                    <button type="submit" class="btn btn-success" id="upvote">
                         <span class="fa-solid fa-thumbs-up"></span>
                     </button>
-                    <button class="btn btn-danger">
+                </form>
+                <form action="/post_reaction" method="PUT" class="inline">
+                    <input type="hidden" name="post_id">
+                    <input type="hidden" name="rating" value="-1">
+                    <button type="submit" class="btn btn-danger" id="downvote">
                         <span class="fa solid fa-thumbs-down"></span>
                     </button>
                 </form>
-                <p id="likes-count" class="strip inline">27 Likes</p>
+                <p id="likes-count" class="strip inline"></p>
             </div>
             <div id="algorithm-score">
                 <p class="strip"></p>
             </div>
             <div>
-                <p id="timestamp" class="strip">11/29/2022 9:30pm</p>
+                <p id="timestamp" class="strip"></p>
             </div>
         </div>
     </div>

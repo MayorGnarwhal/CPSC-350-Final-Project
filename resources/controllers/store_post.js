@@ -60,4 +60,51 @@ var storePost = {
     }
 };
 
-module.exports = { storePost };
+var postReaction = {
+    args: {
+        post_id: "required|number",
+        rating: "required|number",
+    },
+
+    func: async function(body, response) {
+        const now = helpers.formatDatetime();
+
+        const entry = {
+            user_id: body.user_id,
+            post_id: body.post_id,
+            reaction_score: body.rating,
+            reaction_created_time: now,
+            reaction_updated_time: now
+        };
+
+        database.query(`INSERT INTO Reactions SET ?`, entry, function(error, results) {
+            if (error) {
+                if (error.code !== "ER_DUP_ENTRY") {
+                    response_handler.errorResponse(response, `DB ERROR: ${error}`, 401);
+                }
+                else {
+                    // reaction exists, update column
+                    database.query(`
+                        UPDATE Reactions
+                        SET reaction_score='${body.rating}'
+                        WHERE user_id='${body.user_id}' AND post_id='${body.post_id}'
+                    `, function(err, results) {
+                        if (err) {
+                            response_handler.errorResponse(response, `DB ERROR: ${err}`, 401);
+                        }
+                        else {
+                            console.log(results);
+                            response_handler.endResponse(response, undefined, 201);
+                        }
+                    })
+                }
+            }
+            else {
+                response_handler.endResponse(response, undefined, 201);
+            }
+        });   
+    }
+};
+
+
+module.exports = { storePost, postReaction };

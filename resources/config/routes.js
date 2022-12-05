@@ -17,7 +17,7 @@ const { fetchPage } = require("../controllers/fetch_page");
 const { logout } = require("../controllers/logout");
 const { signup } = require("../controllers/signup");
 const { login } = require("../controllers/login");
-const { storePost } = require("../controllers/store_post");
+const { storePost, postReaction } = require("../controllers/store_post");
 const { fetchUser, fetchAllUsers, updateUser, viewProfile } = require("../controllers/user_methods");
 const { init } = require("../controllers/initial_request");
 const { fetchImage } = require("../controllers/fetch_image");
@@ -75,6 +75,7 @@ const routes = {
         "/accept_friend": new Routing(acceptFriend, force_login),
         "/create_group": new Routing(createGroup, force_login),
         "/add_group_member": new Routing(addToGroup, force_login),
+        "/post_reaction": new Routing(postReaction, force_login),
     },
     "DELETE": {
         "/remove_friend": new Routing(blockFriend, force_login),

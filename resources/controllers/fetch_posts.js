@@ -43,10 +43,6 @@ var fetchPosts = {
                             WHERE post_user_id = ${body.filter}
                             ORDER BY post_created_time DESC`
         }
-        // need to join tables for extra information
-        //    first_name, last_name, username, count(reactions), groups[]
-        // need to apply algorithm
-        //    also need to do this elsewhere, and then pull from there?
         database.query(query, function(error, results) {
             if (error) {
                 response_handler.errorResponse(response, `Failed to fetch posts for user of id ${body.user_id}`, 404);
