@@ -62,7 +62,6 @@ var forms = {
 
     handleFormSubmit : function(form) {
         const submitButtons = form.querySelectorAll("button[type='submit']");
-        console.log(submitButtons);
         
         submitButtons.forEach(button => {
             button.addEventListener("click", async function(event) {

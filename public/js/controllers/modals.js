@@ -11,13 +11,27 @@ var modals = {
 
     handleModalButton : function(button) {
         const modal = document.querySelector(button.getAttribute("data-target"));
-        console.log(button, modal);
 
         if (modal) {
             button.addEventListener("click", function(event) {
                 event.preventDefault();
-
                 modal.style.display = "block";
+
+                const dataset = Object.assign({}, button.dataset);
+                for (const [dataKey, dataValue] of Object.entries(dataset)) {
+                    // https://stackoverflow.com/a/47836484
+                    const elementID = "#" + dataKey.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
+                    const element = modal.querySelector(elementID);
+                    if (element) {
+                        const [type, value] = dataValue.split(":");
+                        if (type === "attr") {
+                            element.setAttribute(type, value);
+                        }
+                        else {
+                            element[type] = value; // for value and textContent
+                        }
+                    }
+                }
             });
         }
     },

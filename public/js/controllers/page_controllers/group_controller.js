@@ -8,6 +8,7 @@ async function groupsController() {
     const groups = await response.json();
 
     const groupList = document.querySelector("#group-list");
+    const groupModal = document.querySelector("#add-group-modal");
 
     groups.forEach(async group => {
         const frame = await ajax.fetchHtmlAndAppend(groupPreviewPath, groupList);
@@ -16,6 +17,11 @@ async function groupsController() {
 
         frame.querySelector("#name").textContent = group.group_name;
         frame.querySelector("#stats").textContent = "2 friends, 40 posts";
+
+        const modalButton = frame.querySelector("button[data-toggle='modal']");
+        modalButton.setAttribute("data-group-name", `value:${group.group_name}`);
+        modalButton.setAttribute(`data-priority-${group.group_priority}`, "checked:true");
+        modalButton.setAttribute("data-header-title", "textContent:Update Group");
     });
 }
 
