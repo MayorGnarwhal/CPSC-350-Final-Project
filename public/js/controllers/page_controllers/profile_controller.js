@@ -9,7 +9,7 @@ async function profileController(args) {
     document.querySelector("#user-username").textContent = "@" + user.username;
     document.querySelector("#user-email").textContent = user.email;
     document.querySelector("#profile-picture").src = user.profile_picture.slice(7);
-    document.querySelector("#friend-count").textContent = "13 friends";
+    document.querySelector("#friend-count").textContent = user.num_friends + " friends";
     document.querySelector("#hidden_user_input").value = user.user_id;
 
     // user options

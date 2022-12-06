@@ -14,16 +14,17 @@ var posts = {
         // console.log(postInfo);
         const partialPath = "partials/post.html";
         const post = await ajax.fetchHtmlAndAppend(partialPath, container);
-
+        var reactions = ["disliked", "no reaction", "liked"];
+        var currentReaction = postInfo.user_reaction_score;
+        var initialReaction = postInfo.user_reaction_score;
         const likesCount = post.querySelector("#likes-count");
-
+        likesCount.textContent = postInfo.reaction_score + ", " + reactions[currentReaction+1];;
         if(pageName === "index"){
             post.querySelector("#post-options").classList.add("hidden");
             post.querySelector("#algorithm-score").textContent = "Algorithm Score: " + Math.round(postInfo.algorithm_score);
         }
         post.querySelector("#name").textContent = postInfo.first_name + " " + postInfo.last_name;
-        post.querySelector("#username").textContent = postInfo.username;
-        likesCount.textContent = postInfo.reaction_score;
+        post.querySelector("#username").textContent = "@" + postInfo.username;
         post.querySelector("#title").textContent = postInfo.post_title;
         post.querySelector("#comment").textContent = postInfo.post_text;
         post.querySelector("#timestamp").textContent = new Date(postInfo.post_created_time).toLocaleString();
@@ -35,10 +36,12 @@ var posts = {
         });
 
         post.querySelector("#upvote").addEventListener("click", function() {
-            likesCount.textContent = parseInt(likesCount.textContent) + 1;
+            currentReaction = 1;
+            likesCount.textContent = (postInfo.reaction_score- initialReaction + currentReaction) + ", " + reactions[currentReaction+1];
         });
         post.querySelector("#downvote").addEventListener("click", function() {
-            likesCount.textContent = parseInt(likesCount.textContent) - 1;
+            currentReaction = -1;
+            likesCount.textContent = (postInfo.reaction_score- initialReaction + currentReaction) + ", " + reactions[currentReaction+1];
         });
 
         const postVisibility = post.querySelector("#post-visibility");

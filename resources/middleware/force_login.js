@@ -11,10 +11,12 @@ async function force_login(body) {
     }
 
     // verify session exists
-    var [error, user] = await DB.query(`SELECT * FROM Sessions WHERE session_uuid='${body.session_id}'`);
-    if (error || user === undefined) {
+    var [error, session] = await DB.query(`SELECT * FROM Sessions WHERE session_uuid='${body.session_id}'`);
+    if (error || session === undefined) {
         return [false, "User not logged or session expired"];
     }
+
+    var [error, user] = await DB.getUserById(session.user_id);
 
     if (user.account_status === "DISABLED" || user.account_status === "REJECTED") {
         return [false, `User account has been ${user.account_status.toLowerCase()}`];
