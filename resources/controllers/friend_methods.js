@@ -159,10 +159,26 @@ var blockFriend = {
             const friendStatus = friendship.initiator_user_id === body.user_id ? "INITIATOR_BLOCKED" : "RECIEVER_BLOCKED";
             database.query(`
                 UPDATE Friends
-                SET action_type='BLOCKED', friend_status='${friendStatus}'
+                SET friend_status='${friendStatus}'
                 WHERE (
                     initiator_user_id='${friendship.initiator_user_id}'
                     AND receiver_user_id='${friendship.receiver_user_id}'
+                )
+            `, function(error, results) {
+                if (error) {
+                    response_handler.errorResponse(response, `DB ERROR: ${error}`, 401);
+                }
+                else {
+                    response_handler.endResponse(response, `{"page": "friends"}`, 201);
+                }
+            });
+            database.query(`
+            DELETE M 
+            FROM GroupMembership as M JOIN Groups as G
+                ON M.group_id = G.group_id
+            WHERE(
+                group_user_id='${body.user_id}'
+                AND user_id='${body.target_user_id}'
                 )
             `, function(error, results) {
                 if (error) {
