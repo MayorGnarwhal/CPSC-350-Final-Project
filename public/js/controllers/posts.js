@@ -46,6 +46,8 @@ var posts = {
             postVisibility.querySelector("input").value = "true";
             postVisibility.querySelector("button").innerHTML = `<span class="fas fa-eye"></span> Show`
         }
+
+        post.setAttribute("data-filter", postInfo.first_name + " " + postInfo.last_name + " " + postInfo.post_title + " " + postInfo.post_text);
     },
 
     populateAllPosts : async function(pageName, args) {

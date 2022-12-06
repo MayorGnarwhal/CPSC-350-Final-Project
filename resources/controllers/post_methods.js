@@ -185,17 +185,6 @@ var updatePost = {
     }
 };
 
-var postVisibility = {
-    args: {
-        post_id: "required|number",
-        visible: "required|string", // "true" or "false"
-    },
-
-    func: async function(body, response) {
-
-    }
-};
-
 var deletePost = {
     args: {
         post_id: "required|number"
