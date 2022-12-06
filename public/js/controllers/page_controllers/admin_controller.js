@@ -2,7 +2,6 @@ import { ajax } from "../../ajax";
 
 const userFramePartialPath = "partials/user_preview.html";
 
-
 async function adminController(args) {
     const response = await ajax.sendRequest("POST", "fetch_users");
     const users = await response.json();
@@ -30,6 +29,34 @@ async function adminController(args) {
 
         frame.setAttribute("data-filter", fullName.toLowerCase());
         frame.setAttribute("data-status", user.account_status);
+    });
+
+    const filtersFrame = document.querySelector("#filters");
+    function showUsersOfStatus(statusues) {
+        for (const [index, userFrame] of Object.entries(usersList.children)) {
+            if (statusues.find(x => x === userFrame.getAttribute("data-status"))) {
+                userFrame.classList.remove("hidden");
+            }
+            else {
+                userFrame.classList.add("hidden");
+            }
+        }
+    }
+
+    document.querySelector("#filter-pending").addEventListener("input", function() {
+        showUsersOfStatus(["PENDING"]);
+    });
+    document.querySelector("#filter-active").addEventListener("input", function() {
+        showUsersOfStatus(["ACTIVE"]);
+    });
+    document.querySelector("#filter-rejected").addEventListener("input", function() {
+        showUsersOfStatus(["REJECTED"]);
+    });
+    document.querySelector("#filter-disabled").addEventListener("input", function() {
+        showUsersOfStatus(["DISABLED"]);
+    });
+    document.querySelector("#filter-all").addEventListener("input", function() {
+        showUsersOfStatus(["PENDING", "ACTIVE", "REJECTED", "DISABLED"]);
     });
 }
 

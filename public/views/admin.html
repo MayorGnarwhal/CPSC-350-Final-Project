@@ -5,7 +5,11 @@
 <div class="content">
     <div id="filters" class="center-flex form-group">
         <div class="filter-group">
-            <input type="radio" id="filter-pending" name="filters" checked>
+            <input type="radio" id="filter-all" name="filters" checked>
+            <label for="filter-all">All</label>
+        </div>
+        <div class="filter-group">
+            <input type="radio" id="filter-pending" name="filters">
             <label for="filter-pending">Pending</label>
         </div>
         <div class="filter-group">
@@ -19,10 +23,6 @@
         <div class="filter-group">
             <input type="radio" id="filter-disabled" name="filters">
             <label for="filter-disabled">Disabled</label>
-        </div>
-        <div class="filter-group">
-            <input type="radio" id="filter-all" name="filters">
-            <label for="filter-all">All</label>
         </div>
     </div>
 
