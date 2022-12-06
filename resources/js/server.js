@@ -10,6 +10,7 @@ require("dotenv").config();
 const { helpers } = require("../helpers/helpers");
 const { response_handler } = require("../helpers/response_handler");
 const { router } = require("../js/router.js");
+const feed = require('./feed.js');
 
 // -- Variables
 const server = http.createServer();
@@ -50,4 +51,5 @@ server.on("request", function(request, response) {
 
 server.listen(process.env.PORT, function() {
     console.log("Server starting on port " + process.env.PORT);
+    setInterval(feed.updateFeed, 60000);
 });
