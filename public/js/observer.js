@@ -7,8 +7,10 @@ const observer = new MutationObserver(function(mutations) {
                 if (node[key] === info.value) {
                     info.callback(node);
                 }
-                else if (node.querySelector && node.querySelector(info.value)) {
-                    info.callback(node.querySelector(info.value));
+                else if (node.querySelectorAll) {
+                    node.querySelectorAll(info.value).forEach(subNode => {
+                        info.callback(subNode);
+                    });
                 }
             }
         });

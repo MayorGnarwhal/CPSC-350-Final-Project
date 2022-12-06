@@ -1,3 +1,4 @@
+import { adminController } from "./admin_controller";
 import { friendsController } from "./friends_controller";
 import { groupsController } from "./groups_controller";
 import { groupController } from "./group_controller";
@@ -10,6 +11,7 @@ const controllerMap = {
     "groups": groupsController,
     "group": groupController,
     "edit_post": postController,
+    "admin": adminController,
 };
 
 function bindPageController(pageName, args) {

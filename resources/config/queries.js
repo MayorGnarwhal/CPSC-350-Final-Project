@@ -15,6 +15,8 @@ var queries = {
     FRIENDSHIP: `SELECT * FROM Friends`,
 
     GROUPS: `SELECT * FROM Groups`,
+
+    POST: `SELECT * FROM Posts`
 };
 
 module.exports = { queries };

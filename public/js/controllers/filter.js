@@ -17,7 +17,7 @@ var filter = {
             input.addEventListener("input", function() {
                 const searchTerms = input.value.toLowerCase().trim().split(" ");
                 for (const [key, child] of Object.entries(targetList.children)) {
-                    const filter = child.getAttribute("data-filter");
+                    const filter = child.getAttribute("data-filter").toLowerCase();
                     if (filter) {
                         const matches = searchTerms.filter(term => filter.search(term) !== -1);
                         if (matches.length === searchTerms.length) {

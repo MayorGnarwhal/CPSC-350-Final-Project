@@ -38,8 +38,12 @@ var DB = {
         }
     },
 
-    getUserById : async function(user_id) {
-        return await this.queryWhere(queries.USER, `WHERE user_id='${user_id}'`);
+    getUserById : async function(user_id, status) {
+        var whereClause = `WHERE user_id='${user_id}'`;
+        if (status) {
+            whereClause += ` AND account_status='${status.toUpperCase()}'`;
+        }
+        return await this.queryWhere(queries.USER, whereClause);
     },
 
     getUserByUsername : async function(username) {
@@ -55,13 +59,29 @@ var DB = {
         `);
     },
 
-    getGroupById : async function(group_id) {
-        return await this.queryWhere(queries.GROUPS, `WHERE group_id='${group_id}'`);
+    getGroupsFromUser : async function(user_id) {
+        return await this.queryWhere(queries.GROUPS, `WHERE group_user_id='${user_id}'`);
+    },
+
+    getGroupById : async function(group_id, user_id) {
+        var whereClause = `WHERE group_id='${group_id}'`;
+        if (user_id) {
+            whereClause += ` AND group_user_id='${user_id}'`;
+        }
+        return await this.queryWhere(queries.GROUPS, whereClause);
     },
 
     userOwnsGroup : async function(user_id, group_id) {
         const [error, result] = await this.queryWhere(queries.GROUPS, `WHERE group_id='${group_id}' AND group_user_id='${user_id}'`);
         return (error === undefined && result !== undefined);
+    },
+
+    getPostById : async function(post_id, user_id) {
+        var whereClause = `WHERE post_id='${post_id}'`;
+        if (user_id) {
+            whereClause += ` AND post_user_id='${user_id}'`;
+        }
+        return await this.queryWhere(queries.POST, whereClause);
     }
 };
 

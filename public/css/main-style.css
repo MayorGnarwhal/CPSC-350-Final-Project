@@ -79,6 +79,11 @@ textarea {
 }
 
 /* ROW STYLING */
+.row-1 {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column-gap: 20px;
+}
 .row-2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -114,6 +119,7 @@ textarea {
     font-size: 14px;
     line-height: 1.5;
     font-family: Arial, Helvetica, sans-serif;
+    color: black;
 }
 .btn-lg {
     padding: 10px 16px;
@@ -160,4 +166,9 @@ textarea {
 .btn-warning:hover {
     background-color: #c29302;
     background-image: linear-gradient(to bottom,#FCBF06,#c29302);
+}
+.btn-none {
+    cursor: auto;
+    font-weight: bold;
+    font-size: 16px;
 }
