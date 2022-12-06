@@ -73,7 +73,7 @@ var signup = {
                     password: password_hash,
                     email: body.email,
                     profile_picture: "public/storage/images/default-profile-picture.jpg",
-                    account_status: "ACTIVE",
+                    account_status: "PENDING",
                     is_admin: 0,
                     account_created_time: now
                 };
