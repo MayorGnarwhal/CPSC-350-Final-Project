@@ -16,14 +16,14 @@ var posts = {
         const post = await ajax.fetchHtmlAndAppend(partialPath, container);
 
         const likesCount = post.querySelector("#likes-count");
-
+        likesCount.textContent = postInfo.reaction_score
         if(pageName === "index"){
+            likesCount.textContent += ", self: " + postInfo.user_reaction_score;
             post.querySelector("#post-options").classList.add("hidden");
             post.querySelector("#algorithm-score").textContent = "Algorithm Score: " + Math.round(postInfo.algorithm_score);
         }
         post.querySelector("#name").textContent = postInfo.first_name + " " + postInfo.last_name;
         post.querySelector("#username").textContent = "@" + postInfo.username;
-        likesCount.textContent = postInfo.reaction_score;
         post.querySelector("#title").textContent = postInfo.post_title;
         post.querySelector("#comment").textContent = postInfo.post_text;
         post.querySelector("#timestamp").textContent = new Date(postInfo.post_created_time).toLocaleString();
@@ -35,10 +35,20 @@ var posts = {
         });
 
         post.querySelector("#upvote").addEventListener("click", function() {
-            likesCount.textContent = parseInt(likesCount.textContent) + 1;
+            if(postInfo.user_reaction_score === 0){ 
+            likesCount.textContent = parseInt(likesCount.textContent) + 1 + ", self: " + "1";
+            }
+            else if(postInfo.user_reaction_score === -1){ 
+                likesCount.textContent = parseInt(likesCount.textContent) + 2 + ", self: " + "1";
+            }
         });
         post.querySelector("#downvote").addEventListener("click", function() {
-            likesCount.textContent = parseInt(likesCount.textContent) - 1;
+            if(postInfo.user_reaction_score === 0){ 
+                likesCount.textContent = parseInt(likesCount.textContent) - 1 + ", self: " + "-1";
+            }
+            else if(postInfo.user_reaction_score === 1){ 
+                likesCount.textContent = parseInt(likesCount.textContent) - 2 + ", self: " + "-1";
+            }
         });
 
         const postVisibility = post.querySelector("#post-visibility");
