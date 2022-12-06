@@ -6,7 +6,7 @@
 
 var queries = {
     // TODO: join other tables for more info
-    USER: `SELECT * FROM Users`,
+    USER: `SELECT * FROM UsersWithNumFriends`,
 
     USER_COLUMNS: "Users.user_id, username, first_name, last_name, profile_picture",
 
@@ -14,7 +14,7 @@ var queries = {
 
     FRIENDSHIP: `SELECT * FROM Friends`,
 
-    GROUPS: `SELECT * FROM Groups`,
+    GROUPS: `SELECT * FROM GroupsWithNumFriends`,
 
     POST: `SELECT * FROM Posts`
 };

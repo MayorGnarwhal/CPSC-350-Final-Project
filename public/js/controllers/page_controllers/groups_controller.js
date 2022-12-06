@@ -15,7 +15,8 @@ async function groupsController() {
         await ajax.fetchHtmlAndInsert(groupActionsPath, optionsFrame);
 
         frame.querySelector("#name").textContent = group.group_name;
-        frame.querySelector("#stats").textContent = "2 friends, 40 posts";
+        const priorities = ["","very low", "low", "neutral", "high", "very high"]
+        frame.querySelector("#stats").textContent = group.num_friends + " members, " + priorities[group.group_priority] + " group priority";
         optionsFrame.querySelector("input[type='hidden']").value = group.group_id;
 
         const modalButton = frame.querySelector("button[data-toggle='modal']");

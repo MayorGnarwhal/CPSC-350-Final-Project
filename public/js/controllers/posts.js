@@ -22,7 +22,7 @@ var posts = {
             post.querySelector("#algorithm-score").textContent = "Algorithm Score: " + Math.round(postInfo.algorithm_score);
         }
         post.querySelector("#name").textContent = postInfo.first_name + " " + postInfo.last_name;
-        post.querySelector("#username").textContent = postInfo.username;
+        post.querySelector("#username").textContent = "@" + postInfo.username;
         likesCount.textContent = postInfo.reaction_score;
         post.querySelector("#title").textContent = postInfo.post_title;
         post.querySelector("#comment").textContent = postInfo.post_text;
