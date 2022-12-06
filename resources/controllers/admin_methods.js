@@ -46,4 +46,48 @@ var rejectUser = {
     }
 };
 
-module.exports = { acceptUser, rejectUser };
+var disableUser = {
+    args: {
+        "target_user_id": "required|number",
+    },
+
+    func : async function(body, response) {
+        const [error, user] = await DB.getUserById(body.target_user_id, "ACCEPTED");
+        if (user === undefined) {
+            response_handler.errorResponse(response, "User's status is not accepted", 401);
+        }
+        else {
+            database.query(`
+                UPDATE Users
+                SET account_status='DISABLED'
+                WHERE user_id=${body.target_user_id}
+            `, function(error, results) {
+                response_handler.endResponse(response, `{"page": "admin"}`);
+            });
+        }
+    }
+};
+
+var enableUser = {
+    args: {
+        "target_user_id": "required|number",
+    },
+
+    func : async function(body, response) {
+        const [error, user] = await DB.getUserById(body.target_user_id, "DISABLED");
+        if (user === undefined) {
+            response_handler.errorResponse(response, "User's status is not disabled", 401);
+        }
+        else {
+            database.query(`
+                UPDATE Users
+                SET account_status='ACCEPTED'
+                WHERE user_id=${body.target_user_id}
+            `, function(error, results) {
+                response_handler.endResponse(response, `{"page": "admin"}`);
+            });
+        }
+    }
+};
+
+module.exports = { acceptUser, rejectUser, disableUser, enableUser };
