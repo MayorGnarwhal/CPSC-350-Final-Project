@@ -47,7 +47,7 @@ async function adminController(args) {
         showUsersOfStatus(["PENDING"]);
     });
     document.querySelector("#filter-active").addEventListener("input", function() {
-        showUsersOfStatus(["ACTIVE"]);
+        showUsersOfStatus(["ACCEPTED"]);
     });
     document.querySelector("#filter-rejected").addEventListener("input", function() {
         showUsersOfStatus(["REJECTED"]);
@@ -56,7 +56,7 @@ async function adminController(args) {
         showUsersOfStatus(["DISABLED"]);
     });
     document.querySelector("#filter-all").addEventListener("input", function() {
-        showUsersOfStatus(["PENDING", "ACTIVE", "REJECTED", "DISABLED"]);
+        showUsersOfStatus(["PENDING", "ACCEPTED", "REJECTED", "DISABLED"]);
     });
 }
 

@@ -119,6 +119,7 @@ textarea {
     font-size: 14px;
     line-height: 1.5;
     font-family: Arial, Helvetica, sans-serif;
+    color: black;
 }
 .btn-lg {
     padding: 10px 16px;
@@ -168,4 +169,6 @@ textarea {
 }
 .btn-none {
     cursor: auto;
+    font-weight: bold;
+    font-size: 16px;
 }
