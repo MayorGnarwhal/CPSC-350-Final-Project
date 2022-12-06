@@ -1,0 +1,9 @@
+#filters {
+    background-color: #aaaaaa;
+    border-radius: 16px;
+    padding: 4px 6px;
+}
+
+.filter-group {
+    padding: 0 10px;
+}

@@ -4,21 +4,22 @@
 
 const { force_login } = require("./force_login");
 
-function force_admin(body) {
+async function force_admin(body) {
     // force_login handles session
-    const [logged_in, error] = force_login(body);
+    const [user, error] = await force_login(body);
 
-    if (!logged_in) {
+    if (!user) {
         return [false, error];
     }
 
     // verify that user is an admin
-    const isAdmin = true;
-    if (!isAdmin) {
+    if (user.account_status !== "ADMIN") {
         return [false, "User is not an admin"];
     }
 
-    return [true, undefined];
+    body.user_is_admin = true;
+
+    return [user, undefined];
 };
 
 module.exports = { force_admin };

@@ -33,6 +33,13 @@ var login = {
             response_handler.errorResponse(response, `Invalid credentials for login: ${error}`, 401);
         }
         else {
+            if (user.account_status === "DISABLED" || user.account_status === "REJECTED") {
+                return response_handler.errorResponse(response, `User account has been ${user.account_status.toLowerCase()}`, 401);
+            }
+            else if (user.account_status === "PENDING") {
+                return response_handler.errorResponse(response, `Account approval is still pending. Come check back later.`, 401);
+            }
+
             var [error, session] = await DB.getSessionByUser(user.user_id);
             if (session) { // session already exists
                 response_handler.endResponse(response, `{"page": "index", "session_id": "${session.session_uuid}"}`, 201);

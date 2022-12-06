@@ -12,32 +12,34 @@
                 </ul>
             </div>
             
-            <div id="post-options" class="right-flex">
-                <div>
-                    <button class="btn btn-success">
-                        <span class="fas fa-edit"></span> Edit
-                    </button>
+            <form action="">
+                <input type="hidden" name="post_id">
+                <div id="post-options" class="right-flex">
+                    <div>
+                        <button type="submit" class="btn btn-success" data-action="/navigate_edit_post" data-method="POST">
+                            <span class="fas fa-edit"></span> Edit
+                        </button>
+                    </div>
+                    <div id="post-visibility">
+                        <input type="hidden" name="is_visible" value="false">
+                        <button type="submit" class="btn btn-primary" data-action="/hide_post" data-method="PUT">
+                            <span class="fa-sharp fa-solid fa-eye-slash"></span> Hide
+                        </button>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-danger" data-action="/delete_post" data-method="DELETE">
+                            <span class="fas fa-trash"></span> Delete
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <button class="btn btn-primary">
-                        <span class="fas fa-eye"></span> Hide
-                    </button>
-                </div>
-                <div>
-                    <button class="btn btn-danger">
-                        <span class="fas fa-trash"></span> Delete
-                    </button>
-                </div>
-            </div>
+            </form>
         </div>
         
         <div id="post-main-content" class="left-flex">
             <div>
                 <div id="main-post-info">
-                    <p id="title">My First Post</p>
-                    <p id="comment">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    </p>
+                    <p id="title"></p>
+                    <p id="comment"></p>
                 </div>
             </div>
             <div class="post-image-frame">
@@ -47,19 +49,27 @@
     
         <div id="post-footer" class="row-3">
             <div id="post-reactions">
-                <button class="btn btn-success">
-                    <span class="fa-solid fa-thumbs-up"></span>
-                </button>
-                <button class="btn btn-danger">
-                    <span class="fa solid fa-thumbs-down"></span>
-                </button>
-                <p id="#likes-count" class="strip inline">27 Likes</p>
+                <form action="/post_reaction" method="PUT" class="inline">
+                    <input type="hidden" name="post_id">
+                    <input type="hidden" name="rating" value="1">
+                    <button type="submit" class="btn btn-success" id="upvote">
+                        <span class="fa-solid fa-thumbs-up"></span>
+                    </button>
+                </form>
+                <form action="/post_reaction" method="PUT" class="inline">
+                    <input type="hidden" name="post_id">
+                    <input type="hidden" name="rating" value="-1">
+                    <button type="submit" class="btn btn-danger" id="downvote">
+                        <span class="fa solid fa-thumbs-down"></span>
+                    </button>
+                </form>
+                <p id="likes-count" class="strip inline"></p>
             </div>
-            <div id="group-list">
-                <p class="strip">Group: Work</p>
+            <div id="algorithm-score">
+                <p class="strip"></p>
             </div>
             <div>
-                <p id="timestamp" class="strip">11/29/2022 9:30pm</p>
+                <p id="timestamp" class="strip"></p>
             </div>
         </div>
     </div>

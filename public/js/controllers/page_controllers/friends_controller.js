@@ -18,12 +18,14 @@ async function friendsController() {
     pageButtons.forEach(button => {
         button.addEventListener("click", function(event) {
             event.preventDefault();
+
+            document.querySelector(".title").textContent = button.textContent.trim();
             
             const request = {
                 "friend_status": button.getAttribute("data-status"),
                 "is_initiator": button.getAttribute("data-initiator"),
             };
-
+            
             populateFriendList(request, button.getAttribute("data-partial"));
         });
     });

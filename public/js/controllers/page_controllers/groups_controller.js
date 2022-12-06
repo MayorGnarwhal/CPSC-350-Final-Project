@@ -25,6 +25,8 @@ async function groupsController() {
         modalButton.setAttribute("data-group-form", "attr:action|update_group");
         modalButton.setAttribute("data-group-form-dup", "attr:method|POST");
         modalButton.setAttribute("data-set-group-id", `value:${group.group_id}`);
+
+        frame.setAttribute("data-filter", group.group_name.toLowerCase());
     });
 }
 

@@ -102,10 +102,7 @@ var friendRequest = {
                     }
                 }
                 else {
-                    const returnResponse = {
-                        "success": `Successfully invited ${friendUser.first_name} ${friendUser.last_name} to be your friend!`,
-                    }
-                    response_handler.endResponse(response, JSON.stringify(returnResponse), 201);
+                    response_handler.endResponse(response, `{"page": "friends"}`, 201);
                 }
             });
         }

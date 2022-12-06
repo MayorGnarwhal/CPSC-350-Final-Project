@@ -13,14 +13,18 @@ async function populateUserList(users, optionsPartial, usersList, noUsersMessage
         const optionPartialPath = `partials/options/${optionsPartial}.html`;
 
         users.forEach(async user => {
+            const fullName = user.first_name + " " + user.last_name;
+
             const frame = await ajax.fetchHtmlAndAppend(userFramePartialPath, usersList);
             const optionsFrame = frame.querySelector(".preview-options");
             await ajax.fetchHtmlAndInsert(optionPartialPath, optionsFrame);
             optionsFrame.querySelector("input[type='hidden']").value = user.user_id;
     
-            frame.querySelector("#name").textContent = user.first_name + " " + user.last_name;
+            frame.querySelector("#name").textContent = fullName;
             frame.querySelector("#username").textContent = "@" + user.username;
             frame.querySelector("#profile-picture").src = await ajax.fetchImage(user.profile_picture);
+
+            frame.setAttribute("data-filter", fullName.toLowerCase());
         });
     }
     else {

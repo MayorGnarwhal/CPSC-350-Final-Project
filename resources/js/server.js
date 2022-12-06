@@ -51,3 +51,10 @@ server.on("request", function(request, response) {
 server.listen(process.env.PORT, function() {
     console.log("Server starting on port " + process.env.PORT);
 });
+
+// TODO:
+//   retract reactions
+//   list of all friend requests ever
+//   allow friend requests after unfriend
+//   selecting no groups makes it invisible
+//   all user admin stuff

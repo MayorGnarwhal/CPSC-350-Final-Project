@@ -5,6 +5,7 @@
     left: 50%;
     background: #e3e3e3;
     width: 35%;
+    min-width: 500px;
     transform: translate(-50%, -50%);
     border-radius: 16px;
     z-index: 1000;
