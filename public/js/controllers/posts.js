@@ -14,11 +14,13 @@ var posts = {
         // console.log(postInfo);
         const partialPath = "partials/post.html";
         const post = await ajax.fetchHtmlAndAppend(partialPath, container);
-
+        var reactions = ["disliked", "no reaction", "liked"];
+        var currentReaction = postInfo.user_reaction_score;
+        var initialReaction = postInfo.user_reaction_score;
         const likesCount = post.querySelector("#likes-count");
         likesCount.textContent = postInfo.reaction_score
         if(pageName === "index"){
-            likesCount.textContent += ", self: " + postInfo.user_reaction_score;
+            likesCount.textContent += ", " + reactions[currentReaction+1];
             post.querySelector("#post-options").classList.add("hidden");
             post.querySelector("#algorithm-score").textContent = "Algorithm Score: " + Math.round(postInfo.algorithm_score);
         }
@@ -35,20 +37,12 @@ var posts = {
         });
 
         post.querySelector("#upvote").addEventListener("click", function() {
-            if(postInfo.user_reaction_score === 0){ 
-            likesCount.textContent = parseInt(likesCount.textContent) + 1 + ", self: " + "1";
-            }
-            else if(postInfo.user_reaction_score === -1){ 
-                likesCount.textContent = parseInt(likesCount.textContent) + 2 + ", self: " + "1";
-            }
+            currentReaction = 1;
+            likesCount.textContent = (postInfo.reaction_score- initialReaction + currentReaction) + ", " + reactions[currentReaction+1];
         });
         post.querySelector("#downvote").addEventListener("click", function() {
-            if(postInfo.user_reaction_score === 0){ 
-                likesCount.textContent = parseInt(likesCount.textContent) - 1 + ", self: " + "-1";
-            }
-            else if(postInfo.user_reaction_score === 1){ 
-                likesCount.textContent = parseInt(likesCount.textContent) - 2 + ", self: " + "-1";
-            }
+            currentReaction = -1;
+            likesCount.textContent = (postInfo.reaction_score- initialReaction + currentReaction) + ", " + reactions[currentReaction+1];
         });
 
         const postVisibility = post.querySelector("#post-visibility");
