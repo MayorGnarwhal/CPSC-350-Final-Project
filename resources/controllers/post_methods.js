@@ -206,6 +206,7 @@ var deletePost = {
             else {
                 await DB.query(`DELETE FROM AlgorithmComponents WHERE post_id='${body.post_id}'`);
                 await DB.query(`DELETE FROM Reactions WHERE post_id='${body.post_id}'`);
+                await DB.query(`DELETE FROM PostVisibility WHERE post_id='${body.post_id}'`);
                 await DB.query(`DELETE FROM Posts WHERE post_id='${body.post_id}'`);
                 response_handler.endResponse(response, `{"page": "profile"}`, 201);
             }
