@@ -13,7 +13,7 @@ async function force_admin(body) {
     }
 
     // verify that user is an admin
-    if (!user.account_status === "ADMIN") {
+    if (user.account_status !== "ADMIN") {
         return [false, "User is not an admin"];
     }
 

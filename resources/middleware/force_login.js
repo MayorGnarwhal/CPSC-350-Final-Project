@@ -11,7 +11,7 @@ async function force_login(body) {
     }
 
     // verify session exists
-    var [error, user] = await DB.query(`SELECT user_id FROM Sessions WHERE session_uuid='${body.session_id}'`);
+    var [error, user] = await DB.query(`SELECT * FROM Sessions WHERE session_uuid='${body.session_id}'`);
     if (error || user === undefined) {
         return [false, "User not logged or session expired"];
     }
