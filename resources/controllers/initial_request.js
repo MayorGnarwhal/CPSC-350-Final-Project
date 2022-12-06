@@ -13,8 +13,8 @@ var init = {
             response_handler.endResponse(response, '{"page": "login"}', 200);
         }
         else {
-            response_handler.endResponse(response, '{"page": "index"}', 200);
-            // response_handler.endResponse(response, '{"page": "edit_post"}', 200);
+            // response_handler.endResponse(response, '{"page": "index"}', 200);
+            response_handler.endResponse(response, '{"page": "profile"}', 200);
         }
     }
 };

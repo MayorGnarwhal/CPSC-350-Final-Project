@@ -91,6 +91,10 @@ var storePost = {
                 else {
                     // store visibility mappings
                     if (!global) {
+                        if (!body.groups || body.groups.length === 0) {
+                            return response_handler.errorResponse(response, "Cannot set group to have no group visibility", 401);
+                        }
+
                         body.groups.forEach(group => {
                             const map = {
                                 group_id: group.slice(4), // `opt-${group_id}`
@@ -101,6 +105,75 @@ var storePost = {
                                 if (error) {
                                     response_handler.errorResponse(response, `DB Error: ${err}`, 400);
                                 }
+                            });
+                        });
+                    }
+
+                    response_handler.endResponse(response, `{"page": "profile", "user_id": "${body.user_id}"}`, 201);
+                }
+            });
+        }
+    }
+};
+
+var updatePost = {
+    args: {
+        "title": "required|string",
+        "caption": "required|string",
+        "image": "string",
+        "global": "required|string", // "true" or "false"
+        "groups": "object",
+    },
+
+    func: async function(body, response) {
+        const now = helpers.formatDatetime();
+        const global = body.global === "true";
+        
+        const entry = {
+            post_user_id: body.user_id,
+            post_title: body.title,
+            post_text: body.caption,
+            is_visible: 1,
+            is_global: global ? 1 : 0, 
+            post_updated_time: now
+        };
+        
+        if (body.image) {
+            const imagePath = await file.store(body.image, "public/storage/user_images", "png");
+            entry.post_picture = imagePath;
+        }
+
+        await DB.query(`
+            DELETE FROM PostVisibility
+            WHERE post_id='${body.post_id}'
+        `);
+
+        if (process.env.DEBUG_MODE === "true") {
+            response_handler.errorResponse(response, "Debug mode enabled", 418);
+        }
+        else {
+            database.query(`UPDATE Posts SET ? WHERE post_id='${body.post_id}'`, [entry], function(error, result) {
+                if (error) {
+                    response_handler.errorResponse(response, `DB Error: ${error}`, 400);
+                }
+                else {
+                    // store visibility mappings
+                    if (!global) {
+                        if (!body.groups || body.groups.length === 0) {
+                            return response_handler.errorResponse(response, "Cannot set group to have no group visibility", 401);
+                        }
+
+                        body.groups.forEach(group => {
+                            const map = {
+                                group_id: group.slice(4), // `opt-${group_id}`
+                                post_id: body.post_id,
+                            }
+
+                            database.query(`INSERT INTO PostVisibility SET ?`, map, function(err, res) {
+                                if (error) {
+                                    return response_handler.errorResponse(response, `DB Error: ${err}`, 400);
+                                }
+                                console.log(res);
                             });
                         });
                     }
@@ -218,5 +291,40 @@ var postReaction = {
     }
 };
 
+var navigateEditPost = {
+    args: {
+        post_id: "required|number"
+    },
 
-module.exports = { fetchPosts, storePost, deletePost, hidePost, postReaction };
+    func: async function(body, response) {
+        var [error, post] = await DB.getPostById(body.post_id);
+        if (post === undefined) {
+            response_handler.errorResponse(response, "Cannot edit post that is not your own", 401);
+        }
+        else {
+            database.query(`
+                SELECT * FROM Groups
+                WHERE group_user_id='${body.user_id}'
+            `, function(error, groups) {
+                const groupIDs = groups.map(group => group.group_id);
+                
+                database.query(`
+                    SELECT * FROM PostVisibility
+                    WHERE post_id='${body.post_id}'
+                `, function(error, visibilies) {
+                    data = {
+                        page: "edit_post",
+                        page_args: {
+                            post: post,
+                            visibilies: visibilies
+                        }
+                    }
+
+                    response_handler.endResponse(response, JSON.stringify(data), 200);
+                });
+            });
+        }
+    }
+};
+
+module.exports = { fetchPosts, storePost, deletePost, hidePost, updatePost, postReaction, navigateEditPost, updatePost };
