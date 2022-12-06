@@ -6,7 +6,6 @@ var filter = {
     },
 
     handleFilter : async function(container) {
-        console.log(container);
         const partialPath = "partials/result_filter.html";
         await ajax.fetchHtmlAndInsert(partialPath, container);
 

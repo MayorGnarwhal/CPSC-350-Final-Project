@@ -38,8 +38,12 @@ var DB = {
         }
     },
 
-    getUserById : async function(user_id) {
-        return await this.queryWhere(queries.USER, `WHERE user_id='${user_id}'`);
+    getUserById : async function(user_id, status) {
+        var whereClause = `WHERE user_id='${user_id}'`;
+        if (status) {
+            whereClause += ` AND account_status='${status.toUpperCase()}'`;
+        }
+        return await this.queryWhere(queries.USER, whereClause);
     },
 
     getUserByUsername : async function(username) {

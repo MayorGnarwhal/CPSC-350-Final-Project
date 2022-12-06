@@ -53,7 +53,6 @@ server.listen(process.env.PORT, function() {
 });
 
 // TODO:
-//   filter feed by name or text content
 //   retract reactions
 //   list of all friend requests ever
 //   allow friend requests after unfriend

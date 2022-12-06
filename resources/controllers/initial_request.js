@@ -14,7 +14,7 @@ var init = {
         }
         else {
             // response_handler.endResponse(response, '{"page": "index"}', 200);
-            response_handler.endResponse(response, '{"page": "profile"}', 200);
+            response_handler.endResponse(response, '{"page": "admin"}', 200);
         }
     }
 };
