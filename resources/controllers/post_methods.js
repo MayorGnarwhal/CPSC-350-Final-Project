@@ -34,19 +34,23 @@ var fetchPosts = {
             ORDER BY algorithm_score DESC;`
         }
         else if(body.page === "profile"){
-            query = `SELECT post_id, user_id, 
-                            post_user_id, post_title, post_picture, 
-                            post_text, is_visible, is_global, 
-                            post_created_time, post_updated_time, 
-                            reaction_score, username, first_name, 
-                            last_name, password, email, 
-                            profile_picture, account_status, 
-                            is_admin, account_created_time
-                            FROM Posts
-                            JOIN PostReactionScores USING(post_id)
-                            JOIN Users ON post_user_id = user_id
-                            WHERE post_user_id = ${body.filter}
-                            ORDER BY post_created_time DESC`
+            query = `SELECT P.post_id, U.user_id, 
+                post_user_id, post_title, post_picture, 
+                post_text, is_visible, is_global, 
+                post_created_time, post_updated_time, 
+                PR.reaction_score, username, first_name, 
+                last_name, password, email, 
+                profile_picture, account_status, 
+                is_admin, account_created_time,
+                IF(R.reaction_score IS NULL, 0, R.reaction_score)
+                AS user_reaction_score
+                FROM Posts AS P
+                JOIN PostReactionScores as PR USING(post_id)
+                JOIN Users AS U ON post_user_id = user_id
+                LEFT JOIN Reactions AS R 
+                ON U.user_id = R.user_id AND P.post_id = R.post_id
+                WHERE post_user_id = ${body.filter}
+                ORDER BY post_created_time DESC`
         }
         database.query(query, function(error, results) {
             if (error) {
