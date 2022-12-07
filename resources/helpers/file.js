@@ -8,9 +8,12 @@ var file = {
             const data = dataURL.replace(/^data:image\/\w+;base64,/, "");
             const buffer = Buffer.from(data, "base64");
             const storePath = path + "/" + crypto.randomUUID() + "." + extension;
+
+            console.log("i am here");
     
             fs.writeFile(storePath, buffer, function(error, results) {
                 if (error) {
+                    console.log(error);
                     reject(error);
                 }
                 else {
@@ -23,6 +26,7 @@ var file = {
             return await promise;
         }
         catch(error) {
+            console.log("failed to store image");
             return null;
         }
     },

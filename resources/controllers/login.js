@@ -42,7 +42,7 @@ var login = {
 
             var [error, session] = await DB.getSessionByUser(user.user_id);
             if (session) { // session already exists
-                response_handler.endResponse(response, `{"page": "index", "session_id": "${session.session_uuid}"}`, 201);
+                response_handler.endResponse(response, `{"page": "feed", "session_id": "${session.session_uuid}"}`, 201);
             }
             else { // session does not exist - create new
                 const sessionID = crypto.randomUUID();
@@ -54,7 +54,7 @@ var login = {
                     response_handler.errorResponse(response, `DB Error: ${error}`, 400);
                 }
                 else {
-                    response_handler.endResponse(response, `{"page": "index", "session_id": "${sessionID}"}`, 201);
+                    response_handler.endResponse(response, `{"page": "feed", "session_id": "${sessionID}"}`, 201);
                 }
             }
         }

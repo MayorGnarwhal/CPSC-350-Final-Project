@@ -19,7 +19,7 @@ var posts = {
         var initialReaction = postInfo.user_reaction_score;
         const likesCount = post.querySelector("#likes-count");
         likesCount.textContent = postInfo.reaction_score + ", " + reactions[currentReaction+1];;
-        if(pageName === "index"){
+        if(pageName === "feed"){
             post.querySelector("#post-options").classList.add("hidden");
             post.querySelector("#algorithm-score").textContent = "Algorithm Score: " + Math.round(postInfo.algorithm_score);
         }

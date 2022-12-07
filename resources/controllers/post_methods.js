@@ -12,7 +12,7 @@ var fetchPosts = {
     func : async function(body, response) {
         //const whereClause = body.filter ? `WHERE A.user_id=${body.filter}` : "";
         var query;
-        if(body.page === "index"){
+        if(body.page === "feed"){
             query = `SELECT A.post_id, A.user_id, alg_reaction, 
             alg_group, alg_time, algorithm_score,
             post_user_id,post_title, post_picture, 

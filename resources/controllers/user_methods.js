@@ -79,6 +79,7 @@ var updateUser = {
                 }
             }
 
+            
             if (body.profile_picture !== undefined) {
                 // delete old profile picture (requires join from user)
                 //    https://stackoverflow.com/a/25195330
